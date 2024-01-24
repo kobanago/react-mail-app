@@ -1,0 +1,11 @@
+# config
+tsconfig.json
+*.config.js
+.*lintrc.js
+
+# build dir
+build/
+bin/
+obj/
+out/
+public/
