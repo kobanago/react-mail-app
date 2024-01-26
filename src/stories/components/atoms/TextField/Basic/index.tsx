@@ -34,6 +34,9 @@ export const TextField: FC<TextFieldProps> = ({
   const { sendState, textValue, dispatch } = useContext(ResetSendStateContext) ?? {};
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    if (dispatch) {
+      dispatch('INIT');
+    }
     if (!initialInputOccurred && setInitialInputOccurred) {
       setInitialInputOccurred(true);
     }
