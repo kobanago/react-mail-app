@@ -22,7 +22,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
   },
-  "include": ["src", "vitest-setup.ts", "vite.config.ts"],
+  "include": [
+    "src",
+    "vitest-setup.ts",
+    "vite.config.ts",
+    ".storybook/main.ts",
+    ".storybook/preview.ts",
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json",
