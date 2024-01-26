@@ -1,67 +1,29 @@
-import {
-  FC,
-  useRef,
-  useState,
-  ChangeEventHandler,
-  useContext,
-  useEffect,
-  useMemo,
-} from 'react';
+import { FC } from 'react';
 
+import { useTextFieldFunctions } from './hooks';
 import { Box } from '../../Box/Basic';
-import { TextFieldProps, TextField as BaseTextField } from '../Base';
-
 import {
-  InitInputEventStateContext,
-  ResetSendStateContext,
-  ValidateResultContext,
-} from '@/stories/common/context';
+  TextFieldProps as BaseTextFieldProps,
+  TextField as BaseTextField,
+} from '../Base';
+
 import theme from '@/stories/common/theme';
 
-export const TextField: FC<TextFieldProps> = ({
-  label,
-  inputHandler,
-  inputProps,
-  disabledFlg,
-  value,
-}: TextFieldProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [inputError, setInputError] = useState(false);
-  const memoizedInputError = useMemo(() => inputError, [inputError]);
-  const handleChangeInputError = useContext(ValidateResultContext);
-  const { initialInputOccurred, setInitialInputOccurred } =
-    useContext(InitInputEventStateContext) ?? {};
-  const { sendState, textValue, dispatch } = useContext(ResetSendStateContext) ?? {};
+export interface TextFieldProps extends BaseTextFieldProps {
+  resetTextValue?: string;
+}
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (dispatch) {
-      dispatch('INIT');
-    }
-    if (!initialInputOccurred && setInitialInputOccurred) {
-      setInitialInputOccurred(true);
-    }
-    if (sendState === 2 && dispatch) {
-      dispatch('INIT');
-    }
-
-    if (inputRef.current) {
-      const ref = inputRef.current;
-      if (!ref.validity.valid || ref.value === '') {
-        setInputError(true);
-      } else {
-        setInputError(false);
-      }
-    }
-    if (inputHandler) {
-      inputHandler(event);
-    }
-  };
-
-  useEffect(() => {
-    if (handleChangeInputError) {
-      handleChangeInputError(inputError);
-    }
-  }, [memoizedInputError]);
+export const TextField: FC<TextFieldProps> = (props: TextFieldProps) => {
+  const {
+    inputRef,
+    inputError,
+    handleChangeInputText,
+    resetTextValue,
+    textValue,
+    label,
+    disabledFlg,
+    inputProps,
+  } = useTextFieldFunctions(props);
 
   return (
     <Box margin={theme.spacing(1)} width='100%' display='flex' justifyContent='center'>
@@ -75,10 +37,10 @@ export const TextField: FC<TextFieldProps> = ({
         inputProps={inputProps}
         inputRef={inputRef}
         helperText={disabledFlg ? '' : inputRef?.current?.validationMessage}
-        inputHandler={handleChange}
+        inputHandler={handleChangeInputText}
         label={label}
         InputLabelProps={{ shrink: true }}
-        value={textValue === '' ? textValue : value}
+        value={resetTextValue === '' ? resetTextValue : textValue}
         required
       />
     </Box>
