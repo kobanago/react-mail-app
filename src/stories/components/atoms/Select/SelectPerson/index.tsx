@@ -10,6 +10,7 @@ import {
   ResetSendStateContext,
   SelectedPersonIdContext,
 } from '@/stories/common/context';
+// import { handleChange } from './functions';
 
 export const SelectPerson: FC<SelectProps> = ({ data }: SelectProps) => {
   const { initialChangeOccurred, setInitialChangeOccurred } =

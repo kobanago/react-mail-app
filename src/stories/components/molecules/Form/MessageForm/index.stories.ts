@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { MessageForm } from '.';
 
-import data from '@/common/samples/addressList/index.json';
+import data from '@/common/samples/data/index.json';
 
 const meta = {
   title: 'Molecules/Form/MessageForm',
@@ -18,6 +18,6 @@ type Story = StoryObj<typeof meta>;
 
 export const MessageFormNormal: Story = {
   args: {
-    addressList: data,
+    data: data['0001'].addressList,
   },
 };

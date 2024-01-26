@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LogsMainParts } from '.';
 
-import data from '@/common/samples/addressList/index.json';
+import data from '@/common/samples/data/index.json';
 
 const meta = {
   title: 'Organisms/Main/LogsMainParts',
@@ -18,13 +18,13 @@ type Story = StoryObj<typeof meta>;
 
 export const LogsMainPartsNormal: Story = {
   args: {
-    data: data,
+    data: data['0001'].addressList,
     personId: '0001',
   },
 };
 export const LogsMainPartsNotExistData: Story = {
   args: {
-    data: data,
+    data: data['0001'].addressList,
     personId: '0003',
   },
 };

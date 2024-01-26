@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import { MessageForms } from '.';
 
-import data from '@/common/samples/addressList/index.json';
+import data from '@/common/samples/data/index.json';
 
 const meta: Meta = {
   title: 'Organisms/MessageForms',
@@ -18,7 +18,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const MessageFormsNormal: Story = {
   args: {
-    data: data,
+    data: data['0001'].addressList,
     message: 'test',
     handleChangePerson: action('select'),
     handleChangeMessage: action('input'),
