@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { AddressListType } from '@/common/types';
+import { AddressListType } from '@/stories/common/types';
 import { List } from '@/stories/components/atoms/List/Base';
 import { ListItemProps as CommonListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { PersonListItem } from '@/stories/components/molecules/ListItem/PersonListItem';

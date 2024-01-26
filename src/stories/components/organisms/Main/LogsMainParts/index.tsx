@@ -1,8 +1,12 @@
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { FC, useState } from 'react';
 
-import { AddressListType, MessageContentsType, MessageType } from '@/common/types';
 import theme from '@/stories/common/theme';
+import {
+  AddressListType,
+  MessageContentsType,
+  MessageType,
+} from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { IconButton } from '@/stories/components/atoms/IconButton/Base';
 import { Paper } from '@/stories/components/atoms/Paper/Base';

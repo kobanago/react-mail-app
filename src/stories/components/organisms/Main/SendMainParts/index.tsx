@@ -3,8 +3,8 @@ import { FC, useState } from 'react';
 import { MessageForms } from '../../Forms/MessageForms';
 import { LogsMainParts } from '../LogsMainParts';
 
-import { SelectedPersonIdContext } from '@/common/context';
-import { AddressListType } from '@/common/types';
+import { SelectedPersonIdContext } from '@/stories/common/context';
+import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { LogoutDefaultFlex } from '@/stories/components/molecules/Button/LogoutDefaultFlex';
 

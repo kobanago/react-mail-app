@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { AddressListType } from '@/common/types';
 import theme from '@/stories/common/theme';
+import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic/';
 import { LoginButton } from '@/stories/components/atoms/IconButton/LoginButton';
 import { Typography } from '@/stories/components/atoms/Typography/Base/';

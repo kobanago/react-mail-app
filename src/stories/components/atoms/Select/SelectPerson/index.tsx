@@ -9,7 +9,7 @@ import {
   InitChangeEventStateContext,
   ResetSendStateContext,
   SelectedPersonIdContext,
-} from '@/common/context';
+} from '@/stories/common/context';
 
 export const SelectPerson: FC<SelectProps> = ({ data }: SelectProps) => {
   const { initialChangeOccurred, setInitialChangeOccurred } =

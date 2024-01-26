@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 
-import { ResetSendStateContext } from '@/common/context';
+import { ResetSendStateContext } from '@/stories/common/context';
 import { ButtonProps } from '@/stories/components/atoms/Button/Base';
 import { Button } from '@/stories/components/atoms/Button/Basic';
 

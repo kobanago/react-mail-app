@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { LogsListItem } from '../../ListItem/LogsListItem';
 
-import { MessageContentsType } from '@/common/types';
+import { MessageContentsType } from '@/stories/common/types';
 import { List } from '@/stories/components/atoms/List/Base';
 
 export interface LogsListProp {

@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { FC } from 'react';
 
-import { AddressListType } from '@/common/types';
+import { AddressListType } from '@/stories/common/types';
 
 export interface SelectProps extends Omit<MuiSelectProps, 'onChange'> {
   selectHandler?: (event: SelectChangeEvent<unknown>) => void;

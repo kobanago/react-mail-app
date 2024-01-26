@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { AddressListType } from '@/common/types';
+import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { ButtonProps } from '@/stories/components/atoms/Button/Base';
 import { SelectPerson } from '@/stories/components/atoms/Select/SelectPerson';

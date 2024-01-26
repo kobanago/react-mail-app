@@ -5,9 +5,9 @@ import {
   InitInputEventStateContext,
   ResetSendStateContext,
   ValidateResultContext,
-} from '@/common/context';
-import { resetSendStateFunc } from '@/common/reducers';
-import { AddressListType } from '@/common/types';
+} from '@/stories/common/context';
+import { resetSendStateFunc } from '@/stories/common/reducers';
+import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { SendStateButton } from '@/stories/components/molecules/Button/SendStateButton';
 import { MessageForm } from '@/stories/components/molecules/Form/MessageForm';
