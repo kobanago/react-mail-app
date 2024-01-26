@@ -7,18 +7,16 @@ export const MailTextField: FC<TextFieldProps> = ({
   inputHandler,
   label,
   disabledFlg,
-  value,
 }: TextFieldProps) => {
   const inputProps = disabledFlg
-    ? { type: 'email', disabled: true }
-    : { type: 'email', required: true };
+    ? { type: 'email', required: false, disabled: true }
+    : { type: 'email', required: true, disabled: false };
   return (
     <BasicTextField
       label={label}
       inputHandler={inputHandler}
       inputProps={inputProps}
       disabledFlg={disabledFlg}
-      value={value}
     />
   );
 };

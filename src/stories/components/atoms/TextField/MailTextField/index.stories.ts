@@ -21,7 +21,6 @@ export const MailTextFieldNormal: Story = {
     label: 'Test',
     inputHandler: action('test'),
     disabledFlg: false,
-    value: 'test',
   },
 };
 
@@ -29,6 +28,5 @@ export const MailTextFieldDisable: Story = {
   args: {
     label: 'Test',
     disabledFlg: true,
-    value: 'test',
   },
 };
