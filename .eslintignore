@@ -1,9 +1,9 @@
 # config
-tsconfig.json
-*.config.js
-.*lintrc.js
+.*lintrc.*
+*.config.*
 
 # build dir
+node_modules/
 build/
 bin/
 obj/
