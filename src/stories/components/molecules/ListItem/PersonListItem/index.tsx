@@ -1,11 +1,12 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { ListItemAvatar, Avatar, ListItemText, Typography } from '@mui/material';
+import { ListItemAvatar, Avatar, ListItemText } from '@mui/material';
 import { FC } from 'react';
 
 import theme from '@/stories/common/theme';
 import { Icon } from '@/stories/components/atoms/Icon/Basic';
 import { ListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { ListItem } from '@/stories/components/atoms/ListItem/Basic';
+import { BodyPrimaryText } from '@/stories/components/atoms/Typography/BodyPrimaryText';
 
 export interface PersonListItemProps extends ListItemProps {
   id: string;
@@ -51,13 +52,7 @@ export const PersonListItem: FC<PersonListItemProps> = ({
           <Icon icon={<AccountCircleIcon />} />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText
-        primary={
-          <Typography variant='body1' color={theme.palette.text.primary} align='center'>
-            {message}
-          </Typography>
-        }
-      />
+      <ListItemText primary={<BodyPrimaryText>{message}</BodyPrimaryText>} />
     </ListItem>
   );
 };

@@ -2,6 +2,8 @@ import { TypographyProps } from '@mui/material';
 import { Box } from '@mui/system';
 import { FC } from 'react';
 
+import { BodyPrimaryText } from '../../atoms/Typography/BodyPrimaryText';
+
 import theme from '@/stories/common/theme';
 import { Typography } from '@/stories/components/atoms/Typography/Base';
 
@@ -17,9 +19,7 @@ export const Title: FC<TitleProps> = ({ title, message }: TitleProps) => {
         {title}
       </Typography>
       <Box m={1}>
-        <Typography variant='body1' color={theme.palette.text.primary} align='center'>
-          {message}
-        </Typography>
+        <BodyPrimaryText>{message}</BodyPrimaryText>
       </Box>
     </Box>
   );

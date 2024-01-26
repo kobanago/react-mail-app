@@ -1,12 +1,11 @@
 import { ListItemText } from '@mui/material';
 import { FC } from 'react';
 
-import theme from '@/stories/common/theme';
 import { MessageContentsType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { ListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { ListItem } from '@/stories/components/atoms/ListItem/Basic';
-import { Typography } from '@/stories/components/atoms/Typography/Base';
+import { BodyPrimaryText } from '@/stories/components/atoms/Typography/BodyPrimaryText';
 
 export interface LogsListItem extends ListItemProps {
   item: MessageContentsType;
@@ -18,22 +17,14 @@ export const LogsListItem: FC<LogsListItem> = ({ item }: LogsListItem) => {
       <ListItemText
         primary={
           <Box>
-            <Typography variant='body1' color={theme.palette.text.primary} align='center'>
-              {`to: ${item.to}`}
-            </Typography>
-            <Typography variant='body1' color={theme.palette.text.primary} align='center'>
-              {`from: ${item.from}`}
-            </Typography>
+            <BodyPrimaryText>{`to: ${item.to}`}</BodyPrimaryText>
+            <BodyPrimaryText>{`from: ${item.from}`}</BodyPrimaryText>
           </Box>
         }
         secondary={
           <Box>
-            <Typography variant='body1' color={theme.palette.text.primary} align='center'>
-              {`time: ${item.time}`}
-            </Typography>
-            <Typography variant='body1' color={theme.palette.text.primary} align='center'>
-              {`comment: ${item.comment}`}
-            </Typography>
+            <BodyPrimaryText>{`time: ${item.time}`}</BodyPrimaryText>
+            <BodyPrimaryText>{`comment: ${item.comment}`}</BodyPrimaryText>
           </Box>
         }
       />

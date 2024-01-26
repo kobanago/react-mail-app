@@ -2,11 +2,10 @@ import { FC } from 'react';
 
 import { PersonForms } from '../../Forms/PersonForms';
 
-import theme from '@/stories/common/theme';
 import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { Button } from '@/stories/components/atoms/Button/Basic';
-import { Typography } from '@/stories/components/atoms/Typography/Base';
+import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
 import { PersonList } from '@/stories/components/molecules/List/PersonList';
 
 export type EditMainPartsProps = {
@@ -21,22 +20,13 @@ export const EditMainParts: FC<EditMainPartsProps> = ({ data }: EditMainPartsPro
       {Object.keys(data).length ? (
         <PersonList data={data} />
       ) : (
-        <Typography
-          variant='body2'
-          color={theme.palette.text.primary}
-          align='center'
-          sx={{ padding: theme.spacing(2) }}
-        >
-          no data
-        </Typography>
+        <BodySubText>no data</BodySubText>
       )}
       <PersonForms processResultFunc={() => {}} authHandler={() => {}} />
     </Box>
   ) : (
     <Box>
-      <Typography variant='body2' color={theme.palette.text.primary} align='center'>
-        {'please user register!'}
-      </Typography>
+      <BodySubText>please user register!</BodySubText>
       <Button label={'register'} disabled={false} clickHandler={registerClickHandler} />
     </Box>
   );

@@ -1,10 +1,9 @@
 import { FC } from 'react';
 
-import theme from '@/stories/common/theme';
 import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic/';
 import { LoginButton } from '@/stories/components/atoms/IconButton/LoginButton';
-import { Typography } from '@/stories/components/atoms/Typography/Base/';
+import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
 import { LogoutButtonFlex } from '@/stories/components/molecules/Button/LogoutButtonFlex';
 import { PersonList } from '@/stories/components/molecules/List/PersonList';
 
@@ -28,14 +27,7 @@ export const LoginMainParts: FC<LoginMainPartsProps> = ({
           </Box>
         ) : (
           <Box>
-            <Typography
-              variant='body2'
-              color={theme.palette.text.primary}
-              align='center'
-              sx={{ margin: theme.spacing(2) }}
-            >
-              no data
-            </Typography>
+            <BodySubText>no data</BodySubText>
             <LogoutButtonFlex dataExistFlg={false} authHandler={() => authHandler()} />
           </Box>
         )

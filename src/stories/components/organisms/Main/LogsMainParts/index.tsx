@@ -11,6 +11,7 @@ import { Box } from '@/stories/components/atoms/Box/Basic';
 import { IconButton } from '@/stories/components/atoms/IconButton/Base';
 import { Paper } from '@/stories/components/atoms/Paper/Base';
 import { Typography } from '@/stories/components/atoms/Typography/Base';
+import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
 import { LogsList } from '@/stories/components/molecules/List/LogsList';
 
 export interface LogsListProp {
@@ -74,14 +75,7 @@ export const LogsMainParts: FC<LogsListProp> = ({ data, personId }: LogsListProp
           {displayLogFlg && <LogsList messageLog={messageLog} />}
         </Box>
       ) : (
-        <Typography
-          variant='body2'
-          color={theme.palette.text.primary}
-          align='center'
-          sx={{ padding: theme.spacing(2) }}
-        >
-          no data
-        </Typography>
+        <BodySubText>no data</BodySubText>
       )}
     </Paper>
   );
