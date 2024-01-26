@@ -1,4 +1,6 @@
-import { FC, MouseEventHandler, useState } from 'react';
+import { FC, MouseEventHandler } from 'react';
+
+import { useFormFunctions } from './hooks';
 
 import theme from '@/stories/common/theme';
 import { Box } from '@/stories/components/atoms/Box/Basic';
@@ -11,56 +13,27 @@ import { TextFieldProps } from '@/stories/components/atoms/TextField/Base';
 import { TextField } from '@/stories/components/atoms/TextField/Basic';
 import { MailTextField } from '@/stories/components/atoms/TextField/MailTextField';
 
-export type FormType = TextFieldProps &
+export type PersonFormType = TextFieldProps &
   ButtonProps & {
     processResultFunc: () => void;
   };
 
-export const Form: FC<FormType> = ({ processResultFunc }: FormType) => {
-  const [personName, setPersonName] = useState('');
-  const [personMail, setPersonMail] = useState('');
-  const [addProcessingFlg, setAddProcessingFlg] = useState(false);
-  const [editProcessingFlg, setEditProcessingFlg] = useState(false);
-  const [removeProcessingFlg, setRemoveProcessingFlg] = useState(false);
-  const [abortNameFlg, setAbortNameFlg] = useState(true);
-  const [abortMailFlg, setAbortMailFlg] = useState(true);
-  const inputNameHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setPersonName(evt.target.value);
-  };
-  const inputMailHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setPersonMail(evt.target.value);
-  };
-  const clearClickHandler = () => {
-    setPersonName('');
-    setPersonMail('');
-  };
-  const cancelClickHandler = () => {
-    clearClickHandler();
-    setAddProcessingFlg(false);
-    setEditProcessingFlg(false);
-    setRemoveProcessingFlg(false);
-    setAbortNameFlg(true);
-    setAbortMailFlg(true);
-  };
+export const PersonForm: FC<PersonFormType> = ({ processResultFunc }: PersonFormType) => {
+  const {
+    personName,
+    personMail,
+    addProcessingFlg,
+    editProcessingFlg,
+    removeProcessingFlg,
+    abortNameFlg,
+    abortMailFlg,
+    inputNameHandler,
+    inputMailHandler,
+    clearClickHandler,
+    cancelClickHandler,
+    switchProcessFlg,
+  } = useFormFunctions();
 
-  const switchProcessFlg = (state: string) => {
-    switch (state) {
-      case 'ADD':
-        setAddProcessingFlg(true);
-        setAbortNameFlg(false);
-        setAbortMailFlg(false);
-        break;
-      case 'EDIT':
-        setEditProcessingFlg(true);
-        setAbortNameFlg(false);
-        break;
-      case 'REMOVE':
-        setRemoveProcessingFlg(true);
-        break;
-      default:
-        break;
-    }
-  };
   const FormButtonClickHandler: MouseEventHandler<HTMLButtonElement> = (evt) => {
     if (addProcessingFlg || editProcessingFlg || removeProcessingFlg) {
       processResultFunc();

@@ -2,16 +2,16 @@ import { action } from '@storybook/addon-actions';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Form } from '.';
+import { PersonForm } from '.';
 
 const meta = {
   title: 'Molecules/Form/PersonForm',
-  component: Form,
+  component: PersonForm,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof Form>;
+} satisfies Meta<typeof PersonForm>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
