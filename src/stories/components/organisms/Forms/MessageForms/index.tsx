@@ -25,7 +25,7 @@ export const MessageForms: FC<MessgeFormsType> = ({ data }: MessgeFormsType) => 
   const [initialInputOccurred, setInitialInputOccurred] = useState(false);
   const [state, dispatch] = useReducer(resetSendStateFunc, {
     sendState: 0,
-    textValue: undefined,
+    resetTextValue: undefined,
   });
   const disableFlg = inputError
     ? inputError
@@ -43,7 +43,11 @@ export const MessageForms: FC<MessgeFormsType> = ({ data }: MessgeFormsType) => 
           value={{ initialInputOccurred, setInitialInputOccurred }}
         >
           <ResetSendStateContext.Provider
-            value={{ sendState: state.sendState, textValue: state.textValue, dispatch }}
+            value={{
+              sendState: state.sendState,
+              resetTextValue: state.resetTextValue,
+              dispatch,
+            }}
           >
             <Box>
               <MessageForm data={data} />

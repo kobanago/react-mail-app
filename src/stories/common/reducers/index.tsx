@@ -2,12 +2,12 @@ import { Dispatch } from 'react';
 
 export type ResetSendStateType = {
   sendState: number;
-  textValue: string | undefined;
+  resetTextValue: string | undefined;
 };
 
 export type ResetSendStateContextType = {
   sendState: number;
-  textValue: string | undefined;
+  resetTextValue: string | undefined;
   dispatch: Dispatch<string>;
 };
 
@@ -17,11 +17,11 @@ export const resetSendStateFunc = (
 ): ResetSendStateType => {
   switch (action) {
     case 'INIT':
-      return { sendState: 0, textValue: undefined };
+      return { sendState: 0, resetTextValue: undefined };
     case 'KEEP':
-      return { sendState: 1, textValue: undefined };
+      return { sendState: 1, resetTextValue: undefined };
     case 'COMPLETED':
-      return { sendState: 2, textValue: '' };
+      return { sendState: 2, resetTextValue: '' };
     default:
       return state;
   }
