@@ -5,9 +5,9 @@ import { Button as BasicButton } from '../Basic';
 
 import theme from '@/stories/common/theme';
 
-export interface FormStateButtonProps extends ButtonProps {
+export type FormStateButtonProps = ButtonProps & {
   processing: boolean;
-}
+};
 
 export const FormStateButton: FC<FormStateButtonProps> = ({
   processing,

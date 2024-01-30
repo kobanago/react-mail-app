@@ -7,12 +7,12 @@ import { Typography } from '../../Typography/Base';
 
 import theme from '@/stories/common/theme';
 
-export interface IconButtonProps extends ButtonProps {
+export type IconButtonProps = ButtonProps & {
   icon?: React.ReactNode;
   label?: string;
   disabled?: boolean;
   clickHandler?: () => void;
-}
+};
 
 export const IconButton: FC<IconButtonProps> = ({
   icon,

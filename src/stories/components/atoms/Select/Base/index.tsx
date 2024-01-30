@@ -8,10 +8,10 @@ import { FC } from 'react';
 
 import { AddressListType } from '@/stories/common/types';
 
-export interface SelectProps extends Omit<MuiSelectProps, 'onChange'> {
+export type SelectProps = Omit<MuiSelectProps, 'onChange'> & {
   selectHandler?: (event: SelectChangeEvent<unknown>) => void;
   data: AddressListType;
-}
+};
 export const Select: FC<SelectProps> = ({
   selectHandler,
   data,

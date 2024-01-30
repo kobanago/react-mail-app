@@ -8,10 +8,10 @@ import { ListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { ListItem } from '@/stories/components/atoms/ListItem/Basic';
 import { BodyPrimaryText } from '@/stories/components/atoms/Typography/BodyPrimaryText';
 
-export interface PersonListItemProps extends ListItemProps {
+export type PersonListItemProps = ListItemProps & {
   id: string;
   message: string;
-}
+};
 
 const selectPersonHandler: React.MouseEventHandler<HTMLLIElement> = (evt) => {
   // const value = evt.currentTarget.innerText;

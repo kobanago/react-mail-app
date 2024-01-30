@@ -7,10 +7,10 @@ import { BodyPrimaryText } from '../../atoms/Typography/BodyPrimaryText';
 import theme from '@/stories/common/theme';
 import { Typography } from '@/stories/components/atoms/Typography/Base';
 
-export interface TitleProps extends TypographyProps {
+export type TitleProps = TypographyProps & {
   title: string;
   message: string;
-}
+};
 
 export const Title: FC<TitleProps> = ({ title, message }: TitleProps) => {
   return (
