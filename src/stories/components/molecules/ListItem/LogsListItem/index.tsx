@@ -7,9 +7,9 @@ import { ListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { ListItem } from '@/stories/components/atoms/ListItem/Basic';
 import { BodyPrimaryText } from '@/stories/components/atoms/Typography/BodyPrimaryText';
 
-export interface LogsListItem extends ListItemProps {
+export type LogsListItem = ListItemProps & {
   item: MessageContentsType;
-}
+};
 
 export const LogsListItem: FC<LogsListItem> = ({ item }: LogsListItem) => {
   return (

@@ -4,10 +4,10 @@ import {
 } from '@mui/material';
 import { FC, MouseEventHandler } from 'react';
 
-export interface ListItemProps extends MuiListItemProps {
+export type ListItemProps = MuiListItemProps & {
   label?: string;
   selectHandler?: MouseEventHandler<HTMLLIElement> | undefined;
-}
+};
 
 export const ListItem: FC<ListItemProps> = ({
   selectHandler,

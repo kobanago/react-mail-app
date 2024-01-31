@@ -4,10 +4,10 @@ import { ResetSendStateContext } from '@/stories/common/context';
 import { ButtonProps } from '@/stories/components/atoms/Button/Base';
 import { Button } from '@/stories/components/atoms/Button/Basic';
 
-export interface SendStateButtonType extends ButtonProps {
+export type SendStateButtonType = ButtonProps & {
   keepHandler: () => void;
   sendHandler: () => void;
-}
+};
 
 export const SendStateButton: FC<SendStateButtonType> = ({
   keepHandler,

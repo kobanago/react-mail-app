@@ -1,9 +1,9 @@
 import { SvgIconProps, SvgIcon } from '@mui/material';
 import { ReactNode, FC } from 'react';
 
-export interface CustomSvgIconProps extends SvgIconProps {
+export type CustomSvgIconProps = SvgIconProps & {
   icon: ReactNode;
-}
+};
 const CustomSvgIcon: FC<CustomSvgIconProps> = ({
   icon,
   ...props

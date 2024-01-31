@@ -9,9 +9,9 @@ import {
 
 import theme from '@/stories/common/theme';
 
-export interface TextFieldProps extends BaseTextFieldProps {
+export type TextFieldProps = BaseTextFieldProps & {
   resetTextValue?: string;
-}
+};
 
 export const TextField: FC<TextFieldProps> = (props: TextFieldProps) => {
   const {

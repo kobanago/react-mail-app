@@ -6,10 +6,10 @@ import { FC } from 'react';
 import { FlexBox } from '@/stories/components/atoms/Box/FlexBox';
 import { IconButton, IconButtonProps } from '@/stories/components/atoms/IconButton/Base';
 
-export interface LogoutButtonFlexProps extends IconButtonProps {
+export type LogoutButtonFlexProps = IconButtonProps & {
   dataExistFlg: boolean;
   authHandler: () => void;
-}
+};
 
 export const LogoutButtonFlex: FC<LogoutButtonFlexProps> = ({
   dataExistFlg,

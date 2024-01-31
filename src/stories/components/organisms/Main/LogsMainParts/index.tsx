@@ -12,10 +12,10 @@ import { Typography } from '@/stories/components/atoms/Typography/Base';
 import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
 import { LogsList } from '@/stories/components/molecules/List/LogsList';
 
-export interface LogsListProp {
+export type LogsListProp = {
   data: AddressListType;
   personId: string;
-}
+};
 
 export const LogsMainParts: FC<LogsListProp> = (props: LogsListProp) => {
   const { logExistFlg, handleClickDisplayLogs, displayLogFlg, messageLog } =

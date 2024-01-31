@@ -1,10 +1,10 @@
 import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material';
 import { FC, MouseEventHandler } from 'react';
 
-export interface ButtonProps extends MuiButtonProps {
+export type ButtonProps = MuiButtonProps & {
   label?: string;
   clickHandler?: (() => void) | MouseEventHandler<HTMLButtonElement>;
-}
+};
 
 export const Button: FC<ButtonProps> = ({
   label,

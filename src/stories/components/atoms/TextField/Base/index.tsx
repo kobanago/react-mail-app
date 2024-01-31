@@ -4,10 +4,10 @@ import {
 } from '@mui/material';
 import { ChangeEventHandler, FC } from 'react';
 
-export interface TextFieldProps extends Omit<MuiTextFieldProps, 'onChange'> {
+export type TextFieldProps = Omit<MuiTextFieldProps, 'onChange'> & {
   inputHandler?: ChangeEventHandler<HTMLInputElement> | undefined;
   disabledFlg?: boolean;
-}
+};
 export const TextField: FC<TextFieldProps> = ({
   inputHandler,
   disabledFlg,
