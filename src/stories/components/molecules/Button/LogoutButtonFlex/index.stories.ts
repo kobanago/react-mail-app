@@ -19,12 +19,12 @@ type Story = StoryObj<typeof meta>;
 export const LogoutButtonFlexExistData: Story = {
   args: {
     dataExistFlg: true,
-    authHandler: action('click'),
+    loginHandler: action('click'),
   },
 };
 export const LogoutButtonFlexNotExistData: Story = {
   args: {
     dataExistFlg: false,
-    authHandler: action('click'),
+    loginHandler: action('click'),
   },
 };
