@@ -2,22 +2,22 @@ import { action } from '@storybook/addon-actions';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { LogoutDefaultFlex } from '.';
+import { LogoutButton } from '.';
 
 const meta = {
-  title: 'Molecules/Button/LogoutDefaultFlex',
-  component: LogoutDefaultFlex,
+  title: 'Atoms/IconButton/LogoutButton',
+  component: LogoutButton,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof LogoutDefaultFlex>;
+} satisfies Meta<typeof LogoutButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LogoutDefaultFlexExistData: Story = {
+export const LogoutButtonNormal: Story = {
   args: {
-    logoutHandler: action('click'),
+    logoutHandler: action('clicked'),
   },
 };
