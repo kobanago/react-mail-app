@@ -3,20 +3,15 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { FC } from 'react';
 
 import { FlexBox } from '@/stories/components/atoms/Box/FlexBox';
-import { IconButton, IconButtonProps } from '@/stories/components/atoms/IconButton/Base';
-import {
-  LogoutButton,
-  LogoutButtonProps,
-} from '@/stories/components/atoms/IconButton/LogoutButton';
+import { IconButton } from '@/stories/components/atoms/IconButton/Base';
+import { LogoutButton } from '@/stories/components/atoms/IconButton/LogoutButton';
 
-export type LogoutButtonFlexProps = IconButtonProps &
-  LogoutButtonProps & {
-    dataExistFlg: boolean;
-  };
+export type LogoutButtonFlexProps = {
+  dataExistFlg: boolean;
+};
 
 export const LogoutButtonFlex: FC<LogoutButtonFlexProps> = ({
   dataExistFlg,
-  logoutHandler,
 }: LogoutButtonFlexProps) => {
   return (
     <FlexBox>
@@ -34,7 +29,7 @@ export const LogoutButtonFlex: FC<LogoutButtonFlexProps> = ({
         label={'edit person'}
         linkFlg={true}
       />
-      <LogoutButton logoutHandler={logoutHandler} />
+      <LogoutButton />
     </FlexBox>
   );
 };

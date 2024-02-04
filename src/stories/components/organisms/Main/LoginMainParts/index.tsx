@@ -16,23 +16,22 @@ export const LoginMainParts: FC<LoginMainPartsProps> = ({
   authFlg,
   data,
 }: LoginMainPartsProps) => {
-  const authHandler = () => {};
   return (
     <Box>
       {authFlg ? (
         data && Object.keys(data).length ? (
           <Box>
             <PersonList data={data} />
-            <LogoutButtonFlex dataExistFlg={true} authHandler={() => authHandler()} />
+            <LogoutButtonFlex dataExistFlg={true} />
           </Box>
         ) : (
           <Box>
             <BodySubText>no data</BodySubText>
-            <LogoutButtonFlex dataExistFlg={false} authHandler={() => authHandler()} />
+            <LogoutButtonFlex dataExistFlg={false} />
           </Box>
         )
       ) : (
-        <LoginButton clickHandler={() => authHandler()} />
+        <LoginButton />
       )}
     </Box>
   );

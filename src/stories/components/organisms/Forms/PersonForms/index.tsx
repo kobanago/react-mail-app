@@ -1,24 +1,12 @@
-import { FC } from 'react';
-
 import { Box } from '@/stories/components/atoms/Box/Basic';
-import {
-  LogoutDefaultFlex,
-  LogoutDefaultFlexType,
-} from '@/stories/components/molecules/Button/LogoutDefaultFlex';
-import {
-  PersonForm,
-  PersonFormType,
-} from '@/stories/components/molecules/Form/PersonForm';
+import { LogoutDefaultFlex } from '@/stories/components/molecules/Button/LogoutDefaultFlex';
+import { PersonForm } from '@/stories/components/molecules/Form/PersonForm';
 
-export type PersonFormsType = PersonFormType & LogoutDefaultFlexType;
-export const PersonForms: FC<PersonFormsType> = ({
-  processResultFunc,
-  authHandler,
-}: PersonFormsType) => {
+export const PersonForms = () => {
   return (
     <Box>
-      <PersonForm processResultFunc={processResultFunc} />
-      <LogoutDefaultFlex authHandler={authHandler} />
+      <PersonForm />
+      <LogoutDefaultFlex />
     </Box>
   );
 };
