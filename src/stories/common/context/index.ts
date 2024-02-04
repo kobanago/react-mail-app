@@ -1,6 +1,8 @@
-import { createContext } from 'react';
+import { Dispatch, createContext } from 'react';
 
-import { ResetSendStateContextType } from '../reducers';
+import { SetPersonListType, SetUserDataType } from '../reducers';
+import { UserDataType } from '../types';
+
 export type ValidateResultType = (newState: boolean) => void;
 export const ValidateResultContext = createContext<ValidateResultType | undefined>(
   undefined,
@@ -20,11 +22,35 @@ export const InitInputEventStateContext = createContext<
   InitInputEventStateType | undefined
 >(undefined);
 
-export type SelectedPersonIdType = (newState: string) => void;
-export const SelectedPersonIdContext = createContext<SelectedPersonIdType | undefined>(
+type ResetSendStateContextType = {
+  sendState: number;
+  resetTextValue: string | undefined;
+  sendStateDispatch: Dispatch<string>;
+};
+export const ResetSendStateContext = createContext<ResetSendStateContextType | undefined>(
   undefined,
 );
 
-export const ResetSendStateContext = createContext<ResetSendStateContextType | undefined>(
+type SetPersonDataContextType = {
+  personData: UserDataType | null;
+  personDataDispatch: Dispatch<SetUserDataType>;
+};
+export const SetPersonDataContext = createContext<SetPersonDataContextType | undefined>(
+  undefined,
+);
+
+type SetUserDataContextType = {
+  userData: UserDataType | null;
+  userDataDispatch: Dispatch<SetUserDataType>;
+};
+export const SetUserDataContext = createContext<SetUserDataContextType | undefined>(
+  undefined,
+);
+
+type SetPersonListContextType = {
+  personList: UserDataType[] | null;
+  personListDispatch: Dispatch<SetPersonListType>;
+};
+export const SetPersonListContext = createContext<SetPersonListContextType | undefined>(
   undefined,
 );
