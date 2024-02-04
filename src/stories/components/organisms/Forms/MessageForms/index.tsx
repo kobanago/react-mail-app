@@ -1,4 +1,4 @@
-import { FC, useReducer, useState } from 'react';
+import { useReducer, useState } from 'react';
 
 import {
   InitChangeEventStateContext,
@@ -7,23 +7,18 @@ import {
   ValidateResultContext,
 } from '@/stories/common/context';
 import { resetSendStateFunc } from '@/stories/common/reducers';
-import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { SendStateButton } from '@/stories/components/molecules/Button/SendStateButton';
 import { MessageForm } from '@/stories/components/molecules/Form/MessageForm';
-export type MessgeFormsType = {
-  data: AddressListType;
-  authHandler: () => void;
-};
 
-export const MessageForms: FC<MessgeFormsType> = ({ data }: MessgeFormsType) => {
+export const MessageForms = () => {
   const [inputError, setInputError] = useState(false);
   const handleChangeInputError = (newState: boolean) => {
     setInputError(newState);
   };
   const [initialChangeOccurred, setInitialChangeOccurred] = useState(false);
   const [initialInputOccurred, setInitialInputOccurred] = useState(false);
-  const [state, dispatch] = useReducer(resetSendStateFunc, {
+  const [state, sendStateDispatch] = useReducer(resetSendStateFunc, {
     sendState: 0,
     resetTextValue: undefined,
   });
@@ -31,7 +26,7 @@ export const MessageForms: FC<MessgeFormsType> = ({ data }: MessgeFormsType) => 
     ? inputError
     : !(initialChangeOccurred && initialInputOccurred);
   const handleClickSendMessage = () => {
-    dispatch('COMPLETED');
+    sendStateDispatch('COMPLETED');
   };
 
   return (
@@ -46,13 +41,13 @@ export const MessageForms: FC<MessgeFormsType> = ({ data }: MessgeFormsType) => 
             value={{
               sendState: state.sendState,
               resetTextValue: state.resetTextValue,
-              dispatch,
+              sendStateDispatch,
             }}
           >
             <Box>
-              <MessageForm data={data} />
+              <MessageForm />
               <SendStateButton
-                keepHandler={() => dispatch('KEEP')}
+                keepHandler={() => sendStateDispatch('KEEP')}
                 sendHandler={handleClickSendMessage}
                 disabled={disableFlg}
               />

@@ -1,26 +1,26 @@
-import { FC } from 'react';
+import { FC, MouseEventHandler, useContext } from 'react';
 
-import { AddressListType } from '@/stories/common/types';
+import { SetPersonListContext } from '@/stories/common/context';
 import { List } from '@/stories/components/atoms/List/Base';
-import { ListItemProps as CommonListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { PersonListItem } from '@/stories/components/molecules/ListItem/PersonListItem';
 
-export type PersonListProp = CommonListItemProps & {
-  data: AddressListType;
+export type PersonListProps = {
+  selectHandler?: MouseEventHandler<HTMLLIElement>;
 };
-export const PersonList: FC<PersonListProp> = ({ data }) => {
+export const PersonList: FC<PersonListProps> = ({ selectHandler }: PersonListProps) => {
+  const { personList } = useContext(SetPersonListContext) ?? {};
+
   return (
     <List sx={{ width: 'auto', bgcolor: 'background.paper' }}>
-      {Object.keys(data).map((key, index) => {
-        const item = data[key];
-        return (
+      {personList &&
+        personList.map((item, index) => (
           <PersonListItem
+            selectHandler={selectHandler}
             key={index}
-            id={item.id}
+            id={item.id.toString()}
             message={`${item.name} (${item.mail})`}
           />
-        );
-      })}
+        ))}
     </List>
   );
 };

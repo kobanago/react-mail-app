@@ -1,27 +1,39 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useContext } from 'react';
 
+import { getTargetData } from '@/controllers';
 import {
   InitChangeEventStateContext,
   ResetSendStateContext,
-  SelectedPersonIdContext,
+  SetPersonDataContext,
 } from '@/stories/common/context';
+import { UserDataType } from '@/stories/common/types';
 
 export const useSelectPersonEvent = () => {
   const { initialChangeOccurred, setInitialChangeOccurred } =
     useContext(InitChangeEventStateContext) ?? {};
-  const { sendState, dispatch } = useContext(ResetSendStateContext) ?? {};
-  const selectedPersonId = useContext(SelectedPersonIdContext);
+  const { sendState, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
+  const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
-    if (selectedPersonId) {
-      selectedPersonId(event.target.value as string);
+    if (personDataDispatch) {
+      getTargetData('users', 'id', event.target.value as string)
+        .then((result) => {
+          if (result) {
+            const data = result as UserDataType[];
+            personDataDispatch({ type: 'SUCCESS', payload: data[0] });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          personDataDispatch({ type: 'ERROR', payload: null });
+        });
     }
     if (!initialChangeOccurred && setInitialChangeOccurred) {
       setInitialChangeOccurred(true);
     }
-    if (sendState === 2 && dispatch) {
-      dispatch('INIT');
+    if (sendState === 2 && sendStateDispatch) {
+      sendStateDispatch('INIT');
     }
   };
 

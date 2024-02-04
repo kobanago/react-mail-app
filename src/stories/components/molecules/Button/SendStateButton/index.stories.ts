@@ -18,21 +18,6 @@ type Story = StoryObj<typeof meta>;
 
 export const SendStateButtonInit: Story = {
   args: {
-    sendStateFlg: 0,
-    keepHandler: action('click'),
-    sendHandler: action('click'),
-  },
-};
-export const SendStateButtonProcess: Story = {
-  args: {
-    sendStateFlg: 1,
-    keepHandler: action('click'),
-    sendHandler: action('click'),
-  },
-};
-export const SendStateButtonCompleted: Story = {
-  args: {
-    sendStateFlg: 2,
     keepHandler: action('click'),
     sendHandler: action('click'),
   },
