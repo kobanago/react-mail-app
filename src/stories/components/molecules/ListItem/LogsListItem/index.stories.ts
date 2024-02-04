@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LogsListItem } from '.';
 
+import data from '@/common/samples/data/messageList.json';
+
 const meta = {
   title: 'Molecules/ListItem/LogsListItem',
   component: LogsListItem,
@@ -17,11 +19,6 @@ type Story = StoryObj<typeof meta>;
 export const LogsListItemNormal: Story = {
   args: {
     key: 1,
-    item: {
-      to: 'testTo',
-      from: 'testFrom',
-      time: '2024/0123 09:30',
-      comment: 'first',
-    },
+    item: data[1],
   },
 };

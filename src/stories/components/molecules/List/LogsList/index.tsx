@@ -2,11 +2,11 @@ import { FC } from 'react';
 
 import { LogsListItem } from '../../ListItem/LogsListItem';
 
-import { MessageContentsType } from '@/stories/common/types';
+import { MessageType } from '@/stories/common/types';
 import { List } from '@/stories/components/atoms/List/Base';
 
 export type LogsListProp = {
-  messageLog: MessageContentsType[];
+  messageLog: MessageType[];
 };
 
 export const LogsList: FC<LogsListProp> = ({ messageLog }: LogsListProp) => {
