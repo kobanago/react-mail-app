@@ -5,9 +5,12 @@ import { Typography } from '../Base';
 
 import theme from '@/stories/common/theme';
 
-export const BodyPrimaryText: FC<TypographyProps> = ({ children }: TypographyProps) => {
+export const BodyPrimaryText: FC<TypographyProps> = ({
+  children,
+  align = 'center',
+}: TypographyProps) => {
   return (
-    <Typography variant='body1' color={theme.palette.text.primary} align='center'>
+    <Typography variant='body1' color={theme.palette.text.primary} align={align}>
       {children}
     </Typography>
   );
