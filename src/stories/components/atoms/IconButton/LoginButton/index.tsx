@@ -19,8 +19,8 @@ export const LoginButton = () => {
         },
       })
       .then()
-      .catch((error) => {
-        alert('エラーが発生しました');
+      .catch((error: Error) => {
+        alert('error occured!' + error.message);
         console.error('Error login:', error);
         return null;
       });

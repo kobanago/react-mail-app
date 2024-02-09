@@ -9,8 +9,8 @@ export const LogoutButton = () => {
     supabase.auth
       .signOut()
       .then()
-      .catch((error) => {
-        alert('エラーが発生しました');
+      .catch((error: Error) => {
+        alert('error occured!' + error.message);
         console.error('Error logout:', error);
         return null;
       });

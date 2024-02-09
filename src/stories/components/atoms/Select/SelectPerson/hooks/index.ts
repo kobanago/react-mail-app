@@ -25,7 +25,7 @@ export const useSelectPersonEvent = () => {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
           personDataDispatch({ type: 'ERROR', payload: null });
         });
     }

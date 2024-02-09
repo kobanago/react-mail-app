@@ -11,11 +11,16 @@ export const useLogsMainFunctions = () => {
   const [messageLog, setMessageLog] = useState<MessageType[]>([]);
 
   const setMessageList = async () => {
-    if (userData && personData) {
-      const orgMessageList = await getMessageList(userData.id, personData.id);
-      if (orgMessageList) {
-        setMessageLog(orgMessageList);
+    try {
+      if (userData && personData) {
+        const orgMessageList = await getMessageList(userData.id, personData.id);
+        if (orgMessageList) {
+          setMessageLog(orgMessageList);
+        }
       }
+    } catch (error) {
+      console.error('Error fetching display logs:', error);
+      alert('error occured!');
     }
   };
 
