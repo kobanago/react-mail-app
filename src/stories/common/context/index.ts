@@ -73,6 +73,14 @@ export const SetProcessFlgContext = createContext<SetProcessFlgContextType | und
   undefined,
 );
 
+type SetMessageContextType = {
+  message: string;
+  messageDispatch: Dispatch<string>;
+};
+export const SetMessageContext = createContext<SetMessageContextType | undefined>(
+  undefined,
+);
+
 export const SetLinkClickFlgContext = createContext<SetLinkClickFlgType | undefined>(
   undefined,
 );
