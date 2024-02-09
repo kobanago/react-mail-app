@@ -32,7 +32,7 @@ export const ResetSendStateContext = createContext<ResetSendStateContextType | u
 );
 
 type SetPersonDataContextType = {
-  personData: UserDataType | null;
+  personData: UserDataType | undefined;
   personDataDispatch: Dispatch<SetUserDataType>;
 };
 export const SetPersonDataContext = createContext<SetPersonDataContextType | undefined>(
@@ -40,7 +40,7 @@ export const SetPersonDataContext = createContext<SetPersonDataContextType | und
 );
 
 type SetUserDataContextType = {
-  userData: UserDataType | null;
+  userData: UserDataType | undefined;
   userDataDispatch: Dispatch<SetUserDataType>;
 };
 export const SetUserDataContext = createContext<SetUserDataContextType | undefined>(
@@ -48,7 +48,7 @@ export const SetUserDataContext = createContext<SetUserDataContextType | undefin
 );
 
 type SetPersonListContextType = {
-  personList: UserDataType[] | null;
+  personList: UserDataType[] | undefined;
   personListDispatch: Dispatch<SetPersonListType>;
 };
 export const SetPersonListContext = createContext<SetPersonListContextType | undefined>(

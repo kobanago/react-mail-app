@@ -13,9 +13,9 @@ import { LoginPage } from './stories/components/pages/LoginPage';
 import { CommonTemplate } from './stories/components/templates/CommonTemplate';
 
 function App() {
-  const [personData, personDataDispatch] = useReducer(setUserDataFunc, null);
-  const [userData, userDataDispatch] = useReducer(setUserDataFunc, null);
-  const [personList, personListDispatch] = useReducer(setPersonListFunc, null);
+  const [personData, personDataDispatch] = useReducer(setUserDataFunc, undefined);
+  const [userData, userDataDispatch] = useReducer(setUserDataFunc, undefined);
+  const [personList, personListDispatch] = useReducer(setPersonListFunc, undefined);
 
   return (
     <>
