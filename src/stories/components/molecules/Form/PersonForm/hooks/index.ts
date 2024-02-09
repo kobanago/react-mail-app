@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-export const useFormFunctions = () => {
+import { FormClearState } from '@/stories/common/reducers';
+
+export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   const [personName, setPersonName] = useState('');
   const [personMail, setPersonMail] = useState('');
   const [addProcessingFlg, setAddProcessingFlg] = useState(false);
@@ -11,10 +13,12 @@ export const useFormFunctions = () => {
 
   const inputNameHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setPersonName(evt.target.value);
+    if (clearFlg) dispatch(false);
   };
 
   const inputMailHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setPersonMail(evt.target.value);
+    if (clearFlg) dispatch(false);
   };
 
   const clearClickHandler = () => {

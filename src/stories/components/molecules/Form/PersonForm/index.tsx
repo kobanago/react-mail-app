@@ -1,7 +1,12 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler, useContext, useEffect, useReducer } from 'react';
 
 import { useFormFunctions } from './hooks';
 
+import {
+  SetProcessFlgContext,
+  SetPersonListContext,
+  ValidateResultContext,
+} from '@/stories/common/context';
 import theme from '@/stories/common/theme';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { FlexBox } from '@/stories/components/atoms/Box/FlexBox';
@@ -19,27 +24,39 @@ export type PersonFormType = TextFieldProps &
   };
 
 export const PersonForm: FC<PersonFormType> = ({ processResultFunc }: PersonFormType) => {
+  const [clearFlg, dispatch] = useReducer(
+    (state: boolean, action: boolean) => (action !== undefined ? action : state),
+    false,
+  );
   const {
     personName,
     personMail,
-    addProcessingFlg,
-    editProcessingFlg,
-    removeProcessingFlg,
     abortNameFlg,
     abortMailFlg,
-    inputNameHandler,
-    inputMailHandler,
     clearClickHandler,
     cancelClickHandler,
     switchProcessFlg,
-  } = useFormFunctions();
+    inputNameHandler,
+    inputMailHandler,
+  } = useFormFunctions({ clearFlg, dispatch });
+  const { processFlg } = useContext(SetProcessFlgContext) ?? {};
+  const { personList } = useContext(SetPersonListContext) ?? {};
+  const { validateError } = useContext(ValidateResultContext) ?? {};
+  const { addProcessingFlg, editProcessingFlg, removeProcessingFlg } = processFlg || {};
+  const addFlg = addProcessingFlg ?? false;
+  const editFlg = editProcessingFlg ?? false;
+  const removeFlg = removeProcessingFlg ?? false;
 
-  const FormButtonClickHandler: MouseEventHandler<HTMLButtonElement> = (evt) => {
-    if (addProcessingFlg || editProcessingFlg || removeProcessingFlg) {
-      processResultFunc();
+  const FormButtonClickHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const state = event.currentTarget.innerText;
+    if (!addFlg && !editFlg && !removeFlg) {
+      switchProcessFlg(state);
+      return;
     }
-    switchProcessFlg(evt.currentTarget.innerText);
+    processResultFunc();
   };
+
+  useEffect(() => {}, [clearFlg]);
 
   return (
     <FormControl sx={{ width: '70%', padding: theme.spacing(1) }} margin='normal'>
@@ -61,20 +78,24 @@ export const PersonForm: FC<PersonFormType> = ({ processResultFunc }: PersonForm
         <FormStateButton
           label={'add'}
           clickHandler={FormButtonClickHandler}
-          processing={addProcessingFlg}
-          disabled={editProcessingFlg || removeProcessingFlg}
+          processing={addFlg}
+          disabled={validateError || editFlg || removeFlg}
         />
         <FormStateButton
           label={'edit'}
           clickHandler={FormButtonClickHandler}
-          processing={editProcessingFlg}
-          disabled={addProcessingFlg || removeProcessingFlg}
+          processing={editFlg}
+          disabled={
+            !personList || !personList.length || validateError || addFlg || removeFlg
+          }
         />
         <FormStateButton
           label={'remove'}
           clickHandler={FormButtonClickHandler}
-          processing={removeProcessingFlg}
-          disabled={editProcessingFlg || addProcessingFlg}
+          processing={removeFlg}
+          disabled={
+            !personList || !personList.length || validateError || editFlg || addFlg
+          }
         />
       </FlexBox>
       <FlexBox>

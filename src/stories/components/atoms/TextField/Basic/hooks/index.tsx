@@ -12,23 +12,22 @@ import { TextFieldProps } from '../index';
 import { ValidateResultContext } from '@/stories/common/context';
 
 export const useTextFieldFunctions = ({
-  label,
   inputHandler,
   resetTextValue,
-  inputProps,
-  disabledFlg,
+  value,
+  requiredFlg,
 }: TextFieldProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputError, setInputError] = useState(false);
   const memoizedInputError = useMemo(() => inputError, [inputError]);
-  const handleChangeInputError = useContext(ValidateResultContext);
-  const [textValue, settextValue] = useState('');
+  const { setValidateError } = useContext(ValidateResultContext) ?? {};
+  const [textValue, setTextValue] = useState('');
 
   const handleChangeInputText: ChangeEventHandler<HTMLInputElement> = (event) => {
-    settextValue(event.target.value);
+    setTextValue(event.target.value);
     if (inputRef.current) {
       const ref = inputRef.current;
-      if (!ref.validity.valid || ref.value === '') {
+      if (!ref.validity.valid || (requiredFlg && ref.value === '')) {
         setInputError(true);
       } else {
         setInputError(false);
@@ -40,19 +39,19 @@ export const useTextFieldFunctions = ({
   };
 
   useEffect(() => {
-    if (handleChangeInputError) {
-      handleChangeInputError(inputError);
-    }
-  }, [memoizedInputError]);
+    if (value) setTextValue(value);
+  }, [value]);
+
+  useEffect(() => {
+    if (resetTextValue === '') setTextValue('');
+    if (setValidateError) setValidateError(inputError);
+  }, [memoizedInputError, resetTextValue]);
 
   return {
     inputRef,
     inputError,
     handleChangeInputText,
     resetTextValue,
-    label,
-    disabledFlg,
-    inputProps,
     textValue,
   };
 };
