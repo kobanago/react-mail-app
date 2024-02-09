@@ -1,4 +1,4 @@
-import { UserDataType } from '../types';
+import { OriginalUserDataType, UserDataType } from '../types';
 
 export type ResetSendStateActionType = {
   sendState: number;
@@ -23,12 +23,12 @@ export const resetSendStateFunc = (
 
 export type SetUserDataType = {
   type: string;
-  payload: UserDataType | undefined;
+  payload: OriginalUserDataType | UserDataType | undefined;
 };
 export const setUserDataFunc = (
-  state: UserDataType | undefined,
+  state: OriginalUserDataType | UserDataType | undefined,
   action: SetUserDataType,
-): UserDataType | undefined => {
+): OriginalUserDataType | UserDataType | undefined => {
   switch (action.type) {
     case 'SUCCESS':
       return action.payload;

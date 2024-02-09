@@ -1,8 +1,11 @@
-export type UserDataType = {
+export type OriginalUserDataType = {
   id: number;
   name: string;
   mail: string;
   uuid: string;
+};
+export type UserDataType = OriginalUserDataType & {
+  person_display_name: string;
 };
 
 export type AddressListType = {
@@ -14,7 +17,7 @@ export type AddressListType = {
 };
 
 export type MessageType = {
-  id: number;
+  id?: number;
   address_list_id: number;
   to_user: string;
   from_user: string;
@@ -22,4 +25,5 @@ export type MessageType = {
   sort_time: number;
   comment: string;
   send_id: number;
+  uuid: string;
 };

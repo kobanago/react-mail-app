@@ -19,7 +19,7 @@ export const Select: FC<SelectProps> = ({ selectHandler, ...props }: SelectProps
         personList.length &&
         personList.map((item, index) => (
           <MenuItem key={index} value={item.id}>
-            {`${item.name} (${item.mail})`}
+            {`${item.person_display_name ? item.person_display_name : item.name} (${item.mail})`}
           </MenuItem>
         ))}
     </MuiSelect>

@@ -18,7 +18,7 @@ export const PersonList: FC<PersonListProps> = ({ selectHandler }: PersonListPro
             selectHandler={selectHandler}
             key={index}
             id={item.id.toString()}
-            message={`${item.name} (${item.mail})`}
+            message={`${item.person_display_name ? item.person_display_name : item.name} (${item.mail})`}
           />
         ))}
     </List>
