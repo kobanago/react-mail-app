@@ -71,3 +71,39 @@ export const selectPersonReducer = (
 ): SelectPersonType => {
   return { ...state, ...action };
 };
+
+export type FormClearState = {
+  clearFlg: boolean;
+  dispatch: React.Dispatch<boolean>;
+};
+
+export type SetProcessFlgType = {
+  addProcessingFlg: boolean;
+  editProcessingFlg: boolean;
+  removeProcessingFlg: boolean;
+};
+export type SetProcessFlgActionType = {
+  type: string;
+  payload: boolean;
+};
+
+export const setProcessFlgReducer = (
+  state: SetProcessFlgType,
+  action: SetProcessFlgActionType,
+) => {
+  switch (action.type) {
+    case 'ADD':
+      return { ...state, addProcessingFlg: action.payload };
+    case 'EDIT':
+      return { ...state, editProcessingFlg: action.payload };
+    case 'REMOVE':
+      return { ...state, removeProcessingFlg: action.payload };
+    default:
+      return state;
+  }
+};
+
+export type SetLinkClickFlgType = {
+  listClickFlg: boolean;
+  setListClickFlg: React.Dispatch<boolean>;
+};

@@ -6,23 +6,29 @@ import {
   InitChangeEventStateContext,
   ResetSendStateContext,
   SetPersonDataContext,
+  SetUserDataContext,
 } from '@/stories/common/context';
-import { UserDataType } from '@/stories/common/types';
+import { createPersonData } from '@/stories/common/functions';
+import { OriginalUserDataType } from '@/stories/common/types';
 
 export const useSelectPersonEvent = () => {
   const { initialChangeOccurred, setInitialChangeOccurred } =
     useContext(InitChangeEventStateContext) ?? {};
   const { sendState, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
   const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
+  const { userData } = useContext(SetUserDataContext) ?? {};
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
     if (personDataDispatch) {
       getTargetData('users', 'id', event.target.value as string)
         .then((result) => {
-          if (result) {
-            const data = result as UserDataType[];
-            personDataDispatch({ type: 'SUCCESS', payload: data[0] });
-          }
+          if (!result) throw new Error('something wrong');
+          const data = result as OriginalUserDataType[];
+          if (!data.length || !userData) throw new Error('something wrong');
+          createPersonData(userData.id, data[0].mail, data[0]).then((newData) => {
+            if (!newData) throw new Error('something wrong');
+            personDataDispatch({ type: 'SUCCESS', payload: newData });
+          });
         })
         .catch((error) => {
           console.error(error);

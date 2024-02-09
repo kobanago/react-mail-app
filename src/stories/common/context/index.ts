@@ -1,12 +1,22 @@
 import { Dispatch, createContext } from 'react';
 
-import { SetPersonListType, SetUserDataType } from '../reducers';
-import { UserDataType } from '../types';
+import {
+  SetLinkClickFlgType,
+  SetPersonListType,
+  SetProcessFlgActionType,
+  SetProcessFlgType,
+  SetUserDataType,
+} from '../reducers';
+import { OriginalUserDataType, UserDataType } from '../types';
 
-export type ValidateResultType = (newState: boolean) => void;
+export type ValidateResultType = {
+  validateError: boolean;
+  setValidateError: React.Dispatch<boolean>;
+};
 export const ValidateResultContext = createContext<ValidateResultType | undefined>(
   undefined,
 );
+
 export type InitChangeEventStateType = {
   initialChangeOccurred: boolean;
   setInitialChangeOccurred: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,16 +41,16 @@ export const ResetSendStateContext = createContext<ResetSendStateContextType | u
   undefined,
 );
 
-type SetPersonDataContextType = {
-  personData: UserDataType | undefined;
-  personDataDispatch: Dispatch<SetUserDataType>;
+export type SetPersonDataContextType = {
+  personData: OriginalUserDataType | UserDataType | undefined;
+  personDataDispatch: Dispatch<SetUserDataType> | undefined;
 };
 export const SetPersonDataContext = createContext<SetPersonDataContextType | undefined>(
   undefined,
 );
 
 type SetUserDataContextType = {
-  userData: UserDataType | undefined;
+  userData: OriginalUserDataType | undefined;
   userDataDispatch: Dispatch<SetUserDataType>;
 };
 export const SetUserDataContext = createContext<SetUserDataContextType | undefined>(
@@ -52,5 +62,17 @@ type SetPersonListContextType = {
   personListDispatch: Dispatch<SetPersonListType>;
 };
 export const SetPersonListContext = createContext<SetPersonListContextType | undefined>(
+  undefined,
+);
+
+type SetProcessFlgContextType = {
+  processFlg: SetProcessFlgType;
+  processFlgDispatch: Dispatch<SetProcessFlgActionType>;
+};
+export const SetProcessFlgContext = createContext<SetProcessFlgContextType | undefined>(
+  undefined,
+);
+
+export const SetLinkClickFlgContext = createContext<SetLinkClickFlgType | undefined>(
   undefined,
 );
