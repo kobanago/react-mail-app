@@ -2,7 +2,6 @@ import './App.css';
 import { useReducer } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import AuthGoogle from './AuthGoogle';
 import {
   SetPersonDataContext,
   SetPersonListContext,
@@ -26,7 +25,7 @@ function App() {
               <Route path='/' element={<LoginPage />} />
               <Route path='/message' element={<CommonTemplate title='MESSAGE' />} />
               <Route path='/person' element={<CommonTemplate title='PERSON' />} />
-              <Route path='/auth' element={<AuthGoogle />} />
+              {/* <Route path='/auth' element={<AuthGoogle />} /> */}
             </Routes>
           </SetPersonListContext.Provider>
         </SetUserDataContext.Provider>
