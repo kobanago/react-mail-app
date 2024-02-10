@@ -13,30 +13,16 @@ export type PersonListItemProps = ListItemProps & {
   message: string;
 };
 
-const selectPersonHandler: React.MouseEventHandler<HTMLLIElement> = (evt) => {
-  // const value = evt.currentTarget.innerText;
-  console.log(evt.currentTarget.innerText);
-  console.log(evt.currentTarget.id);
-  console.log(evt.currentTarget);
-  console.log(evt);
-  // const ary = value.split('(');
-  // const name = ary[0].trim();
-  // const mail = ary[1].replace(')', '');
-  // const id = evt.currentTarget.id
-  // setPersonMail(name);
-  // setPersonMail(mail);
-  // inputNameHandler({ target: { value: name } } as React.ChangeEvent<HTMLInputElement>);
-  // inputMailHandler({ target: { value: mail } } as React.ChangeEvent<HTMLInputElement>);
-};
 export const PersonListItem: FC<PersonListItemProps> = ({
   id,
   message,
+  selectHandler,
 }: PersonListItemProps) => {
   return (
     <ListItem
       key={id}
       id={id}
-      selectHandler={selectPersonHandler}
+      selectHandler={selectHandler}
       sx={{
         '&:hover': {
           backgroundColor: theme.palette.action.hover,
@@ -52,7 +38,7 @@ export const PersonListItem: FC<PersonListItemProps> = ({
           <Icon icon={<AccountCircleIcon />} />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText primary={<BodyPrimaryText>{message}</BodyPrimaryText>} />
+      <ListItemText primary={<BodyPrimaryText align='left'>{message}</BodyPrimaryText>} />
     </ListItem>
   );
 };

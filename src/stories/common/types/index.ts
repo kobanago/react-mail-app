@@ -1,30 +1,29 @@
-export type UserDataType = {
-  id: string;
+export type OriginalUserDataType = {
+  id: number;
   name: string;
   mail: string;
-  addressList: AddressListType;
+  uuid: string;
+};
+export type UserDataType = OriginalUserDataType & {
+  person_display_name: string;
 };
 
 export type AddressListType = {
-  [key: string]: {
-    id: string;
-    name: string;
-    mail: string;
-    userId: string;
-    message: MessageType;
-  };
+  id: number;
+  user_id: number;
+  person_id: number;
+  uuid: string;
+  person_display_name: string;
 };
 
 export type MessageType = {
-  to: MessageContentsType[];
-  from: MessageContentsType[];
-};
-
-export type MessageContentsType = {
-  to: string;
-  from: string;
+  id?: number;
+  address_list_id: number;
+  to_user: string;
+  from_user: string;
   time: string;
-  sortTime: number;
+  sort_time: number;
   comment: string;
-  sendId: string;
+  send_id: number;
+  uuid: string;
 };

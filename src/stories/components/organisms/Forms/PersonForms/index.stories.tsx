@@ -18,6 +18,5 @@ type Story = StoryObj<typeof meta>;
 export const PersonFormsInit: Story = {
   args: {
     processResultFunc: action('test'),
-    authHandler: action('test'),
   },
 };

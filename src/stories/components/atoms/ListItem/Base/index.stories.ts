@@ -19,6 +19,6 @@ type Story = StoryObj<typeof meta>;
 export const BaseNormal: Story = {
   args: {
     children: 'test',
-    selectPersonHandler: action('click'),
+    selectHandler: action('click'),
   },
 };

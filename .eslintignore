@@ -1,6 +1,7 @@
 # config
 .*lintrc.*
 *.config.*
+supabaseClinet.ts
 
 # build dir
 node_modules/

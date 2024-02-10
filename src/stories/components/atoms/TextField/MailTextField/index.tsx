@@ -1,22 +1,25 @@
 import { FC } from 'react';
 
-import { TextFieldProps } from '../Base';
-import { TextField as BasicTextField } from '../Basic';
+import { TextField as BasicTextField, TextFieldProps } from '../Basic';
 
 export const MailTextField: FC<TextFieldProps> = ({
   inputHandler,
-  label,
   disabledFlg,
+  resetTextValue,
+  value,
 }: TextFieldProps) => {
   const inputProps = disabledFlg
     ? { type: 'email', required: false, disabled: true }
     : { type: 'email', required: true, disabled: false };
   return (
     <BasicTextField
-      label={label}
+      label='Email'
       inputHandler={inputHandler}
       inputProps={inputProps}
       disabledFlg={disabledFlg}
+      resetTextValue={resetTextValue}
+      value={value}
+      requiredFlg={true}
     />
   );
 };

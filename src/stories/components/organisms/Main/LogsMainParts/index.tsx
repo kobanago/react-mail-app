@@ -1,10 +1,8 @@
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import { FC } from 'react';
 
 import { useLogsMainFunctions } from './hooks';
 
 import theme from '@/stories/common/theme';
-import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { IconButton } from '@/stories/components/atoms/IconButton/Base';
 import { Paper } from '@/stories/components/atoms/Paper/Base';
@@ -12,14 +10,8 @@ import { Typography } from '@/stories/components/atoms/Typography/Base';
 import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
 import { LogsList } from '@/stories/components/molecules/List/LogsList';
 
-export type LogsListProp = {
-  data: AddressListType;
-  personId: string;
-};
-
-export const LogsMainParts: FC<LogsListProp> = (props: LogsListProp) => {
-  const { logExistFlg, handleClickDisplayLogs, displayLogFlg, messageLog } =
-    useLogsMainFunctions(props);
+export const LogsMainParts = () => {
+  const { handleClickDisplayLogs, displayLogFlg, messageLog } = useLogsMainFunctions();
 
   return (
     <Paper sx={{ margin: theme.spacing(0.5), padding: theme.spacing(2) }}>
@@ -31,11 +23,11 @@ export const LogsMainParts: FC<LogsListProp> = (props: LogsListProp) => {
       >
         Logs
       </Typography>
-      {logExistFlg ? (
+      {messageLog && messageLog.length ? (
         <Box>
           <IconButton
             icon={<ReceiptLongIcon />}
-            label={'Display logs'}
+            label={displayLogFlg ? 'Close logs' : 'Display logs'}
             disabled={false}
             clickHandler={() => handleClickDisplayLogs()}
           />

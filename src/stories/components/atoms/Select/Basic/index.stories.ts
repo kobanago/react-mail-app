@@ -3,9 +3,6 @@ import { action } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Select } from '.';
-
-import data from '@/common/samples/data/index.json';
-
 const meta = {
   title: 'Atoms/Select/Basic',
   component: Select,
@@ -21,6 +18,5 @@ type Story = StoryObj<typeof meta>;
 export const BasicNormal: Story = {
   args: {
     selectHandler: action('test'),
-    data: data['0001'].addressList,
   },
 };

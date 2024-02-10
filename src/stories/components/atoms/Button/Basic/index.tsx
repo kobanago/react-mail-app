@@ -9,6 +9,8 @@ export const Button: FC<ButtonProps> = ({
   label,
   disabled,
   clickHandler,
+  linkFlg,
+  to,
   children,
 }: ButtonProps) => {
   return (
@@ -18,6 +20,8 @@ export const Button: FC<ButtonProps> = ({
       label={label}
       disabled={disabled}
       clickHandler={clickHandler}
+      linkFlg={linkFlg}
+      to={to}
     >
       {children}
     </BaseButton>

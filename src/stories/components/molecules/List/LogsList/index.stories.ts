@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LogsList } from '.';
 
-import data from '@/common/samples/messageLog/index.json';
+import data from '@/common/samples/data/messageList.json';
 
 const meta = {
   title: 'Molecules/List/LogsList',

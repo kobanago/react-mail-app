@@ -1,30 +1,32 @@
-import { FC, useState } from 'react';
+import { useReducer } from 'react';
 
 import { MessageForms } from '../../Forms/MessageForms';
 import { LogsMainParts } from '../LogsMainParts';
 
-import { SelectedPersonIdContext } from '@/stories/common/context';
-import { AddressListType } from '@/stories/common/types';
+import { ResetSendStateContext } from '@/stories/common/context';
+import { resetSendStateFunc } from '@/stories/common/reducers';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { LogoutDefaultFlex } from '@/stories/components/molecules/Button/LogoutDefaultFlex';
 
-export type SendMainPartsProps = {
-  data: AddressListType;
-};
-
-export const SendMainParts: FC<SendMainPartsProps> = ({ data }: SendMainPartsProps) => {
-  const [personId, setPersonId] = useState('');
-  const selectedPersonId = (newState: string) => {
-    setPersonId(newState);
-  };
+export const SendMainParts = () => {
+  const [state, sendStateDispatch] = useReducer(resetSendStateFunc, {
+    sendState: 0,
+    resetTextValue: undefined,
+  });
 
   return (
-    <SelectedPersonIdContext.Provider value={selectedPersonId}>
+    <ResetSendStateContext.Provider
+      value={{
+        sendState: state.sendState,
+        resetTextValue: state.resetTextValue,
+        sendStateDispatch,
+      }}
+    >
       <Box>
-        <MessageForms data={data} authHandler={() => {}} />
-        <LogsMainParts personId={personId} data={data} />
-        <LogoutDefaultFlex authHandler={() => {}} />
+        <MessageForms />
+        <LogsMainParts />
+        <LogoutDefaultFlex />
       </Box>
-    </SelectedPersonIdContext.Provider>
+    </ResetSendStateContext.Provider>
   );
 };

@@ -6,7 +6,7 @@ import { FC, MouseEventHandler } from 'react';
 
 export type ListItemProps = MuiListItemProps & {
   label?: string;
-  selectHandler?: MouseEventHandler<HTMLLIElement> | undefined;
+  selectHandler?: MouseEventHandler<HTMLLIElement>;
 };
 
 export const ListItem: FC<ListItemProps> = ({

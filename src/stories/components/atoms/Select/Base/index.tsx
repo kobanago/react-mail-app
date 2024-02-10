@@ -4,27 +4,24 @@ import {
   MenuItem,
   SelectChangeEvent,
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
-import { AddressListType } from '@/stories/common/types';
+import { SetPersonListContext } from '@/stories/common/context';
 
 export type SelectProps = Omit<MuiSelectProps, 'onChange'> & {
   selectHandler?: (event: SelectChangeEvent<unknown>) => void;
-  data: AddressListType;
 };
-export const Select: FC<SelectProps> = ({
-  selectHandler,
-  data,
-  ...props
-}: SelectProps) => (
-  <MuiSelect {...props} onChange={selectHandler} autoWidth={true} required>
-    {Object.keys(data).map((key, index) => {
-      const item = data[key];
-      return (
-        <MenuItem key={index} value={item.userId}>
-          {`${item.name} (${item.mail})`}
-        </MenuItem>
-      );
-    })}
-  </MuiSelect>
-);
+export const Select: FC<SelectProps> = ({ selectHandler, ...props }: SelectProps) => {
+  const { personList } = useContext(SetPersonListContext) ?? {};
+  return (
+    <MuiSelect {...props} onChange={selectHandler} autoWidth={true}>
+      {personList &&
+        personList.length &&
+        personList.map((item, index) => (
+          <MenuItem key={index} value={item.id}>
+            {`${item.person_display_name ? item.person_display_name : item.name} (${item.mail})`}
+          </MenuItem>
+        ))}
+    </MuiSelect>
+  );
+};

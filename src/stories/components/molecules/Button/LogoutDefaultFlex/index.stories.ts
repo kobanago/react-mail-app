@@ -1,5 +1,3 @@
-import { action } from '@storybook/addon-actions';
-
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { LogoutDefaultFlex } from '.';
@@ -16,8 +14,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LogoutDefaultFlexExistData: Story = {
-  args: {
-    logoutHandler: action('click'),
-  },
-};
+export const LogoutDefaultFlexExistData: Story = {};

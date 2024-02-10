@@ -18,7 +18,6 @@ type Story = StoryObj<typeof meta>;
 
 export const BaseNormal: Story = {
   args: {
-    variant: 'contained',
     label: 'Button',
     clickHandler: action('clicked'),
   },

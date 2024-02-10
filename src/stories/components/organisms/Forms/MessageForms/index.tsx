@@ -1,63 +1,78 @@
-import { FC, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 
+import { useMessageFormsFunctions } from './hooks';
+
+import { insertData } from '@/controllers';
 import {
   InitChangeEventStateContext,
   InitInputEventStateContext,
   ResetSendStateContext,
+  SetMessageContext,
   ValidateResultContext,
 } from '@/stories/common/context';
-import { resetSendStateFunc } from '@/stories/common/reducers';
-import { AddressListType } from '@/stories/common/types';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { SendStateButton } from '@/stories/components/molecules/Button/SendStateButton';
 import { MessageForm } from '@/stories/components/molecules/Form/MessageForm';
-export type MessgeFormsType = {
-  data: AddressListType;
-  authHandler: () => void;
-};
 
-export const MessageForms: FC<MessgeFormsType> = ({ data }: MessgeFormsType) => {
-  const [inputError, setInputError] = useState(false);
-  const handleChangeInputError = (newState: boolean) => {
-    setInputError(newState);
-  };
+export const MessageForms = () => {
+  const [validateError, setValidateError] = useReducer(
+    (state: boolean, action: boolean) => (action !== undefined ? action : state),
+    false,
+  );
   const [initialChangeOccurred, setInitialChangeOccurred] = useState(false);
   const [initialInputOccurred, setInitialInputOccurred] = useState(false);
-  const [state, dispatch] = useReducer(resetSendStateFunc, {
-    sendState: 0,
-    resetTextValue: undefined,
-  });
-  const disableFlg = inputError
-    ? inputError
+  const { sendState, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
+  const disableFlg = validateError
+    ? validateError
     : !(initialChangeOccurred && initialInputOccurred);
+  const [message, messageDispatch] = useReducer(
+    (state: string, action: string) => (action !== undefined ? action : state),
+    '',
+  );
+  const { messageUserData, messagePersonData } = useMessageFormsFunctions(
+    Number(sendState),
+    message,
+  );
+
+  useEffect(() => {}, [sendState]);
+
   const handleClickSendMessage = () => {
-    dispatch('COMPLETED');
+    if (sendState === 1 && messageUserData) {
+      insertData('message_list', messageUserData)
+        .then(() => {
+          if (!messagePersonData) {
+            if (sendStateDispatch) sendStateDispatch('COMPLETED');
+            return;
+          }
+          insertData('message_list', messagePersonData).then(() => {
+            if (sendStateDispatch) sendStateDispatch('COMPLETED');
+          });
+        })
+        .catch((error: Error) => {
+          alert('error occured!');
+          console.error('Error Update data:', error);
+        });
+    }
   };
 
   return (
-    <ValidateResultContext.Provider value={handleChangeInputError}>
+    <ValidateResultContext.Provider value={{ validateError, setValidateError }}>
       <InitChangeEventStateContext.Provider
         value={{ initialChangeOccurred, setInitialChangeOccurred }}
       >
         <InitInputEventStateContext.Provider
           value={{ initialInputOccurred, setInitialInputOccurred }}
         >
-          <ResetSendStateContext.Provider
-            value={{
-              sendState: state.sendState,
-              resetTextValue: state.resetTextValue,
-              dispatch,
-            }}
-          >
+          <SetMessageContext.Provider value={{ message, messageDispatch }}>
             <Box>
-              <MessageForm data={data} />
+              <MessageForm />
               <SendStateButton
-                keepHandler={() => dispatch('KEEP')}
+                keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
                 sendHandler={handleClickSendMessage}
                 disabled={disableFlg}
               />
             </Box>
-          </ResetSendStateContext.Provider>
+          </SetMessageContext.Provider>
         </InitInputEventStateContext.Provider>
       </InitChangeEventStateContext.Provider>
     </ValidateResultContext.Provider>

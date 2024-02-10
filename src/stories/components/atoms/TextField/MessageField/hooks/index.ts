@@ -3,15 +3,21 @@ import { useContext } from 'react';
 import {
   ResetSendStateContext,
   InitInputEventStateContext,
+  SetMessageContext,
 } from '@/stories/common/context';
 
 export const useMessageFieldFunctions = () => {
-  const { resetTextValue, dispatch } = useContext(ResetSendStateContext) ?? {};
+  const { resetTextValue, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
   const { initialInputOccurred, setInitialInputOccurred } =
     useContext(InitInputEventStateContext) ?? {};
-  const handleChangeMessage = () => {
-    if (dispatch) {
-      dispatch('INIT');
+  const { messageDispatch } = useContext(SetMessageContext) ?? {};
+
+  const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (messageDispatch) {
+      messageDispatch(event.target.value);
+    }
+    if (sendStateDispatch) {
+      sendStateDispatch('INIT');
     }
     if (!initialInputOccurred && setInitialInputOccurred) {
       setInitialInputOccurred(true);
@@ -21,6 +27,5 @@ export const useMessageFieldFunctions = () => {
   return {
     handleChangeMessage,
     resetTextValue,
-    // message
   };
 };
