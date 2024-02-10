@@ -4,6 +4,9 @@
 ##### vite
 ###### npm create vite@latest
 ###### npm install -D vite-tsconfig-paths
+###### npx vercel login
+###### npx vercel link
+###### npx vercel env pull
 
 ##### vitest
 ###### npm install -D vitest happy-dom @vitest/coverage-v8 @testing-library/react @testing-library/user-event @testing-library/jest-dom msw
@@ -24,6 +27,9 @@
 
 ##### supabase
 ###### npm install @supabase/supabase-js @supabase/auth-ui-react @supabase/auth-ui-shared
+###### anon_key,urlをvercelに登録
+###### https://vercel.com/templates/next.js/subscription-starter
+###### 認証を使用している場合、認証の構成を行う(site_url,redirect_url)
 
 ##### react-router
 ###### npm install react-router-dom@latest
