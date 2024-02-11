@@ -58,8 +58,12 @@ export const LoginPage = () => {
         const data = result as UserDataType[];
 
         if (!userDataDispatch) return;
-        userDataDispatch({ type: 'SUCCESS', payload: data[0] });
+        if (!data.length) {
+          userDataDispatch({ type: 'SUCCESS', payload: null });
+          return;
+        }
 
+        userDataDispatch({ type: 'SUCCESS', payload: data[0] });
         const newList = await createPersonList(data[0].id, undefined);
         if (!newList || !newList.length || !personListDispatch) return;
         personListDispatch({ type: 'SUCCESS', payload: newList });

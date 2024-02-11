@@ -2,6 +2,7 @@ import { Dispatch, createContext } from 'react';
 
 import {
   SetLinkClickFlgType,
+  SetPersonDataType,
   SetPersonListType,
   SetProcessFlgActionType,
   SetProcessFlgType,
@@ -43,19 +44,19 @@ export const ResetSendStateContext = createContext<ResetSendStateContextType | u
 
 export type SetPersonDataContextType = {
   personData: OriginalUserDataType | UserDataType | undefined;
-  personDataDispatch: Dispatch<SetUserDataType> | undefined;
+  personDataDispatch: Dispatch<SetPersonDataType> | undefined;
 };
 export const SetPersonDataContext = createContext<SetPersonDataContextType | undefined>(
   undefined,
 );
 
 type SetUserDataContextType = {
-  userData: OriginalUserDataType | undefined;
+  userData: OriginalUserDataType | null | undefined;
   userDataDispatch: Dispatch<SetUserDataType>;
 };
-export const SetUserDataContext = createContext<SetUserDataContextType | undefined>(
-  undefined,
-);
+export const SetUserDataContext = createContext<
+  SetUserDataContextType | null | undefined
+>(undefined);
 
 type SetPersonListContextType = {
   personList: UserDataType[] | undefined;
