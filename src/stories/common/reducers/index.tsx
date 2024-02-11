@@ -23,11 +23,31 @@ export const resetSendStateFunc = (
 
 export type SetUserDataType = {
   type: string;
-  payload: OriginalUserDataType | UserDataType | undefined;
+  payload: OriginalUserDataType | null | undefined;
 };
 export const setUserDataFunc = (
-  state: OriginalUserDataType | UserDataType | undefined,
+  state: OriginalUserDataType | null | undefined,
   action: SetUserDataType,
+): OriginalUserDataType | null | undefined => {
+  switch (action.type) {
+    case 'SUCCESS':
+      return action.payload;
+    case 'ERROR':
+      return undefined;
+    case 'RESET':
+      return undefined;
+    default:
+      return state;
+  }
+};
+
+export type SetPersonDataType = {
+  type: string;
+  payload: OriginalUserDataType | UserDataType | undefined;
+};
+export const setPersonDataFunc = (
+  state: OriginalUserDataType | UserDataType | undefined,
+  action: SetPersonDataType,
 ): OriginalUserDataType | UserDataType | undefined => {
   switch (action.type) {
     case 'SUCCESS':

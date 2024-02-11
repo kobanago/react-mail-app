@@ -7,12 +7,16 @@ import {
   SetPersonListContext,
   SetUserDataContext,
 } from './stories/common/context';
-import { setPersonListFunc, setUserDataFunc } from './stories/common/reducers';
+import {
+  setPersonDataFunc,
+  setPersonListFunc,
+  setUserDataFunc,
+} from './stories/common/reducers';
 import { LoginPage } from './stories/components/pages/LoginPage';
 import { CommonTemplate } from './stories/components/templates/CommonTemplate';
 
 function App() {
-  const [personData, personDataDispatch] = useReducer(setUserDataFunc, undefined);
+  const [personData, personDataDispatch] = useReducer(setPersonDataFunc, undefined);
   const [userData, userDataDispatch] = useReducer(setUserDataFunc, undefined);
   const [personList, personListDispatch] = useReducer(setPersonListFunc, undefined);
 
@@ -25,7 +29,6 @@ function App() {
               <Route path='/' element={<LoginPage />} />
               <Route path='/message' element={<CommonTemplate title='MESSAGE' />} />
               <Route path='/person' element={<CommonTemplate title='PERSON' />} />
-              {/* <Route path='/auth' element={<AuthGoogle />} /> */}
             </Routes>
           </SetPersonListContext.Provider>
         </SetUserDataContext.Provider>

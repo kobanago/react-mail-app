@@ -12,18 +12,16 @@ export const LoginMainParts = () => {
   const { userData } = useContext(SetUserDataContext) ?? {};
   return (
     <Box>
-      {userData ? (
-        personList && personList.length ? (
-          <Box>
-            <PersonList />
-            <LogoutButtonFlex dataExistFlg={true} />
-          </Box>
-        ) : (
-          <Box>
-            <BodySubText>no data</BodySubText>
-            <LogoutButtonFlex dataExistFlg={false} />
-          </Box>
-        )
+      {personList && personList.length ? (
+        <Box>
+          <PersonList />
+          <LogoutButtonFlex dataExistFlg={true} />
+        </Box>
+      ) : userData !== undefined ? (
+        <Box>
+          <BodySubText>no data</BodySubText>
+          <LogoutButtonFlex dataExistFlg={false} />
+        </Box>
       ) : (
         <LoginButton />
       )}
