@@ -1,13 +1,7 @@
-import {
-  ListItemProps as MuiListItemProps,
-  ListItem as MuiListItem,
-} from '@mui/material';
-import { FC, MouseEventHandler } from 'react';
+import { ListItem as MuiListItem } from '@mui/material';
+import { FC } from 'react';
 
-export type ListItemProps = MuiListItemProps & {
-  label?: string;
-  selectHandler?: MouseEventHandler<HTMLLIElement>;
-};
+import { ListItemProps } from './types';
 
 export const ListItem: FC<ListItemProps> = ({
   selectHandler,

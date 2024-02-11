@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
 import { useCommonFunction } from './hooks';
-import { Title, TitleProps } from '../../molecules/Title';
+import { CommonTemplateProps } from './types';
+import { Title } from '../../molecules/Title';
 
 import theme from '@/stories/common/theme';
 import { Container } from '@/stories/components/atoms/Container/Basic';
 
-export type CommonTemplateProps = TitleProps;
 export const CommonTemplate: FC<CommonTemplateProps> = ({
   title,
 }: CommonTemplateProps) => {

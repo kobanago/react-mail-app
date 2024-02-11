@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import { ListItem as BaseListItem, ListItemProps } from '../Base';
+import { ListItem as BaseListItem } from '../Base';
+import { ListItemProps } from '../Base/types';
 
 import theme from '@/stories/common/theme';
 

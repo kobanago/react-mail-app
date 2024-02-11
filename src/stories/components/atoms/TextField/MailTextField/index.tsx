@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import { TextField as BasicTextField, TextFieldProps } from '../Basic';
+import { TextField as BasicTextField } from '../Basic';
+import { TextFieldProps } from '../Basic/types';
 
 export const MailTextField: FC<TextFieldProps> = ({
   inputHandler,

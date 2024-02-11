@@ -1,7 +1,8 @@
 import { FC } from 'react';
 
 import { useMessageFieldFunctions } from './hooks';
-import { TextField as BasicTextField, TextFieldProps } from '../Basic';
+import { TextField as BasicTextField } from '../Basic';
+import { TextFieldProps } from '../Basic/types';
 
 export const MessageTextField: FC<TextFieldProps> = ({ disabledFlg }: TextFieldProps) => {
   const { handleChangeMessage, resetTextValue } = useMessageFieldFunctions();

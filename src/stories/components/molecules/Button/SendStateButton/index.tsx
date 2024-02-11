@@ -1,13 +1,9 @@
 import { FC, useContext } from 'react';
 
-import { ResetSendStateContext } from '@/stories/common/context';
-import { ButtonProps } from '@/stories/components/atoms/Button/Base';
-import { Button } from '@/stories/components/atoms/Button/Basic';
+import { SendStateButtonType } from './types';
 
-export type SendStateButtonType = ButtonProps & {
-  keepHandler: () => void;
-  sendHandler: () => void;
-};
+import { ResetSendStateContext } from '@/stories/common/context';
+import { Button } from '@/stories/components/atoms/Button/Basic';
 
 export const SendStateButton: FC<SendStateButtonType> = ({
   keepHandler,

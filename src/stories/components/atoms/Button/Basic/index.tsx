@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import { Button as BaseButton, ButtonProps } from '../Base';
+import { Button as BaseButton } from '../Base';
+import { ButtonProps } from '../Base/types';
 
 import theme from '@/stories/common/theme';
 

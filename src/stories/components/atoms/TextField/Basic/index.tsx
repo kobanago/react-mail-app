@@ -1,17 +1,11 @@
 import { FC } from 'react';
 
 import { useTextFieldFunctions } from './hooks';
+import { TextFieldProps } from './types';
 import { Box } from '../../Box/Basic';
-import {
-  TextFieldProps as BaseTextFieldProps,
-  TextField as BaseTextField,
-} from '../Base';
+import { TextField as BaseTextField } from '../Base';
 
 import theme from '@/stories/common/theme';
-
-export type TextFieldProps = BaseTextFieldProps & {
-  resetTextValue?: string;
-};
 
 export const TextField: FC<TextFieldProps> = (props: TextFieldProps) => {
   const { inputRef, inputError, handleChangeInputText, resetTextValue, textValue } =

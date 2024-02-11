@@ -1,13 +1,8 @@
-import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material';
-import { FC, MouseEventHandler } from 'react';
+import { Button as MuiButton } from '@mui/material';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-export type ButtonProps = MuiButtonProps & {
-  label?: string;
-  clickHandler?: (() => void) | MouseEventHandler<HTMLButtonElement>;
-  linkFlg?: boolean;
-  to?: string;
-};
+import { ButtonProps } from './types';
 
 export const Button: FC<ButtonProps> = ({
   label,

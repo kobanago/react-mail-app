@@ -1,15 +1,8 @@
-import {
-  TextFieldProps as MuiTextFieldProps,
-  TextField as MuiTextField,
-} from '@mui/material';
-import { ChangeEventHandler, FC } from 'react';
+import { TextField as MuiTextField } from '@mui/material';
+import { FC } from 'react';
 
-export type TextFieldProps = Omit<MuiTextFieldProps, 'onChange'> & {
-  inputHandler?: ChangeEventHandler<HTMLInputElement> | undefined;
-  disabledFlg?: boolean;
-  requiredFlg?: boolean;
-  value?: string;
-};
+import { TextFieldProps } from './types';
+
 export const TextField: FC<TextFieldProps> = ({
   inputHandler,
   disabledFlg,
