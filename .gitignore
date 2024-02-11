@@ -32,3 +32,6 @@ src/stories/assets/*.*
 
 #supabase
 .env
+
+#vercel
+.vercel
