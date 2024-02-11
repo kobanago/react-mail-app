@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 
-import { SetLinkClickFlgType } from '../reducers';
 import {
   ValidateResultType,
   InitChangeEventStateType,
@@ -12,6 +11,7 @@ import {
   SetProcessFlgContextType,
   SetMessageContextType,
 } from '../types/context';
+import { SetLinkClickFlgType } from '../types/reducers';
 
 export const ValidateResultContext = createContext<ValidateResultType | undefined>(
   undefined,

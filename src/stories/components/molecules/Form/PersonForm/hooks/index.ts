@@ -5,8 +5,8 @@ import {
   SetPersonDataContext,
   SetProcessFlgContext,
 } from '@/stories/common/context';
-import { FormClearState } from '@/stories/common/reducers';
 import { UserDataType } from '@/stories/common/types/db';
+import { FormClearState } from '@/stories/common/types/reducers';
 
 export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   const [personName, setPersonName] = useState('');

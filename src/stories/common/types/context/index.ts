@@ -1,13 +1,13 @@
 import { Dispatch } from 'react';
 
+import { OriginalUserDataType, UserDataType } from '../db';
 import {
   SetPersonDataType,
-  SetPersonListType,
-  SetProcessFlgActionType,
-  SetProcessFlgType,
   SetUserDataType,
-} from '../../reducers';
-import { OriginalUserDataType, UserDataType } from '../db';
+  SetPersonListType,
+  SetProcessFlgType,
+  SetProcessFlgActionType,
+} from '../reducers';
 
 export type ValidateResultType = {
   validateError: boolean;

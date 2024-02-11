@@ -1,10 +1,13 @@
 import { OriginalUserDataType, UserDataType } from '../types/db';
-
-export type ResetSendStateActionType = {
-  sendState: number;
-  resetTextValue: string | undefined;
-};
-
+import {
+  ResetSendStateActionType,
+  SetUserDataType,
+  SetPersonDataType,
+  SetPersonListType,
+  SelectPersonType,
+  SetProcessFlgType,
+  SetProcessFlgActionType,
+} from '../types/reducers';
 export const resetSendStateFunc = (
   state: ResetSendStateActionType,
   action: string,
@@ -19,11 +22,6 @@ export const resetSendStateFunc = (
     default:
       return state;
   }
-};
-
-export type SetUserDataType = {
-  type: string;
-  payload: OriginalUserDataType | null | undefined;
 };
 export const setUserDataFunc = (
   state: OriginalUserDataType | null | undefined,
@@ -40,11 +38,6 @@ export const setUserDataFunc = (
       return state;
   }
 };
-
-export type SetPersonDataType = {
-  type: string;
-  payload: OriginalUserDataType | UserDataType | undefined;
-};
 export const setPersonDataFunc = (
   state: OriginalUserDataType | UserDataType | undefined,
   action: SetPersonDataType,
@@ -59,11 +52,6 @@ export const setPersonDataFunc = (
     default:
       return state;
   }
-};
-
-export type SetPersonListType = {
-  type: string;
-  payload: UserDataType[] | undefined;
 };
 export const setPersonListFunc = (
   state: UserDataType[] | undefined,
@@ -80,33 +68,12 @@ export const setPersonListFunc = (
       return state;
   }
 };
-
-export type SelectPersonType = {
-  personName: string;
-  personMail: string;
-};
 export const selectPersonReducer = (
   state: SelectPersonType,
   action: Partial<SelectPersonType>,
 ): SelectPersonType => {
   return { ...state, ...action };
 };
-
-export type FormClearState = {
-  clearFlg: boolean;
-  dispatch: React.Dispatch<boolean>;
-};
-
-export type SetProcessFlgType = {
-  addProcessingFlg: boolean;
-  editProcessingFlg: boolean;
-  removeProcessingFlg: boolean;
-};
-export type SetProcessFlgActionType = {
-  type: string;
-  payload: boolean;
-};
-
 export const setProcessFlgReducer = (
   state: SetProcessFlgType,
   action: SetProcessFlgActionType,
@@ -121,9 +88,4 @@ export const setProcessFlgReducer = (
     default:
       return state;
   }
-};
-
-export type SetLinkClickFlgType = {
-  listClickFlg: boolean;
-  setListClickFlg: React.Dispatch<boolean>;
 };
