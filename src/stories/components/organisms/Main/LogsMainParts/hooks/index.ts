@@ -6,7 +6,7 @@ import {
   SetPersonDataContext,
   SetUserDataContext,
 } from '@/stories/common/context';
-import { MessageType } from '@/stories/common/types';
+import { MessageType } from '@/stories/common/types/db';
 
 export const useLogsMainFunctions = () => {
   const { personData } = useContext(SetPersonDataContext) ?? {};

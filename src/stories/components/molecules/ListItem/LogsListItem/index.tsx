@@ -1,7 +1,7 @@
 import { ListItemText } from '@mui/material';
 import { FC } from 'react';
 
-import { MessageType } from '@/stories/common/types';
+import { MessageType } from '@/stories/common/types/db';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { ListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { ListItem } from '@/stories/components/atoms/ListItem/Basic';

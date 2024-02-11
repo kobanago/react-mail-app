@@ -1,4 +1,4 @@
-import { OriginalUserDataType, UserDataType } from '../types';
+import { OriginalUserDataType, UserDataType } from '../types/db';
 
 export type ResetSendStateActionType = {
   sendState: number;

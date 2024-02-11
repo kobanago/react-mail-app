@@ -8,7 +8,7 @@ import {
   SetProcessFlgType,
   SetUserDataType,
 } from '../reducers';
-import { OriginalUserDataType, UserDataType } from '../types';
+import { OriginalUserDataType, UserDataType } from '../types/db';
 
 export type ValidateResultType = {
   validateError: boolean;

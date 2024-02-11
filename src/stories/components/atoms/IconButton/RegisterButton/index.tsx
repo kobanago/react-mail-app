@@ -5,7 +5,7 @@ import { IconButton } from '../Base';
 
 import { getTargetData, insertData } from '@/controllers';
 import { SetUserDataContext } from '@/stories/common/context';
-import { OriginalUserDataType } from '@/stories/common/types';
+import { OriginalUserDataType } from '@/stories/common/types/db';
 import { supabase } from '@/supabaseClinet';
 
 export const RegisterButton = () => {

@@ -11,7 +11,7 @@ import {
   ValidateResultContext,
 } from '@/stories/common/context';
 import { setProcessFlgReducer } from '@/stories/common/reducers';
-import { UserDataType } from '@/stories/common/types';
+import { UserDataType } from '@/stories/common/types/db';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
 import { PersonList } from '@/stories/components/molecules/List/PersonList';
