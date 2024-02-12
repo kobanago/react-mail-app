@@ -29,6 +29,7 @@ coverage
 #storybook sample
 src/stories/*.*
 src/stories/assets/*.*
+.env.development
 
 #vercel
 .vercel
