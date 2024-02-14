@@ -24,17 +24,17 @@ export const CommonTemplateLogin: Story = {
   args: {
     title: 'LOGIN',
   },
-  decorators: createLoginMainPartsDecorator('not login'),
+  decorators: createLoginMainPartsDecorator('exist data'),
 };
 export const CommonTemplateMessage: Story = {
   args: {
     title: 'MESSAGE',
   },
-  decorators: createSendMainPartsDecorator('not exist data'),
+  decorators: createSendMainPartsDecorator('exist data'),
 };
 export const CommonTemplatePerson: Story = {
   args: {
     title: 'PERSON',
   },
-  decorators: createEditPersonMainPartsDecorator('not exist data'),
+  decorators: createEditPersonMainPartsDecorator('exist data'),
 };
