@@ -2,6 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { CommonTemplate } from '.';
 
+import {
+  createEditPersonMainPartsDecorator,
+  createLoginMainPartsDecorator,
+  createSendMainPartsDecorator,
+} from '@/stories/common/decorators';
+
 const meta = {
   title: 'Templates/CommonTemplate',
   component: CommonTemplate,
@@ -18,14 +24,17 @@ export const CommonTemplateLogin: Story = {
   args: {
     title: 'LOGIN',
   },
+  decorators: createLoginMainPartsDecorator('not login'),
 };
 export const CommonTemplateMessage: Story = {
   args: {
     title: 'MESSAGE',
   },
+  decorators: createSendMainPartsDecorator('not exist data'),
 };
 export const CommonTemplatePerson: Story = {
   args: {
     title: 'PERSON',
   },
+  decorators: createEditPersonMainPartsDecorator('not exist data'),
 };

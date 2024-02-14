@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LogsMainParts } from '.';
 
+import { createSendMainPartsDecorator } from '@/stories/common/decorators';
+
 const meta = {
   title: 'Organisms/Main/LogsMainParts',
   component: LogsMainParts,
@@ -14,4 +16,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LogsMainPartsNormal: Story = {};
+export const LogsMainPartsNoExistData: Story = {
+  decorators: createSendMainPartsDecorator('not exist data'),
+};
+export const LogsMainPartsExistData: Story = {
+  decorators: createSendMainPartsDecorator('exist data'),
+};
