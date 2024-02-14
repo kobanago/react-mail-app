@@ -4,6 +4,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { SendStateButton } from '.';
 
+import { createSendMainPartsDecorator } from '@/stories/common/decorators';
+
 const meta = {
   title: 'Molecules/Button/SendStateButton',
   component: SendStateButton,
@@ -21,4 +23,19 @@ export const SendStateButtonInit: Story = {
     keepHandler: action('click'),
     sendHandler: action('click'),
   },
+  decorators: createSendMainPartsDecorator('exist data'),
+};
+export const SendStateButtonKeep: Story = {
+  args: {
+    keepHandler: action('click'),
+    sendHandler: action('click'),
+  },
+  decorators: createSendMainPartsDecorator('exist data', 1),
+};
+export const SendStateButtonComplete: Story = {
+  args: {
+    keepHandler: action('click'),
+    sendHandler: action('click'),
+  },
+  decorators: createSendMainPartsDecorator('exist data', 2),
 };
