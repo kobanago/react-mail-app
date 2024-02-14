@@ -1,7 +1,8 @@
-import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { PersonForms } from '.';
+
+import { createEditPersonMainPartsDecorator } from '@/stories/common/decorators';
 
 const meta: Meta = {
   title: 'Organisms/PersonForms',
@@ -15,8 +16,9 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const PersonFormsInit: Story = {
-  args: {
-    processResultFunc: action('test'),
-  },
+export const PersonFormsNoData: Story = {
+  decorators: [createEditPersonMainPartsDecorator('not exist data')],
+};
+export const PersonFormsExistData: Story = {
+  decorators: [createEditPersonMainPartsDecorator('exist data')],
 };

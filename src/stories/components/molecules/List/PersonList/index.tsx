@@ -1,12 +1,11 @@
-import { FC, MouseEventHandler, useContext } from 'react';
+import { FC, useContext } from 'react';
+
+import { PersonListProps } from './types';
 
 import { SetPersonListContext } from '@/stories/common/context';
 import { List } from '@/stories/components/atoms/List/Base';
 import { PersonListItem } from '@/stories/components/molecules/ListItem/PersonListItem';
 
-export type PersonListProps = {
-  selectHandler?: MouseEventHandler<HTMLLIElement>;
-};
 export const PersonList: FC<PersonListProps> = ({ selectHandler }: PersonListProps) => {
   const { personList } = useContext(SetPersonListContext) ?? {};
 

@@ -1,11 +1,11 @@
-import {
-  AddressListType,
-  MessageType,
-  OriginalUserDataType,
-} from './stories/common/types';
 import { supabase } from './supabaseClinet';
 
-export type DataType = OriginalUserDataType | AddressListType | MessageType;
+import {
+  DataType,
+  MessageType,
+  OriginalUserDataType,
+  UpdateDataType,
+} from '@/stories/common/types/db';
 
 export const getUsersList = async (userId: number): Promise<OriginalUserDataType[]> => {
   try {
@@ -86,19 +86,9 @@ export const getTargetData = async (
   return data as DataType[] | DataType;
 };
 
-export type updateDataType =
-  | ({
-      [key: string]: string;
-    } & {
-      [key: string]: number | string;
-    })
-  | {
-      [key: string]: number | string;
-    };
-
 export const insertData = async (
   table: string,
-  data: updateDataType,
+  data: UpdateDataType,
 ): Promise<number> => {
   try {
     if (table === 'address_list') {
@@ -125,7 +115,7 @@ export const insertData = async (
 
 export const updateData = async (
   table: string,
-  data: updateDataType,
+  data: UpdateDataType,
 ): Promise<number> => {
   try {
     const { status, error } = await supabase
@@ -143,7 +133,7 @@ export const updateData = async (
 
 export const deleteData = async (
   table: string,
-  data: updateDataType,
+  data: UpdateDataType,
 ): Promise<number> => {
   try {
     if (table === 'address_list') {

@@ -1,7 +1,8 @@
-import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { MessageForms } from '.';
+
+import { createSendMainPartsDecorator } from '@/stories/common/decorators';
 const meta: Meta = {
   title: 'Organisms/MessageForms',
   component: MessageForms,
@@ -13,13 +14,7 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
 export const MessageFormsNormal: Story = {
-  args: {
-    handleChangePerson: action('select'),
-    handleChangeMessage: action('input'),
-    keepHandler: action('test'),
-    sendHandler: action('test'),
-    authHandler: action('test'),
-    navigateHandler: action('test'),
-  },
+  decorators: [createSendMainPartsDecorator('exist data')],
 };

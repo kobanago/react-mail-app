@@ -9,7 +9,7 @@ import {
   SetUserDataContext,
 } from '@/stories/common/context';
 import { createPersonData } from '@/stories/common/functions';
-import { OriginalUserDataType } from '@/stories/common/types';
+import { OriginalUserDataType } from '@/stories/common/types/db';
 
 export const useSelectPersonEvent = () => {
   const { initialChangeOccurred, setInitialChangeOccurred } =

@@ -1,16 +1,10 @@
-import {
-  SelectProps as MuiSelectProps,
-  Select as MuiSelect,
-  MenuItem,
-  SelectChangeEvent,
-} from '@mui/material';
+import { Select as MuiSelect, MenuItem } from '@mui/material';
 import { FC, useContext } from 'react';
+
+import { SelectProps } from './types';
 
 import { SetPersonListContext } from '@/stories/common/context';
 
-export type SelectProps = Omit<MuiSelectProps, 'onChange'> & {
-  selectHandler?: (event: SelectChangeEvent<unknown>) => void;
-};
 export const Select: FC<SelectProps> = ({ selectHandler, ...props }: SelectProps) => {
   const { personList } = useContext(SetPersonListContext) ?? {};
   return (

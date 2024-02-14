@@ -9,7 +9,7 @@ import {
   SetUserDataContext,
 } from '@/stories/common/context';
 import { createPersonList } from '@/stories/common/functions';
-import { UserDataType } from '@/stories/common/types';
+import { UserDataType } from '@/stories/common/types/db';
 import { supabase } from '@/supabaseClinet';
 
 export const LoginPage = () => {

@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 
-import { TextFieldProps } from '../index';
+import { TextFieldProps } from '../types';
 
 import { ValidateResultContext } from '@/stories/common/context';
 

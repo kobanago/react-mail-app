@@ -1,17 +1,13 @@
 import { ListItemText } from '@mui/material';
 import { FC } from 'react';
 
-import { MessageType } from '@/stories/common/types';
+import { LogsListItemProps } from './types';
+
 import { Box } from '@/stories/components/atoms/Box/Basic';
-import { ListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { ListItem } from '@/stories/components/atoms/ListItem/Basic';
 import { BodyPrimaryText } from '@/stories/components/atoms/Typography/BodyPrimaryText';
 
-export type LogsListItem = ListItemProps & {
-  item: MessageType;
-};
-
-export const LogsListItem: FC<LogsListItem> = ({ item }: LogsListItem) => {
+export const LogsListItem: FC<LogsListItemProps> = ({ item }: LogsListItemProps) => {
   return (
     <ListItem>
       <ListItemText

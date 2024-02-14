@@ -1,14 +1,10 @@
-import { CommonTemplateProps } from '..';
+import { GetComponentProps } from '../types';
 
 import { EditPersonMainParts } from '@/stories/components/organisms/Main/EditPersonMainParts';
 import { LoginMainParts } from '@/stories/components/organisms/Main/LoginMainParts';
 import { SendMainParts } from '@/stories/components/organisms/Main/SendMainParts';
 
 export const useCommonFunction = (title: string) => {
-  type GetComponentProps = CommonTemplateProps & {
-    padding: number;
-    component: React.ReactNode;
-  };
   const getComponent = (title: string): GetComponentProps => {
     let data = { title: 'Address Book', padding: 6, component: <LoginMainParts /> };
     switch (title) {

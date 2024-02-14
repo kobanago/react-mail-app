@@ -24,6 +24,10 @@
 ##### https://qiita.com/aoyagi9936/items/b1f4bd090ba8c30a67ec
 ###### npx storybook@latest init
 ###### npm i -D @storybook/addon-themes @emotion/server @fontsource/roboto @fontsource/material-icons style-loader css-loader
+###### https://storybook.js.org/addons/storybook-msw-addon
+###### npm install msw@latest -D
+###### npm i msw storybook-msw-addon -D
+###### npx msw init ./api --save
 
 ##### supabase
 ###### npm install @supabase/supabase-js @supabase/auth-ui-react @supabase/auth-ui-shared

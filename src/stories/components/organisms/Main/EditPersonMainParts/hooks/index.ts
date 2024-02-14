@@ -7,8 +7,8 @@ import {
   SetUserDataContext,
 } from '@/stories/common/context';
 import { createPersonData, createPersonList } from '@/stories/common/functions';
-import { SetProcessFlgType } from '@/stories/common/reducers';
-import { UserDataType } from '@/stories/common/types';
+import { UserDataType } from '@/stories/common/types/db';
+import { SetProcessFlgType } from '@/stories/common/types/reducers';
 
 type useSelectPersonHandler = {
   processFlg: SetProcessFlgType;

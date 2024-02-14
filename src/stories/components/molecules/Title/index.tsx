@@ -1,15 +1,12 @@
 import { Box } from '@mui/system';
 import { FC, useContext } from 'react';
 
+import { TitleProps } from './types';
 import { BodyPrimaryText } from '../../atoms/Typography/BodyPrimaryText';
 
 import { SetUserDataContext } from '@/stories/common/context';
 import theme from '@/stories/common/theme';
 import { Typography } from '@/stories/components/atoms/Typography/Base';
-
-export type TitleProps = {
-  title: string;
-};
 
 export const Title: FC<TitleProps> = ({ title }: TitleProps) => {
   const { userData } = useContext(SetUserDataContext) ?? {};

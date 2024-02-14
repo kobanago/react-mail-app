@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { LogsList } from '.';
 
 import data from '@/common/samples/data/messageList.json';
+import { MessageType } from '@/stories/common/types/db';
 
 const meta = {
   title: 'Molecules/List/LogsList',
@@ -16,8 +17,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LogsListInit: Story = {
+export const LogsListNoData: Story = {
   args: {
-    messageLog: data,
+    messageLog: [],
+  },
+};
+export const LogsListExistData: Story = {
+  args: {
+    messageLog: data as MessageType[],
   },
 };

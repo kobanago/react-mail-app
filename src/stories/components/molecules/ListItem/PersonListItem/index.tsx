@@ -2,16 +2,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ListItemAvatar, Avatar, ListItemText } from '@mui/material';
 import { FC } from 'react';
 
+import { PersonListItemProps } from './types';
+
 import theme from '@/stories/common/theme';
 import { Icon } from '@/stories/components/atoms/Icon/Basic';
-import { ListItemProps } from '@/stories/components/atoms/ListItem/Base';
 import { ListItem } from '@/stories/components/atoms/ListItem/Basic';
 import { BodyPrimaryText } from '@/stories/components/atoms/Typography/BodyPrimaryText';
-
-export type PersonListItemProps = ListItemProps & {
-  id: string;
-  message: string;
-};
 
 export const PersonListItem: FC<PersonListItemProps> = ({
   id,

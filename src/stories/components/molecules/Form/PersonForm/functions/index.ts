@@ -7,7 +7,7 @@ import {
   insertData,
   updateData,
 } from '@/controllers';
-import { OriginalUserDataType } from '@/stories/common/types';
+import { OriginalUserDataType } from '@/stories/common/types/db';
 
 type processResultType = {
   state: string;

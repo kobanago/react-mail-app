@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { getAddressList, getAddressListId } from '@/controllers';
 import { SetPersonDataContext, SetUserDataContext } from '@/stories/common/context';
-import { AddressListType, MessageType, UserDataType } from '@/stories/common/types';
+import { AddressListType, MessageType, UserDataType } from '@/stories/common/types/db';
 
 export const useMessageFormsFunctions = (sendState: number, message: string) => {
   const { userData } = useContext(SetUserDataContext) ?? {};

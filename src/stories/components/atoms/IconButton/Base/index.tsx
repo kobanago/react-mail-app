@@ -1,17 +1,11 @@
 import { FC } from 'react';
 
-import { ButtonProps } from '../../Button/Base';
+import { IconButtonProps } from './types';
 import { ButtonForIcon } from '../../Button/ButtonForIcon';
 import { Icon } from '../../Icon/Basic';
 import { Typography } from '../../Typography/Base';
 
 import theme from '@/stories/common/theme';
-
-export type IconButtonProps = ButtonProps & {
-  icon?: React.ReactNode;
-  label?: string;
-  disabled?: boolean;
-};
 
 export const IconButton: FC<IconButtonProps> = ({
   icon,

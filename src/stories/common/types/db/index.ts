@@ -27,3 +27,15 @@ export type MessageType = {
   send_id: number;
   uuid: string;
 };
+
+export type DataType = OriginalUserDataType | AddressListType | MessageType;
+
+export type UpdateDataType =
+  | ({
+      [key: string]: string;
+    } & {
+      [key: string]: number | string;
+    })
+  | {
+      [key: string]: number | string;
+    };

@@ -1,4 +1,4 @@
-import { OriginalUserDataType, UserDataType, AddressListType } from '../types';
+import { OriginalUserDataType, UserDataType, AddressListType } from '../types/db';
 
 import { getAddressList, getTargetData, getUsersList } from '@/controllers';
 

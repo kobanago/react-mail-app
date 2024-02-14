@@ -1,13 +1,9 @@
 import { FC } from 'react';
 
-import { ButtonProps } from '../Base';
+import { FormStateButtonProps } from './types';
 import { Button as BasicButton } from '../Basic';
 
 import theme from '@/stories/common/theme';
-
-export type FormStateButtonProps = ButtonProps & {
-  processing: boolean;
-};
 
 export const FormStateButton: FC<FormStateButtonProps> = ({
   processing,
