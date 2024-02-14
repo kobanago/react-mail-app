@@ -80,6 +80,8 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   const clearClickHandler = useCallback(() => {
     dispatch(true);
     if (setListClickFlg) setListClickFlg(false);
+    setPersonName('');
+    setPersonMail('');
   }, [dispatch]);
 
   const cancelClickHandler = useCallback(() => {
