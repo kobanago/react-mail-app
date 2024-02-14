@@ -1,4 +1,4 @@
-import { MouseEventHandler, useContext, useEffect, useReducer } from 'react';
+import { MouseEventHandler, useCallback, useContext, useEffect, useReducer } from 'react';
 
 import { processResultFunc } from './functions';
 import { useFormFunctions } from './hooks';
@@ -73,7 +73,7 @@ export const PersonForm = () => {
       });
   };
 
-  const successUpdate = () => {
+  const successUpdate = useCallback(() => {
     cancelClickHandler();
     if (!userData || !personListDispatch || !personDataDispatch)
       throw new Error('something wrong');
@@ -96,7 +96,7 @@ export const PersonForm = () => {
       .catch((error) => {
         throw error;
       });
-  };
+  }, []);
 
   useEffect(() => {}, [clearFlg]);
 
