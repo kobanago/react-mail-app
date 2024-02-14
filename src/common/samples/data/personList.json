@@ -1,0 +1,30 @@
+[
+  {
+    "name": "test1",
+    "mail": "test1@example.com",
+    "id": 1,
+    "uuid": "1111",
+    "person_display_name": "テスト１"
+  },
+  {
+    "name": "test2",
+    "mail": "test2@example.com",
+    "id": 2,
+    "uuid": "2222",
+    "person_display_name": "テスト２"
+  },
+  {
+    "name": "test3",
+    "mail": "test3@example.com",
+    "id": 3,
+    "uuid": "3333",
+    "person_display_name": "テスト３"
+  },
+  {
+    "name": "test4",
+    "mail": "test4@example.com",
+    "id": 4,
+    "uuid": "4444",
+    "person_display_name": "テスト４"
+  }
+]
