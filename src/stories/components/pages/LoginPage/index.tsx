@@ -22,7 +22,6 @@ export const LoginPage = () => {
     setTimeout(() => {
       switch (event) {
         case 'SIGNED_IN':
-          resetContext();
           if (session && session.user.email) {
             setUserMail(session?.user.email);
           }
