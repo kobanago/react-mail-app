@@ -1,11 +1,13 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { LogsListProp } from './types';
 import { LogsListItem } from '../../ListItem/LogsListItem';
 
 import { List } from '@/stories/components/atoms/List/Base';
 
-export const LogsList: FC<LogsListProp> = ({ messageLog }: LogsListProp) => {
+export const LogsList: FC<LogsListProp> = React.memo(function logList({
+  messageLog,
+}: LogsListProp) {
   return (
     <List sx={{ maxHeight: '300px', overflowY: 'auto' }}>
       {messageLog.map((item, index) => (
@@ -13,4 +15,4 @@ export const LogsList: FC<LogsListProp> = ({ messageLog }: LogsListProp) => {
       ))}
     </List>
   );
-};
+});

@@ -8,16 +8,12 @@ import {
 } from '@/stories/common/context';
 import { createPersonData, createPersonList } from '@/stories/common/functions';
 import { UserDataType } from '@/stories/common/types/db';
-import { SetProcessFlgType } from '@/stories/common/types/reducers';
+import { useSelectPersonHandlerType } from '@/stories/common/types/functions';
 
-type useSelectPersonHandler = {
-  processFlg: SetProcessFlgType;
-  setSelectEventFlg: React.Dispatch<React.SetStateAction<boolean>>;
-};
 export const useSelectPersonHandler = ({
   processFlg,
   setSelectEventFlg,
-}: useSelectPersonHandler) => {
+}: useSelectPersonHandlerType) => {
   const { editProcessingFlg, removeProcessingFlg } = processFlg;
   const { personList, personListDispatch } = useContext(SetPersonListContext) ?? {};
   const { personData, personDataDispatch } = useContext(SetPersonDataContext) ?? {};

@@ -14,7 +14,7 @@ import { supabase } from '@/supabaseClinet';
 
 export const LoginPage = () => {
   const [userMail, setUserMail] = useState('');
-  const { userDataDispatch } = useContext(SetUserDataContext) ?? {};
+  const { userData, userDataDispatch } = useContext(SetUserDataContext) ?? {};
   const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
   const { personListDispatch } = useContext(SetPersonListContext) ?? {};
 
@@ -22,8 +22,7 @@ export const LoginPage = () => {
     setTimeout(() => {
       switch (event) {
         case 'SIGNED_IN':
-          resetContext();
-          if (session && session.user.email) {
+          if (session && session.user.email && !userData) {
             setUserMail(session?.user.email);
           }
           break;

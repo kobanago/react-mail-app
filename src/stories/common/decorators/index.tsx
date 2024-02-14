@@ -79,9 +79,9 @@ export const createLoginMainPartsDecorator = (state: string) => {
   return loginMainPartsDecorator;
 };
 
-export const createSendMainPartsDecorator = (state: string) => {
+export const createSendMainPartsDecorator = (state: string, sendStateValue = 0) => {
   const resetDataAll = {
-    sendState: 0,
+    sendState: sendStateValue,
     resetTextValue: undefined,
     sendStateDispatch: () => {},
   };
