@@ -35,8 +35,6 @@ try {
           NODE_PATH: [],
           STORYBOOK: 'true',
           PUBLIC_URL: '.',
-          VITE_SUPABASE_ANON_KEY: 'dummy-key',
-          VITE_SUPABASE_URL: 'http://localhost:6006',
         };
       });
     var yt = Yr(() => {});
