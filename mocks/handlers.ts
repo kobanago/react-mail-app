@@ -58,4 +58,14 @@ export const handlers = [
       return HttpResponse.json(filteredData);
     }
   }),
+
+  http.post('/rest/v1/*', () => {
+    console.log('データ編集禁止');
+    return HttpResponse.json({ error: 'Not Edit Data' });
+  }),
+
+  http.get('/auth/v1/*', () => {
+    console.log('認証禁止');
+    return HttpResponse.json({ error: 'Not Auth' });
+  }),
 ];
