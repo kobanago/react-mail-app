@@ -12,6 +12,7 @@ const changeNamePersonList = async (
         const result = (await getAddressList(userId, item.id)) as AddressListType[];
         if (!result) return;
         const data = Array.isArray(result) ? result[0] : (result as AddressListType);
+        if (!data) return;
         const displayName = data.person_display_name
           ? data.person_display_name
           : item.name;
@@ -75,6 +76,7 @@ const changeNamePersonData = async (
     const result = (await getAddressList(userId, personData.id)) as AddressListType[];
     if (!result) throw new Error('something wrong');
     const data = Array.isArray(result) ? result[0] : (result as AddressListType);
+    if (!data) throw new Error('something wrong');
     newData = {
       ...personData,
       person_display_name: data.person_display_name ?? '',

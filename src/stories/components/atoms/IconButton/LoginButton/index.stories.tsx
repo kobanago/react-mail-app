@@ -15,8 +15,3 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const LoginButtonNormal: Story = {};
-export const LoginButtonDisable: Story = {
-  args: {
-    disabled: true,
-  },
-};
