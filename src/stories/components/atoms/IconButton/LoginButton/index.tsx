@@ -8,6 +8,7 @@ import { supabase } from '@/supabaseClinet';
 
 export const LoginButton = () => {
   const handleSignInWithGoogle = () => {
+    if (import.meta.env.STORYBOOK) return;
     supabase.auth
       .signInWithOAuth({
         provider: 'google',
