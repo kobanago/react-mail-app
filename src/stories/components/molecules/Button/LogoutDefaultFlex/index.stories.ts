@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LogoutDefaultFlex } from '.';
 
+import { createLoginMainPartsDecorator } from '@/stories/common/decorators';
+
 const meta = {
   title: 'Molecules/Button/LogoutDefaultFlex',
   component: LogoutDefaultFlex,
@@ -14,4 +16,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LogoutDefaultFlexExistData: Story = {};
+export const LogoutDefaultFlexNormal: Story = {
+  decorators: createLoginMainPartsDecorator('not exist data'),
+};

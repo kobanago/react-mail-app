@@ -52,11 +52,13 @@ export const switchDataState = (state: string) => {
     case 'not exist data':
       return createMainData(userData[0], undefined, []);
     case 'exist data':
-      return createMainData(userData[0], personListData[1], [
+      return createMainData(userData[0], undefined, [
         personListData[1],
         personListData[2],
         personListData[3],
       ]);
+    case 'select data':
+      return createMainData(userData[0], personListData[1], [personListData[1]]);
   }
   return createMainData(undefined, undefined, []);
 };

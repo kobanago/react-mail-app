@@ -20,5 +20,5 @@ export const EditPersonMainPartsNoData: Story = {
   decorators: [createEditPersonMainPartsDecorator('not exist data')],
 };
 export const EditPersonMainPartsExistData: Story = {
-  decorators: [createEditPersonMainPartsDecorator('exist data')],
+  decorators: [createEditPersonMainPartsDecorator('select data')],
 };

@@ -30,11 +30,11 @@ export const CommonTemplateMessage: Story = {
   args: {
     title: 'MESSAGE',
   },
-  decorators: createSendMainPartsDecorator('exist data'),
+  decorators: createSendMainPartsDecorator('select data'),
 };
 export const CommonTemplatePerson: Story = {
   args: {
     title: 'PERSON',
   },
-  decorators: createEditPersonMainPartsDecorator('exist data'),
+  decorators: createEditPersonMainPartsDecorator('select data'),
 };
