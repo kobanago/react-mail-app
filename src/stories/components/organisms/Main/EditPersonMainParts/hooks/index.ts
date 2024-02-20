@@ -1,13 +1,11 @@
 import { ChangeEventHandler, useContext, useEffect, useState } from 'react';
 
-import { getTargetData } from '@/controllers';
 import {
   SetPersonDataContext,
   SetPersonListContext,
   SetUserDataContext,
 } from '@/stories/common/context';
-import { createPersonData, createPersonList } from '@/stories/common/functions';
-import { UserDataType } from '@/stories/common/types/db';
+import { createPersonList, getParsonDataFromId } from '@/stories/common/functions';
 import { useSelectPersonHandlerType } from '@/stories/common/types/functions';
 
 export const useSelectPersonHandler = ({
@@ -44,17 +42,11 @@ export const useSelectPersonHandler = ({
       setSelectEventFlg(true);
       return;
     }
-    getTargetData('users', 'id', event.currentTarget.id)
+    getParsonDataFromId(event.currentTarget.id, userData)
       .then((result) => {
         if (!result) throw new Error('something wrong');
-        const tmpData = result as UserDataType[];
-        if (!tmpData.length) throw new Error('something wrong');
-        const data = tmpData[0];
-        createPersonData(userData.id, data.mail, data).then((newData) => {
-          if (!newData) throw new Error('something wrong');
-          personDataDispatch({ type: 'SUCCESS', payload: newData });
-          setSelectEventFlg(true);
-        });
+        personDataDispatch({ type: 'SUCCESS', payload: result });
+        setSelectEventFlg(true);
       })
       .catch((error) => {
         console.error(error);

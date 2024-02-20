@@ -1,15 +1,13 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useContext } from 'react';
 
-import { getTargetData } from '@/controllers';
 import {
   InitChangeEventStateContext,
   ResetSendStateContext,
   SetPersonDataContext,
   SetUserDataContext,
 } from '@/stories/common/context';
-import { createPersonData } from '@/stories/common/functions';
-import { OriginalUserDataType } from '@/stories/common/types/db';
+import { getParsonDataFromId } from '@/stories/common/functions';
 
 export const useSelectPersonEvent = () => {
   const { initialChangeOccurred, setInitialChangeOccurred } =
@@ -20,15 +18,10 @@ export const useSelectPersonEvent = () => {
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
     if (personDataDispatch) {
-      getTargetData('users', 'id', event.target.value as string)
+      getParsonDataFromId(event.target.value as string, userData)
         .then((result) => {
           if (!result) throw new Error('something wrong');
-          const data = result as OriginalUserDataType[];
-          if (!data.length || !userData) throw new Error('something wrong');
-          createPersonData(userData.id, data[0].mail, data[0]).then((newData) => {
-            if (!newData) throw new Error('something wrong');
-            personDataDispatch({ type: 'SUCCESS', payload: newData });
-          });
+          personDataDispatch({ type: 'SUCCESS', payload: result });
         })
         .catch((error) => {
           console.error(error);

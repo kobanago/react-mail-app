@@ -121,3 +121,24 @@ export const createPersonData = async (
     throw error;
   }
 };
+
+export const getParsonDataFromId = async (
+  personId: string,
+  userData: OriginalUserDataType | null | undefined,
+): Promise<UserDataType> => {
+  try {
+    let newData = undefined;
+    if (!userData) throw new Error('something wrong');
+    const personData = await getTargetData('users', 'id', personId.toString());
+    if (!personData) throw new Error('something wrong');
+    const tmpData = personData as UserDataType[];
+    if (!tmpData.length) throw new Error('something wrong');
+    const data = tmpData[0];
+    newData = await createPersonData(userData.id, data.mail, data);
+    if (!newData) throw new Error('something wrong');
+    return newData;
+  } catch (error) {
+    console.error('Error creating personData:', error);
+    throw error;
+  }
+};
