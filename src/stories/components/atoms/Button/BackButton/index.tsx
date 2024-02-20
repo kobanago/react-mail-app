@@ -10,7 +10,6 @@ export const BackButton: FC = () => {
     <BasicButton
       label={'go back'}
       disabled={false}
-      linkFlg={true}
       to='/'
       clickHandler={() => {
         personDataDispatch && personDataDispatch({ type: 'RESET', payload: undefined });

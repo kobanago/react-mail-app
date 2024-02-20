@@ -19,19 +19,9 @@ export const LogoutButtonFlex: FC<LogoutButtonFlexProps> = ({
       {userData ? (
         <>
           {dataExistFlg && (
-            <IconButton
-              icon={<EditNoteIcon />}
-              to='/message'
-              label={'edit message'}
-              linkFlg={true}
-            />
+            <IconButton icon={<EditNoteIcon />} to='/message' label={'edit message'} />
           )}
-          <IconButton
-            icon={<PersonAddIcon />}
-            to='/person'
-            label={'edit person'}
-            linkFlg={true}
-          />
+          <IconButton icon={<PersonAddIcon />} to='/person' label={'edit person'} />
         </>
       ) : (
         <RegisterButton />

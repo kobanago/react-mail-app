@@ -12,18 +12,11 @@ export const IconButton: FC<IconButtonProps> = ({
   clickHandler,
   label,
   disabled,
-  linkFlg,
   to,
   ...props
 }: IconButtonProps) => {
   return (
-    <ButtonForIcon
-      {...props}
-      clickHandler={clickHandler}
-      disabled={disabled}
-      linkFlg={linkFlg}
-      to={to}
-    >
+    <ButtonForIcon {...props} clickHandler={clickHandler} disabled={disabled} to={to}>
       <Icon fontSize='large' icon={icon} />
       <Typography variant='body1' color={theme.palette.text.primary} align='right'>
         {`\u00a0\u00a0${label}`}
