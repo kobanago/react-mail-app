@@ -10,7 +10,6 @@ import {
   SetPersonDataContext,
   SetUserDataContext,
   ResetSendStateContext,
-  SetLinkClickFlgContext,
   SetProcessFlgContext,
   ValidateResultContext,
 } from '@/stories/common/context';
@@ -115,18 +114,12 @@ export const createEditPersonMainPartsDecorator = (state: string) => {
     },
     processFlgDispatch: () => {},
   };
-  const linkClickFlgAll = {
-    listClickFlg: false,
-    setListClickFlg: () => {},
-  };
   const commonDecorator = createCommonDecorator(state);
   const editPersonMainPartsDecorator = (Story: ComponentType) => (
     <BrowserRouter>
       <ValidateResultContext.Provider value={validateAll}>
         <SetProcessFlgContext.Provider value={processFlgAll}>
-          <SetLinkClickFlgContext.Provider value={linkClickFlgAll}>
-            {commonDecorator(Story)}
-          </SetLinkClickFlgContext.Provider>
+          {commonDecorator(Story)}
         </SetProcessFlgContext.Provider>
       </ValidateResultContext.Provider>
     </BrowserRouter>

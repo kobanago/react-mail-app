@@ -4,13 +4,13 @@ import { useSelectPersonHandler } from './hooks';
 import { PersonForms } from '../../Forms/PersonForms';
 
 import {
-  SetLinkClickFlgContext,
   SetPersonDataContext,
   SetPersonListContext,
   SetProcessFlgContext,
   ValidateResultContext,
 } from '@/stories/common/context';
 import { setProcessFlgReducer } from '@/stories/common/reducers';
+import { useLinkClickFlgStore } from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
@@ -24,10 +24,7 @@ export const EditPersonMainParts = () => {
     removeProcessingFlg: false,
   });
   const { personData } = useContext(SetPersonDataContext) ?? {};
-  const [listClickFlg, setListClickFlg] = useReducer(
-    (state: boolean, action: boolean) => (action !== undefined ? action : state),
-    false,
-  );
+  const setListClickFlg = useLinkClickFlgStore((state) => state.setListClickFlg);
   const [validateError, setValidateError] = useReducer(
     (state: boolean, action: boolean) => (action !== undefined ? action : state),
     false,
@@ -55,16 +52,14 @@ export const EditPersonMainParts = () => {
   return (
     <ValidateResultContext.Provider value={{ validateError, setValidateError }}>
       <SetProcessFlgContext.Provider value={{ processFlg, processFlgDispatch }}>
-        <SetLinkClickFlgContext.Provider value={{ listClickFlg, setListClickFlg }}>
-          <Box>
-            {personList && personList.length ? (
-              <PersonList selectHandler={selectPersonHandler} />
-            ) : (
-              <BodySubText>no data</BodySubText>
-            )}
-            <PersonForms />
-          </Box>
-        </SetLinkClickFlgContext.Provider>
+        <Box>
+          {personList && personList.length ? (
+            <PersonList selectHandler={selectPersonHandler} />
+          ) : (
+            <BodySubText>no data</BodySubText>
+          )}
+          <PersonForms />
+        </Box>
       </SetProcessFlgContext.Provider>
     </ValidateResultContext.Provider>
   );

@@ -1,10 +1,7 @@
 import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
 
-import {
-  SetLinkClickFlgContext,
-  SetPersonDataContext,
-  SetProcessFlgContext,
-} from '@/stories/common/context';
+import { SetPersonDataContext, SetProcessFlgContext } from '@/stories/common/context';
+import { useLinkClickFlgStore } from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
 import { FormClearState } from '@/stories/common/types/reducers';
 
@@ -17,18 +14,21 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   const [operationMessage, setOperationMessage] = useState(initialOperationMessage);
   const { personData } = useContext(SetPersonDataContext) ?? {};
   const { processFlgDispatch } = useContext(SetProcessFlgContext) ?? {};
-  const { listClickFlg, setListClickFlg } = useContext(SetLinkClickFlgContext) ?? {};
+  const { listClickFlg, setListClickFlg } = useLinkClickFlgStore((state) => ({
+    listClickFlg: state.listClickFlg,
+    setListClickFlg: state.setListClickFlg,
+  }));
 
   const inputNameHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     setPersonName(event.target.value);
     if (clearFlg) dispatch(false);
-    if (setListClickFlg) setListClickFlg(false);
+    setListClickFlg(false);
   };
 
   const inputMailHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     setPersonMail(event.target.value);
     if (clearFlg) dispatch(false);
-    if (setListClickFlg) setListClickFlg(false);
+    setListClickFlg(false);
   };
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
 
   const clearClickHandler = useCallback(() => {
     dispatch(true);
-    if (setListClickFlg) setListClickFlg(false);
+    setListClickFlg(false);
     setPersonName('');
     setPersonMail('');
   }, [dispatch]);

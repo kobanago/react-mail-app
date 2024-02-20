@@ -11,7 +11,6 @@ import {
   SetProcessFlgContextType,
   SetMessageContextType,
 } from '../types/context';
-import { SetLinkClickFlgType } from '../types/reducers';
 
 export const ValidateResultContext = createContext<ValidateResultType | undefined>(
   undefined,
@@ -38,8 +37,5 @@ export const SetProcessFlgContext = createContext<SetProcessFlgContextType | und
   undefined,
 );
 export const SetMessageContext = createContext<SetMessageContextType | undefined>(
-  undefined,
-);
-export const SetLinkClickFlgContext = createContext<SetLinkClickFlgType | undefined>(
   undefined,
 );

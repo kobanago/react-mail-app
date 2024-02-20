@@ -33,7 +33,3 @@ export type SetProcessFlgActionType = {
   type: string;
   payload: boolean;
 };
-export type SetLinkClickFlgType = {
-  listClickFlg: boolean;
-  setListClickFlg: React.Dispatch<boolean>;
-};
