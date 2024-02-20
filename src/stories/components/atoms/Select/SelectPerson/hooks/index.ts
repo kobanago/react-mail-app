@@ -12,7 +12,7 @@ import { getParsonDataFromId } from '@/stories/common/functions';
 export const useSelectPersonEvent = () => {
   const { initialChangeOccurred, setInitialChangeOccurred } =
     useContext(InitChangeEventStateContext) ?? {};
-  const { sendState, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
+  const { sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
   const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
   const { userData } = useContext(SetUserDataContext) ?? {};
 
@@ -31,9 +31,7 @@ export const useSelectPersonEvent = () => {
     if (!initialChangeOccurred && setInitialChangeOccurred) {
       setInitialChangeOccurred(true);
     }
-    if (sendState === 2 && sendStateDispatch) {
-      sendStateDispatch('INIT');
-    }
+    if (sendStateDispatch) sendStateDispatch('INIT');
   };
 
   return { handleChange };
