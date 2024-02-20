@@ -17,5 +17,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const SendMainPartsNormal: Story = {
-  decorators: [createSendMainPartsDecorator('exist data')],
+  decorators: [createSendMainPartsDecorator('select data')],
 };

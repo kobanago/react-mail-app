@@ -20,5 +20,5 @@ export const LogsMainPartsNoExistData: Story = {
   decorators: createSendMainPartsDecorator('not exist data'),
 };
 export const LogsMainPartsExistData: Story = {
-  decorators: createSendMainPartsDecorator('exist data'),
+  decorators: createSendMainPartsDecorator('select data'),
 };

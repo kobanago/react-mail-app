@@ -17,9 +17,15 @@ export const handlers = [
   http.get('/rest/v1/users', ({ request }) => {
     const urlSearchParams = new URLSearchParams(request.url.split('?')[1]);
     const user_id = urlSearchParams.get('id');
+    const user_mail = urlSearchParams.get('mail');
     if (user_id) {
       const parsed_user_id = parseInt(user_id.slice(3));
       const filteredData = usersData.filter((item) => item.id === parsed_user_id);
+      return HttpResponse.json(filteredData);
+    }
+    if (user_mail) {
+      const parsed_user_mail = user_mail.slice(3);
+      const filteredData = usersData.filter((item) => item.mail === parsed_user_mail);
       return HttpResponse.json(filteredData);
     }
   }),
@@ -57,6 +63,16 @@ export const handlers = [
       );
       return HttpResponse.json(filteredData);
     }
+  }),
+
+  http.patch('/rest/v1/*', () => {
+    console.log('データ編集禁止');
+    return HttpResponse.json({ error: 'Not Edit Data' });
+  }),
+
+  http.delete('/rest/v1/*', () => {
+    console.log('データ編集禁止');
+    return HttpResponse.json({ error: 'Not Edit Data' });
   }),
 
   http.post('/rest/v1/*', () => {
