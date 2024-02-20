@@ -3,21 +3,16 @@ import { useContext, useEffect, useReducer } from 'react';
 import { useMessageFormsFunctions } from './hooks';
 
 import { insertData } from '@/controllers';
-import {
-  ResetSendStateContext,
-  SetMessageContext,
-  ValidateResultContext,
-} from '@/stories/common/context';
-import { useInitChangeEventStore } from '@/stories/common/stores';
+import { ResetSendStateContext, SetMessageContext } from '@/stories/common/context';
+import { useInitChangeEventStore, useValidateResultStore } from '@/stories/common/stores';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { SendStateButton } from '@/stories/components/molecules/Button/SendStateButton';
 import { MessageForm } from '@/stories/components/molecules/Form/MessageForm';
 
 export const MessageForms = () => {
-  const [validateError, setValidateError] = useReducer(
-    (state: boolean, action: boolean) => (action !== undefined ? action : state),
-    false,
-  );
+  const { validateError } = useValidateResultStore((state) => ({
+    validateError: state.validateError,
+  }));
   const { initialChangeOccurred, initialInputOccurred } = useInitChangeEventStore(
     (state) => ({
       initialChangeOccurred: state.initialChangeOccurred,
@@ -59,17 +54,15 @@ export const MessageForms = () => {
   };
 
   return (
-    <ValidateResultContext.Provider value={{ validateError, setValidateError }}>
-      <SetMessageContext.Provider value={{ message, messageDispatch }}>
-        <Box>
-          <MessageForm />
-          <SendStateButton
-            keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
-            sendHandler={handleClickSendMessage}
-            disabled={disableFlg}
-          />
-        </Box>
-      </SetMessageContext.Provider>
-    </ValidateResultContext.Provider>
+    <SetMessageContext.Provider value={{ message, messageDispatch }}>
+      <Box>
+        <MessageForm />
+        <SendStateButton
+          keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
+          sendHandler={handleClickSendMessage}
+          disabled={disableFlg}
+        />
+      </Box>
+    </SetMessageContext.Provider>
   );
 };

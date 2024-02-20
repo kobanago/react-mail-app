@@ -11,7 +11,6 @@ import {
   SetUserDataContext,
   ResetSendStateContext,
   SetProcessFlgContext,
-  ValidateResultContext,
 } from '@/stories/common/context';
 import {
   SetUserDataContextType,
@@ -102,10 +101,6 @@ export const createSendMainPartsDecorator = (state: string, sendStateValue = 0) 
 };
 
 export const createEditPersonMainPartsDecorator = (state: string) => {
-  const validateAll = {
-    validateError: false,
-    setValidateError: () => {},
-  };
   const processFlgAll = {
     processFlg: {
       addProcessingFlg: false,
@@ -117,11 +112,9 @@ export const createEditPersonMainPartsDecorator = (state: string) => {
   const commonDecorator = createCommonDecorator(state);
   const editPersonMainPartsDecorator = (Story: ComponentType) => (
     <BrowserRouter>
-      <ValidateResultContext.Provider value={validateAll}>
-        <SetProcessFlgContext.Provider value={processFlgAll}>
-          {commonDecorator(Story)}
-        </SetProcessFlgContext.Provider>
-      </ValidateResultContext.Provider>
+      <SetProcessFlgContext.Provider value={processFlgAll}>
+        {commonDecorator(Story)}
+      </SetProcessFlgContext.Provider>
     </BrowserRouter>
   );
   return editPersonMainPartsDecorator;

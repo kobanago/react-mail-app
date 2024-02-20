@@ -9,10 +9,6 @@ import {
   SetProcessFlgActionType,
 } from '../reducers';
 
-export type ValidateResultType = {
-  validateError: boolean;
-  setValidateError: React.Dispatch<boolean>;
-};
 export type ResetSendStateContextType = {
   sendState: number;
   resetTextValue: string | undefined;

@@ -1,15 +1,8 @@
-import {
-  ChangeEventHandler,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEventHandler, useEffect, useMemo, useRef, useState } from 'react';
 
 import { TextFieldProps } from '../types';
 
-import { ValidateResultContext } from '@/stories/common/context';
+import { useValidateResultStore } from '@/stories/common/stores';
 
 export const useTextFieldFunctions = ({
   inputHandler,
@@ -20,7 +13,9 @@ export const useTextFieldFunctions = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputError, setInputError] = useState(false);
   const memoizedInputError = useMemo(() => inputError, [inputError]);
-  const { setValidateError } = useContext(ValidateResultContext) ?? {};
+  const { setValidateError } = useValidateResultStore((state) => ({
+    setValidateError: state.setValidateError,
+  }));
   const [textValue, setTextValue] = useState('');
 
   const handleChangeInputText: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -44,7 +39,7 @@ export const useTextFieldFunctions = ({
 
   useEffect(() => {
     if (resetTextValue === '') setTextValue('');
-    if (setValidateError) setValidateError(inputError);
+    setValidateError(inputError);
   }, [memoizedInputError, resetTextValue]);
 
   return {

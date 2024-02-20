@@ -7,7 +7,6 @@ import {
   SetPersonDataContext,
   SetPersonListContext,
   SetProcessFlgContext,
-  ValidateResultContext,
 } from '@/stories/common/context';
 import { setProcessFlgReducer } from '@/stories/common/reducers';
 import { useLinkClickFlgStore } from '@/stories/common/stores';
@@ -25,10 +24,6 @@ export const EditPersonMainParts = () => {
   });
   const { personData } = useContext(SetPersonDataContext) ?? {};
   const setListClickFlg = useLinkClickFlgStore((state) => state.setListClickFlg);
-  const [validateError, setValidateError] = useReducer(
-    (state: boolean, action: boolean) => (action !== undefined ? action : state),
-    false,
-  );
   const [selectEventFlg, setSelectEventFlg] = useState(false);
   const { selectPersonHandler, nameHandler, mailHandler } = useSelectPersonHandler({
     processFlg,
@@ -50,17 +45,15 @@ export const EditPersonMainParts = () => {
   }, [personData, selectEventFlg]);
 
   return (
-    <ValidateResultContext.Provider value={{ validateError, setValidateError }}>
-      <SetProcessFlgContext.Provider value={{ processFlg, processFlgDispatch }}>
-        <Box>
-          {personList && personList.length ? (
-            <PersonList selectHandler={selectPersonHandler} />
-          ) : (
-            <BodySubText>no data</BodySubText>
-          )}
-          <PersonForms />
-        </Box>
-      </SetProcessFlgContext.Provider>
-    </ValidateResultContext.Provider>
+    <SetProcessFlgContext.Provider value={{ processFlg, processFlgDispatch }}>
+      <Box>
+        {personList && personList.length ? (
+          <PersonList selectHandler={selectPersonHandler} />
+        ) : (
+          <BodySubText>no data</BodySubText>
+        )}
+        <PersonForms />
+      </Box>
+    </SetProcessFlgContext.Provider>
   );
 };
