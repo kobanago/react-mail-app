@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { getMessageList } from '@/controllers';
 import {
@@ -15,7 +15,7 @@ export const useLogsMainFunctions = () => {
   const [messageLog, setMessageLog] = useState<MessageType[]>([]);
   const { sendState } = useContext(ResetSendStateContext) ?? {};
 
-  const setMessageList = async () => {
+  const setMessageList = useCallback(async () => {
     try {
       if (!userData || !personData) return;
       const orgMessageList = await getMessageList(userData.id, personData.id);
@@ -24,15 +24,15 @@ export const useLogsMainFunctions = () => {
       console.error('Error fetching display logs:', error);
       alert('error occured!');
     }
-  };
+  }, [personData, sendState]);
 
-  const handleClickDisplayLogs = () => {
+  const handleClickDisplayLogs = useCallback(() => {
     if (displayLogFlg) {
       setDisplayLogFlg(false);
     } else {
       setDisplayLogFlg(true);
     }
-  };
+  }, [displayLogFlg]);
 
   useEffect(() => {
     (async () => {

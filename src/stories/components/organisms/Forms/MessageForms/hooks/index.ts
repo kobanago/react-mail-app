@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { getAddressList, getAddressListId } from '@/controllers';
 import { SetPersonDataContext, SetUserDataContext } from '@/stories/common/context';
@@ -17,7 +17,7 @@ export const useMessageFormsFunctions = (sendState: number, message: string) => 
     })();
   }, [sendState]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     if (!userData || !personData) return;
     const { person_display_name } = personData as UserDataType;
     try {
@@ -37,56 +37,62 @@ export const useMessageFormsFunctions = (sendState: number, message: string) => 
       console.error('Error message_list update:', error);
       alert('error occured!');
     }
-  };
+  }, [personData, sendState]);
 
-  const createData = async (personFlg: boolean, personDisplayName: string) => {
-    try {
-      if (!userData || !personData) return;
-      const userId = !personFlg ? userData.id : personData.id;
-      const personId = !personFlg ? personData.id : userData.id;
-      const userUuid = !personFlg ? userData.uuid : personData.uuid;
-      const addressListId = await getAddressListId(userId, personId);
-      if (!addressListId) return;
-      const userMessageData = setData(
-        personFlg,
-        addressListId,
-        personDisplayName,
-        userUuid,
-      );
-      return userMessageData;
-    } catch (error) {
-      console.error('Error message_list update:', error);
-      alert('error occured!');
-    }
-  };
+  const createData = useCallback(
+    async (personFlg: boolean, personDisplayName: string) => {
+      try {
+        if (!userData || !personData) return;
+        const userId = !personFlg ? userData.id : personData.id;
+        const personId = !personFlg ? personData.id : userData.id;
+        const userUuid = !personFlg ? userData.uuid : personData.uuid;
+        const addressListId = await getAddressListId(userId, personId);
+        if (!addressListId) return;
+        const userMessageData = setData(
+          personFlg,
+          addressListId,
+          personDisplayName,
+          userUuid,
+        );
+        return userMessageData;
+      } catch (error) {
+        console.error('Error message_list update:', error);
+        alert('error occured!');
+      }
+    },
+    [personData, message],
+  );
 
-  const setData = (
-    personFlg: boolean,
-    addressListId: number,
-    displayName: string,
-    uuid: string,
-  ): MessageType | undefined => {
-    if (!userData || !personData || !message || !addressListId) return;
-    const toName = !personFlg
-      ? displayName
+  const setData = useCallback(
+    (
+      personFlg: boolean,
+      addressListId: number,
+      displayName: string,
+      uuid: string,
+    ): MessageType | undefined => {
+      if (!userData || !personData || !message || !addressListId) return;
+      const toName = !personFlg
         ? displayName
-        : personData.name
-      : personData.name;
-    const fromName = !personFlg ? userData.name : displayName;
-    const time = new Date();
-    const sort_time = time.getTime();
-    const convert_time = time.toLocaleString();
-    const data: MessageType = {
-      address_list_id: addressListId,
-      to_user: toName,
-      from_user: fromName,
-      time: convert_time,
-      sort_time: sort_time,
-      comment: message,
-      send_id: userData.id,
-      uuid: uuid,
-    };
-    return data;
-  };
+          ? displayName
+          : personData.name
+        : personData.name;
+      const fromName = !personFlg ? userData.name : displayName;
+      const time = new Date();
+      const sort_time = time.getTime();
+      const convert_time = time.toLocaleString();
+      const data: MessageType = {
+        address_list_id: addressListId,
+        to_user: toName,
+        from_user: fromName,
+        time: convert_time,
+        sort_time: sort_time,
+        comment: message,
+        send_id: userData.id,
+        uuid: uuid,
+      };
+      return data;
+    },
+    [personData, message],
+  );
   return { messageUserData, messagePersonData };
 };

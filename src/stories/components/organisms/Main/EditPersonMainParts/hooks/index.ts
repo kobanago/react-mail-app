@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useContext, useEffect, useState } from 'react';
+import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
 
 import {
   SetPersonDataContext,
@@ -54,13 +54,13 @@ export const useSelectPersonHandler = ({
       });
   };
 
-  const nameHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const nameHandler: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setPersonName(event.target.value);
-  };
+  }, []);
 
-  const mailHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const mailHandler: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setPersonMail(event.target.value);
-  };
+  }, []);
 
   return { selectPersonHandler, nameHandler, mailHandler };
 };

@@ -1,5 +1,5 @@
 import { SelectChangeEvent } from '@mui/material';
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 
 import {
   InitChangeEventStateContext,
@@ -16,7 +16,7 @@ export const useSelectPersonEvent = () => {
   const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
   const { userData } = useContext(SetUserDataContext) ?? {};
 
-  const handleChange = (event: SelectChangeEvent<unknown>) => {
+  const handleChange = useCallback((event: SelectChangeEvent<unknown>) => {
     if (personDataDispatch) {
       getParsonDataFromId(event.target.value as string, userData)
         .then((result) => {
@@ -32,7 +32,7 @@ export const useSelectPersonEvent = () => {
       setInitialChangeOccurred(true);
     }
     if (sendStateDispatch) sendStateDispatch('INIT');
-  };
+  }, []);
 
   return { handleChange };
 };
