@@ -13,14 +13,6 @@ export type ValidateResultType = {
   validateError: boolean;
   setValidateError: React.Dispatch<boolean>;
 };
-export type InitChangeEventStateType = {
-  initialChangeOccurred: boolean;
-  setInitialChangeOccurred: React.Dispatch<React.SetStateAction<boolean>>;
-};
-export type InitInputEventStateType = {
-  initialInputOccurred: boolean;
-  setInitialInputOccurred: React.Dispatch<React.SetStateAction<boolean>>;
-};
 export type ResetSendStateContextType = {
   sendState: number;
   resetTextValue: string | undefined;

@@ -2,8 +2,6 @@ import { createContext } from 'react';
 
 import {
   ValidateResultType,
-  InitChangeEventStateType,
-  InitInputEventStateType,
   ResetSendStateContextType,
   SetPersonDataContextType,
   SetUserDataContextType,
@@ -15,12 +13,6 @@ import {
 export const ValidateResultContext = createContext<ValidateResultType | undefined>(
   undefined,
 );
-export const InitChangeEventStateContext = createContext<
-  InitChangeEventStateType | undefined
->(undefined);
-export const InitInputEventStateContext = createContext<
-  InitInputEventStateType | undefined
->(undefined);
 export const ResetSendStateContext = createContext<ResetSendStateContextType | undefined>(
   undefined,
 );

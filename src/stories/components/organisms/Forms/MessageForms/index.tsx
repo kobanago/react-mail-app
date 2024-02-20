@@ -1,15 +1,14 @@
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 
 import { useMessageFormsFunctions } from './hooks';
 
 import { insertData } from '@/controllers';
 import {
-  InitChangeEventStateContext,
-  InitInputEventStateContext,
   ResetSendStateContext,
   SetMessageContext,
   ValidateResultContext,
 } from '@/stories/common/context';
+import { useInitChangeEventStore } from '@/stories/common/stores';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { SendStateButton } from '@/stories/components/molecules/Button/SendStateButton';
 import { MessageForm } from '@/stories/components/molecules/Form/MessageForm';
@@ -19,8 +18,12 @@ export const MessageForms = () => {
     (state: boolean, action: boolean) => (action !== undefined ? action : state),
     false,
   );
-  const [initialChangeOccurred, setInitialChangeOccurred] = useState(false);
-  const [initialInputOccurred, setInitialInputOccurred] = useState(false);
+  const { initialChangeOccurred, initialInputOccurred } = useInitChangeEventStore(
+    (state) => ({
+      initialChangeOccurred: state.initialChangeOccurred,
+      initialInputOccurred: state.initialInputOccurred,
+    }),
+  );
   const { sendState, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
   const disableFlg = validateError
     ? validateError
@@ -57,24 +60,16 @@ export const MessageForms = () => {
 
   return (
     <ValidateResultContext.Provider value={{ validateError, setValidateError }}>
-      <InitChangeEventStateContext.Provider
-        value={{ initialChangeOccurred, setInitialChangeOccurred }}
-      >
-        <InitInputEventStateContext.Provider
-          value={{ initialInputOccurred, setInitialInputOccurred }}
-        >
-          <SetMessageContext.Provider value={{ message, messageDispatch }}>
-            <Box>
-              <MessageForm />
-              <SendStateButton
-                keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
-                sendHandler={handleClickSendMessage}
-                disabled={disableFlg}
-              />
-            </Box>
-          </SetMessageContext.Provider>
-        </InitInputEventStateContext.Provider>
-      </InitChangeEventStateContext.Provider>
+      <SetMessageContext.Provider value={{ message, messageDispatch }}>
+        <Box>
+          <MessageForm />
+          <SendStateButton
+            keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
+            sendHandler={handleClickSendMessage}
+            disabled={disableFlg}
+          />
+        </Box>
+      </SetMessageContext.Provider>
     </ValidateResultContext.Provider>
   );
 };

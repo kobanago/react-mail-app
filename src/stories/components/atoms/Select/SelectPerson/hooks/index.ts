@@ -2,16 +2,20 @@ import { SelectChangeEvent } from '@mui/material';
 import { useCallback, useContext } from 'react';
 
 import {
-  InitChangeEventStateContext,
   ResetSendStateContext,
   SetPersonDataContext,
   SetUserDataContext,
 } from '@/stories/common/context';
 import { getParsonDataFromId } from '@/stories/common/functions';
+import { useInitChangeEventStore } from '@/stories/common/stores';
 
 export const useSelectPersonEvent = () => {
-  const { initialChangeOccurred, setInitialChangeOccurred } =
-    useContext(InitChangeEventStateContext) ?? {};
+  const { initialChangeOccurred, setInitialChangeOccurred } = useInitChangeEventStore(
+    (state) => ({
+      initialChangeOccurred: state.initialChangeOccurred,
+      setInitialChangeOccurred: state.setInitialChangeOccurred,
+    }),
+  );
   const { sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
   const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
   const { userData } = useContext(SetUserDataContext) ?? {};
@@ -28,9 +32,7 @@ export const useSelectPersonEvent = () => {
           personDataDispatch({ type: 'ERROR', payload: undefined });
         });
     }
-    if (!initialChangeOccurred && setInitialChangeOccurred) {
-      setInitialChangeOccurred(true);
-    }
+    if (!initialChangeOccurred) setInitialChangeOccurred(true);
     if (sendStateDispatch) sendStateDispatch('INIT');
   }, []);
 
