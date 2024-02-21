@@ -1,12 +1,12 @@
-import { MouseEventHandler, useCallback, useContext, useEffect, useReducer } from 'react';
+import { MouseEventHandler, useCallback, useEffect, useReducer } from 'react';
 
 import { processResultFunc } from './functions';
 import { useFormFunctions } from './hooks';
 
-import { SetProcessFlgContext } from '@/stories/common/context';
 import {
   usePersonDataStore,
   usePersonListStore,
+  useProcessFlgStore,
   useUserDataStore,
   useValidateResultStore,
 } from '@/stories/common/stores';
@@ -38,7 +38,11 @@ export const PersonForm = () => {
     inputMailHandler,
   } = useFormFunctions({ clearFlg, dispatch });
 
-  const { processFlg } = useContext(SetProcessFlgContext) ?? {};
+  const {
+    processFlg: { addFlg, editFlg, removeFlg },
+  } = useProcessFlgStore((state) => ({
+    processFlg: state.processFlg,
+  }));
   const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   const { personData, setPersonData, resetPersonData } = usePersonDataStore((state) => ({
     personData: state.personData,
@@ -52,10 +56,6 @@ export const PersonForm = () => {
   const { validateError } = useValidateResultStore((state) => ({
     validateError: state.validateError,
   }));
-  const { addProcessingFlg, editProcessingFlg, removeProcessingFlg } = processFlg || {};
-  const addFlg = addProcessingFlg ?? false;
-  const editFlg = editProcessingFlg ?? false;
-  const removeFlg = removeProcessingFlg ?? false;
 
   const FormButtonClickHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
     const state = event.currentTarget.innerText;

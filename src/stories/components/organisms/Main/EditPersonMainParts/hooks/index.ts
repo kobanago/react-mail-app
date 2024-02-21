@@ -3,15 +3,19 @@ import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
 import {
   usePersonDataStore,
   usePersonListStore,
+  useProcessFlgStore,
   useUserDataStore,
 } from '@/stories/common/stores';
 import { useSelectPersonHandlerType } from '@/stories/common/types/functions';
 
 export const useSelectPersonHandler = ({
-  processFlg,
   setSelectEventFlg,
 }: useSelectPersonHandlerType) => {
-  const { editProcessingFlg, removeProcessingFlg } = processFlg;
+  const {
+    processFlg: { editFlg, removeFlg },
+  } = useProcessFlgStore((state) => ({
+    processFlg: state.processFlg,
+  }));
   const { personList, setPersonList } = usePersonListStore((state) => ({
     personList: state.personList,
     setPersonList: state.setPersonList,
@@ -39,7 +43,7 @@ export const useSelectPersonHandler = ({
   const selectPersonHandler: React.MouseEventHandler<HTMLLIElement> = (
     event,
   ): boolean | undefined => {
-    if (!userData || (!editProcessingFlg && !removeProcessingFlg)) return;
+    if (!userData || (!editFlg && !removeFlg)) return;
     if (personData && personData.id.toString() === event.currentTarget.id) {
       setSelectEventFlg(true);
       return;

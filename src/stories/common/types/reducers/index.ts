@@ -10,12 +10,16 @@ export type FormClearState = {
   clearFlg: boolean;
   dispatch: React.Dispatch<boolean>;
 };
-export type SetProcessFlgType = {
-  addProcessingFlg: boolean;
-  editProcessingFlg: boolean;
-  removeProcessingFlg: boolean;
+export type ProcessFlgType = {
+  addFlg: boolean;
+  editFlg: boolean;
+  removeFlg: boolean;
 };
 export type SetProcessFlgActionType = {
   type: string;
   payload: boolean;
+};
+export type SetProcessFlgType = {
+  processFlg: ProcessFlgType;
+  setProcessFlg: (action: SetProcessFlgActionType) => void;
 };

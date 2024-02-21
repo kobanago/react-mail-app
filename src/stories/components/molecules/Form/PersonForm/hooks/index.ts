@@ -1,7 +1,10 @@
-import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
+import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
 
-import { SetProcessFlgContext } from '@/stories/common/context';
-import { useLinkClickFlgStore, usePersonDataStore } from '@/stories/common/stores';
+import {
+  useLinkClickFlgStore,
+  usePersonDataStore,
+  useProcessFlgStore,
+} from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
 import { FormClearState } from '@/stories/common/types/reducers';
 
@@ -15,7 +18,9 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   const { personData } = usePersonDataStore((state) => ({
     personData: state.personData,
   }));
-  const { processFlgDispatch } = useContext(SetProcessFlgContext) ?? {};
+  const { setProcessFlg } = useProcessFlgStore((state) => ({
+    setProcessFlg: state.setProcessFlg,
+  }));
   const { listClickFlg, setListClickFlg } = useLinkClickFlgStore((state) => ({
     listClickFlg: state.listClickFlg,
     setListClickFlg: state.setListClickFlg,
@@ -47,11 +52,9 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
 
   const changeProcessFlg = useCallback(
     (stateType: string, value: boolean) => {
-      if (processFlgDispatch) {
-        processFlgDispatch({ type: stateType, payload: value });
-      }
+      setProcessFlg({ type: stateType, payload: value });
     },
-    [processFlgDispatch],
+    [setProcessFlg],
   );
 
   const switchProcessFlg = useCallback(

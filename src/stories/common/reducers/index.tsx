@@ -1,7 +1,7 @@
 import {
+  ProcessFlgType,
   ResetSendStateActionType,
   SelectPersonType,
-  SetProcessFlgType,
   SetProcessFlgActionType,
 } from '../types/reducers';
 export const resetSendStateFunc = (
@@ -26,16 +26,16 @@ export const selectPersonReducer = (
   return { ...state, ...action };
 };
 export const setProcessFlgReducer = (
-  state: SetProcessFlgType,
+  state: ProcessFlgType,
   action: SetProcessFlgActionType,
-) => {
+): ProcessFlgType => {
   switch (action.type) {
     case 'ADD':
-      return { ...state, addProcessingFlg: action.payload };
+      return { ...state, addFlg: action.payload };
     case 'EDIT':
-      return { ...state, editProcessingFlg: action.payload };
+      return { ...state, editFlg: action.payload };
     case 'REMOVE':
-      return { ...state, removeProcessingFlg: action.payload };
+      return { ...state, removeFlg: action.payload };
     default:
       return state;
   }
