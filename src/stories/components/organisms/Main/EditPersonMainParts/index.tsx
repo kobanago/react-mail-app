@@ -3,13 +3,9 @@ import { useContext, useEffect, useReducer, useState } from 'react';
 import { useSelectPersonHandler } from './hooks';
 import { PersonForms } from '../../Forms/PersonForms';
 
-import {
-  SetPersonDataContext,
-  SetPersonListContext,
-  SetProcessFlgContext,
-} from '@/stories/common/context';
+import { SetPersonListContext, SetProcessFlgContext } from '@/stories/common/context';
 import { setProcessFlgReducer } from '@/stories/common/reducers';
-import { useLinkClickFlgStore } from '@/stories/common/stores';
+import { useLinkClickFlgStore, usePersonDataStore } from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
@@ -22,7 +18,9 @@ export const EditPersonMainParts = () => {
     editProcessingFlg: false,
     removeProcessingFlg: false,
   });
-  const { personData } = useContext(SetPersonDataContext) ?? {};
+  const { personData } = usePersonDataStore((state) => ({
+    personData: state.personData,
+  }));
   const setListClickFlg = useLinkClickFlgStore((state) => state.setListClickFlg);
   const [selectEventFlg, setSelectEventFlg] = useState(false);
   const { selectPersonHandler, nameHandler, mailHandler } = useSelectPersonHandler({

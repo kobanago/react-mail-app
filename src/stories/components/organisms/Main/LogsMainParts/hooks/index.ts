@@ -1,12 +1,14 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { getMessageList } from '@/controllers';
-import { ResetSendStateContext, SetPersonDataContext } from '@/stories/common/context';
-import { useUserDataStore } from '@/stories/common/stores';
+import { ResetSendStateContext } from '@/stories/common/context';
+import { usePersonDataStore, useUserDataStore } from '@/stories/common/stores';
 import { MessageType } from '@/stories/common/types/db';
 
 export const useLogsMainFunctions = () => {
-  const { personData } = useContext(SetPersonDataContext) ?? {};
+  const { personData } = usePersonDataStore((state) => ({
+    personData: state.personData,
+  }));
   const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   const [displayLogFlg, setDisplayLogFlg] = useState(false);
   const [messageLog, setMessageLog] = useState<MessageType[]>([]);

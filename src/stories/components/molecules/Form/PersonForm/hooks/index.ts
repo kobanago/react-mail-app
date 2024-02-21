@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
 
-import { SetPersonDataContext, SetProcessFlgContext } from '@/stories/common/context';
-import { useLinkClickFlgStore } from '@/stories/common/stores';
+import { SetProcessFlgContext } from '@/stories/common/context';
+import { useLinkClickFlgStore, usePersonDataStore } from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
 import { FormClearState } from '@/stories/common/types/reducers';
 
@@ -12,7 +12,9 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   const [abortMailFlg, setAbortMailFlg] = useState(true);
   const initialOperationMessage = 'Select Operation Button';
   const [operationMessage, setOperationMessage] = useState(initialOperationMessage);
-  const { personData } = useContext(SetPersonDataContext) ?? {};
+  const { personData } = usePersonDataStore((state) => ({
+    personData: state.personData,
+  }));
   const { processFlgDispatch } = useContext(SetProcessFlgContext) ?? {};
   const { listClickFlg, setListClickFlg } = useLinkClickFlgStore((state) => ({
     listClickFlg: state.listClickFlg,

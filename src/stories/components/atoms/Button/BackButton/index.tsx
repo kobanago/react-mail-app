@@ -1,18 +1,20 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { Button as BasicButton } from '../Basic';
 
-import { SetPersonDataContext } from '@/stories/common/context';
+import { usePersonDataStore } from '@/stories/common/stores';
 
 export const BackButton: FC = () => {
-  const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
+  const { resetPersonData } = usePersonDataStore((state) => ({
+    resetPersonData: state.resetPersonData,
+  }));
   return (
     <BasicButton
       label={'go back'}
       disabled={false}
       to='/'
       clickHandler={() => {
-        personDataDispatch && personDataDispatch({ type: 'RESET', payload: undefined });
+        resetPersonData();
       }}
     />
   );

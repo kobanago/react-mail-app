@@ -1,4 +1,5 @@
 import { OriginalUserDataType, UserDataType, AddressListType } from '../types/db';
+import { ToCreateParsonDataType } from '../types/functions';
 
 import { getAddressList, getTargetData, getUsersList } from '@/controllers';
 
@@ -122,11 +123,11 @@ const createPersonData = async (
   }
 };
 
-export const setDataToCreateParsonData = async (
-  personId: string,
-  userData: OriginalUserDataType | null | undefined,
-  personData: OriginalUserDataType | UserDataType | undefined,
-): Promise<UserDataType> => {
+export const setDataToCreateParsonData = async ({
+  personId,
+  userData,
+  personData,
+}: ToCreateParsonDataType): Promise<UserDataType> => {
   try {
     let newData = undefined;
     let data = personData;

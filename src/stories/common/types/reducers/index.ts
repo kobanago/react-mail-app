@@ -1,12 +1,8 @@
-import { OriginalUserDataType, UserDataType } from '../db';
+import { UserDataType } from '../db';
 
 export type ResetSendStateActionType = {
   sendState: number;
   resetTextValue: string | undefined;
-};
-export type SetPersonDataType = {
-  type: string;
-  payload: OriginalUserDataType | UserDataType | undefined;
 };
 export type SetPersonListType = {
   type: string;

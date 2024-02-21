@@ -1,9 +1,12 @@
 import { create } from 'zustand';
 
+import { setDataToCreateParsonData } from '../functions';
 import { OriginalUserDataType } from '../types/db';
+import { ToCreateParsonDataType } from '../types/functions';
 import {
   InitChangeEventType,
   LinkClickFlgType,
+  SetPersonDataType,
   SetUserDataType,
   ValidateResultType,
 } from '../types/stores';
@@ -37,6 +40,28 @@ export const useUserDataStore = create<SetUserDataType>()((set) => ({
       )) as OriginalUserDataType[];
       const userData = res.length ? res[0] : null;
       set({ userData });
+    } catch (error) {
+      set({ error });
+    }
+  },
+}));
+export const usePersonDataStore = create<SetPersonDataType>()((set) => ({
+  personData: undefined,
+  error: null,
+  resetPersonData: () => set({ personData: undefined }),
+  setPersonData: async ({
+    personId,
+    userData,
+    personData: orgPersonData,
+  }: ToCreateParsonDataType) => {
+    try {
+      const res = await setDataToCreateParsonData({
+        personId,
+        userData,
+        personData: orgPersonData,
+      });
+      const personData = res ?? undefined;
+      set({ personData });
     } catch (error) {
       set({ error });
     }

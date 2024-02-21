@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 
 import { CommonTemplate } from '../../templates/CommonTemplate';
 
-import { SetPersonDataContext, SetPersonListContext } from '@/stories/common/context';
+import { SetPersonListContext } from '@/stories/common/context';
 import { createPersonList } from '@/stories/common/functions';
-import { useUserDataStore } from '@/stories/common/stores';
+import { usePersonDataStore, useUserDataStore } from '@/stories/common/stores';
 import { supabase } from '@/supabaseClinet';
 
 export const LoginPage = () => {
@@ -14,7 +14,9 @@ export const LoginPage = () => {
     setUserData: state.setUserData,
     resetUserData: state.resetUserData,
   }));
-  const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
+  const { resetPersonData } = usePersonDataStore((state) => ({
+    resetPersonData: state.resetPersonData,
+  }));
   const { personListDispatch } = useContext(SetPersonListContext) ?? {};
 
   supabase.auth.onAuthStateChange((event, session) => {
@@ -39,8 +41,8 @@ export const LoginPage = () => {
 
   const resetContext = () => {
     resetUserData();
-    if (!personListDispatch || !personDataDispatch) return;
-    personDataDispatch({ type: 'RESET', payload: undefined });
+    resetPersonData();
+    if (!personListDispatch) return;
     personListDispatch({ type: 'RESET', payload: undefined });
     setUserMail('');
   };
@@ -48,8 +50,7 @@ export const LoginPage = () => {
   useEffect(() => {
     (async () => {
       try {
-        if (!personDataDispatch) return;
-        personDataDispatch({ type: 'RESET', payload: undefined });
+        resetPersonData();
         if (!userMail) return;
         await setUserData(userMail);
         const { userData } = useUserDataStore.getState();

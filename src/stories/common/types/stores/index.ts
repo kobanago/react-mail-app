@@ -1,4 +1,5 @@
-import { OriginalUserDataType } from '../db';
+import { OriginalUserDataType, UserDataType } from '../db';
+import { ToCreateParsonDataType } from '../functions';
 
 export type LinkClickFlgType = {
   listClickFlg: boolean;
@@ -19,4 +20,10 @@ export type SetUserDataType = {
   error: unknown;
   resetUserData: () => void;
   setUserData: (by: string) => Promise<void>;
+};
+export type SetPersonDataType = {
+  personData: OriginalUserDataType | UserDataType | undefined;
+  error: unknown;
+  resetPersonData: () => void;
+  setPersonData: (by: ToCreateParsonDataType) => Promise<void>;
 };

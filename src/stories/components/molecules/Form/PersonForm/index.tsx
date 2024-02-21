@@ -3,13 +3,13 @@ import { MouseEventHandler, useCallback, useContext, useEffect, useReducer } fro
 import { processResultFunc } from './functions';
 import { useFormFunctions } from './hooks';
 
+import { SetPersonListContext, SetProcessFlgContext } from '@/stories/common/context';
+import { createPersonList } from '@/stories/common/functions';
 import {
-  SetPersonDataContext,
-  SetPersonListContext,
-  SetProcessFlgContext,
-} from '@/stories/common/context';
-import { createPersonList, setDataToCreateParsonData } from '@/stories/common/functions';
-import { useUserDataStore, useValidateResultStore } from '@/stories/common/stores';
+  usePersonDataStore,
+  useUserDataStore,
+  useValidateResultStore,
+} from '@/stories/common/stores';
 import theme from '@/stories/common/theme';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { FlexBox } from '@/stories/components/atoms/Box/FlexBox';
@@ -40,7 +40,11 @@ export const PersonForm = () => {
 
   const { processFlg } = useContext(SetProcessFlgContext) ?? {};
   const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
-  const { personData, personDataDispatch } = useContext(SetPersonDataContext) ?? {};
+  const { personData, setPersonData, resetPersonData } = usePersonDataStore((state) => ({
+    personData: state.personData,
+    setPersonData: state.setPersonData,
+    resetPersonData: state.resetPersonData,
+  }));
   const { personList, personListDispatch } = useContext(SetPersonListContext) ?? {};
   const { validateError } = useValidateResultStore((state) => ({
     validateError: state.validateError,
@@ -76,8 +80,7 @@ export const PersonForm = () => {
 
   const successUpdate = useCallback(() => {
     cancelClickHandler();
-    if (!userData || !personListDispatch || !personDataDispatch)
-      throw new Error('something wrong');
+    if (!userData || !personListDispatch) throw new Error('something wrong');
     createPersonList(userData.id, personList)
       .then((result) => {
         if (!result || !result.length) {
@@ -86,14 +89,14 @@ export const PersonForm = () => {
         }
         personListDispatch({ type: 'SUCCESS', payload: result });
         if (editFlg && personData) {
-          setDataToCreateParsonData(personData.id.toString(), userData, personData).then(
-            (result) => {
-              if (!result) throw new Error('something wrong');
-              personDataDispatch({ type: 'SUCCESS', payload: result });
-            },
-          );
+          const personId = personData.id.toString();
+          setPersonData({ personId, userData, personData })
+            .then()
+            .catch(() => {
+              throw new Error('something wrong');
+            });
         } else {
-          personDataDispatch({ type: 'RESET', payload: undefined });
+          resetPersonData();
         }
       })
       .catch((error) => {

@@ -1,8 +1,8 @@
 import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
 
-import { SetPersonDataContext, SetPersonListContext } from '@/stories/common/context';
-import { createPersonList, setDataToCreateParsonData } from '@/stories/common/functions';
-import { useUserDataStore } from '@/stories/common/stores';
+import { SetPersonListContext } from '@/stories/common/context';
+import { createPersonList } from '@/stories/common/functions';
+import { usePersonDataStore, useUserDataStore } from '@/stories/common/stores';
 import { useSelectPersonHandlerType } from '@/stories/common/types/functions';
 
 export const useSelectPersonHandler = ({
@@ -11,7 +11,10 @@ export const useSelectPersonHandler = ({
 }: useSelectPersonHandlerType) => {
   const { editProcessingFlg, removeProcessingFlg } = processFlg;
   const { personList, personListDispatch } = useContext(SetPersonListContext) ?? {};
-  const { personData, personDataDispatch } = useContext(SetPersonDataContext) ?? {};
+  const { personData, setPersonData } = usePersonDataStore((state) => ({
+    personData: state.personData,
+    setPersonData: state.setPersonData,
+  }));
   const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   const [, setPersonName] = useState('');
   const [, setPersonMail] = useState('');
@@ -33,22 +36,15 @@ export const useSelectPersonHandler = ({
   const selectPersonHandler: React.MouseEventHandler<HTMLLIElement> = (
     event,
   ): boolean | undefined => {
-    if (!personDataDispatch || !userData || (!editProcessingFlg && !removeProcessingFlg))
-      return;
+    if (!userData || (!editProcessingFlg && !removeProcessingFlg)) return;
     if (personData && personData.id.toString() === event.currentTarget.id) {
       setSelectEventFlg(true);
       return;
     }
-    setDataToCreateParsonData(event.currentTarget.id, userData, undefined)
-      .then((result) => {
-        if (!result) throw new Error('something wrong');
-        personDataDispatch({ type: 'SUCCESS', payload: result });
-        setSelectEventFlg(true);
-      })
-      .catch((error) => {
-        console.error(error);
-        personDataDispatch({ type: 'ERROR', payload: undefined });
-      });
+    const personId = event.currentTarget.id.toString();
+    setPersonData({ personId, userData, personData: undefined })
+      .then(() => setSelectEventFlg(true))
+      .catch((error) => console.error(error));
   };
 
   const nameHandler: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {

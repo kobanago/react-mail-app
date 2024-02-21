@@ -1,8 +1,7 @@
 import { Dispatch } from 'react';
 
-import { OriginalUserDataType, UserDataType } from '../db';
+import { UserDataType } from '../db';
 import {
-  SetPersonDataType,
   SetPersonListType,
   SetProcessFlgType,
   SetProcessFlgActionType,
@@ -12,10 +11,6 @@ export type ResetSendStateContextType = {
   sendState: number;
   resetTextValue: string | undefined;
   sendStateDispatch: Dispatch<string>;
-};
-export type SetPersonDataContextType = {
-  personData: OriginalUserDataType | UserDataType | undefined;
-  personDataDispatch: Dispatch<SetPersonDataType> | undefined;
 };
 export type SetPersonListContextType = {
   personList: UserDataType[] | undefined;
