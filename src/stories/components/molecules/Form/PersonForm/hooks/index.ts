@@ -6,6 +6,7 @@ import {
   useLinkClickFlgStore,
   usePersonDataStore,
   useProcessFlgStore,
+  useValidateResultStore,
 } from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
 
@@ -36,6 +37,11 @@ export const useFormFunctions = () => {
     useShallow((state) => ({
       formClearFlg: state.formClearFlg,
       setFormClearFlg: state.setFormClearFlg,
+    })),
+  );
+  const { setValidateError } = useValidateResultStore(
+    useShallow((state) => ({
+      setValidateError: state.setValidateError,
     })),
   );
 
@@ -107,6 +113,7 @@ export const useFormFunctions = () => {
     switchProcessFlg('ADD', false);
     switchProcessFlg('EDIT', false);
     switchProcessFlg('REMOVE', false);
+    setValidateError(false);
   }, [clearClickHandler, switchProcessFlg]);
 
   return {
