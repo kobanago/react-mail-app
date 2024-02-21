@@ -1,8 +1,11 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { getMessageList } from '@/controllers';
-import { ResetSendStateContext } from '@/stories/common/context';
-import { usePersonDataStore, useUserDataStore } from '@/stories/common/stores';
+import {
+  usePersonDataStore,
+  useSendStateStore,
+  useUserDataStore,
+} from '@/stories/common/stores';
 import { MessageType } from '@/stories/common/types/db';
 
 export const useLogsMainFunctions = () => {
@@ -12,7 +15,9 @@ export const useLogsMainFunctions = () => {
   const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   const [displayLogFlg, setDisplayLogFlg] = useState(false);
   const [messageLog, setMessageLog] = useState<MessageType[]>([]);
-  const { sendState } = useContext(ResetSendStateContext) ?? {};
+  const { sendState } = useSendStateStore((state) => ({
+    sendState: state.sendState,
+  }));
 
   const setMessageList = useCallback(async () => {
     try {

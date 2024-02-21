@@ -1,12 +1,12 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useMessageFormsFunctions } from './hooks';
 
 import { insertData } from '@/controllers';
-import { ResetSendStateContext } from '@/stories/common/context';
 import {
   useInitChangeEventStore,
   useMessageStore,
+  useSendStateStore,
   useValidateResultStore,
 } from '@/stories/common/stores';
 import { Box } from '@/stories/components/atoms/Box/Basic';
@@ -23,7 +23,11 @@ export const MessageForms = () => {
       initialInputOccurred: state.initialInputOccurred,
     }),
   );
-  const { sendState, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
+  const { sendState, setSendState } = useSendStateStore((state) => ({
+    sendState: state.sendState,
+    setSendState: state.setSendState,
+  }));
+
   const disableFlg = validateError
     ? validateError
     : !(initialChangeOccurred && initialInputOccurred);
@@ -40,11 +44,11 @@ export const MessageForms = () => {
       insertData('message_list', messageUserData)
         .then(() => {
           if (!messagePersonData) {
-            if (sendStateDispatch) sendStateDispatch('COMPLETED');
+            setSendState('COMPLETED');
             return;
           }
           insertData('message_list', messagePersonData).then(() => {
-            if (sendStateDispatch) sendStateDispatch('COMPLETED');
+            setSendState('COMPLETED');
           });
         })
         .catch((error: Error) => {
@@ -58,7 +62,7 @@ export const MessageForms = () => {
     <Box>
       <MessageForm />
       <SendStateButton
-        keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
+        keepHandler={() => setSendState('KEEP')}
         sendHandler={handleClickSendMessage}
         disabled={disableFlg}
       />

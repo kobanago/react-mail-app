@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 
 import { createPersonList, setDataToCreateParsonData } from '../functions';
-import { setProcessFlgReducer } from '../reducers';
+import { setProcessFlgReducer, setSendStateFunc } from '../reducers';
 import { OriginalUserDataType, UserDataType } from '../types/db';
 import { ToCreateParsonDataType } from '../types/functions';
-import { SetProcessFlgType } from '../types/reducers';
+import { SetProcessFlgType, SetSendStateType } from '../types/reducers';
 import {
   InitChangeEventType,
   LinkClickFlgType,
@@ -39,6 +39,11 @@ export const useProcessFlgStore = create<SetProcessFlgType>((set) => ({
   },
   setProcessFlg: (action) =>
     set((state) => ({ processFlg: setProcessFlgReducer(state.processFlg, action) })),
+}));
+export const useSendStateStore = create<SetSendStateType>((set) => ({
+  sendState: 0,
+  resetTextValue: undefined,
+  setSendState: (action) => set((state) => setSendStateFunc(state, action)),
 }));
 export const useMessageStore = create<SetMessageType>()((set) => ({
   message: '',

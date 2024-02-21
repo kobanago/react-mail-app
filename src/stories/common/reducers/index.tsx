@@ -1,12 +1,12 @@
 import {
   ProcessFlgType,
-  ResetSendStateActionType,
+  SetSendStateActionType,
   SetProcessFlgActionType,
 } from '../types/reducers';
-export const resetSendStateFunc = (
-  state: ResetSendStateActionType,
+export const setSendStateFunc = (
+  state: SetSendStateActionType,
   action: string,
-): ResetSendStateActionType => {
+): SetSendStateActionType => {
   switch (action) {
     case 'INIT':
       return { sendState: 0, resetTextValue: undefined };

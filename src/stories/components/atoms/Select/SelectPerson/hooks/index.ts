@@ -1,11 +1,11 @@
 import { SelectChangeEvent } from '@mui/material';
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 
-import { ResetSendStateContext } from '@/stories/common/context';
 import {
   useUserDataStore,
   useInitChangeEventStore,
   usePersonDataStore,
+  useSendStateStore,
 } from '@/stories/common/stores';
 
 export const useSelectPersonEvent = () => {
@@ -15,7 +15,10 @@ export const useSelectPersonEvent = () => {
       setInitialChangeOccurred: state.setInitialChangeOccurred,
     }),
   );
-  const { sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
+  const { setSendState } = useSendStateStore((state) => ({
+    setSendState: state.setSendState,
+  }));
+
   const { setPersonData } = usePersonDataStore((state) => ({
     setPersonData: state.setPersonData,
   }));
@@ -29,7 +32,7 @@ export const useSelectPersonEvent = () => {
     })
       .then(() => {
         if (!initialChangeOccurred) setInitialChangeOccurred(true);
-        if (sendStateDispatch) sendStateDispatch('INIT');
+        setSendState('INIT');
       })
       .catch((error) => console.error(error));
   }, []);

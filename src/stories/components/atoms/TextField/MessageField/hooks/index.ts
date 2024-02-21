@@ -1,10 +1,14 @@
-import { useContext } from 'react';
-
-import { ResetSendStateContext } from '@/stories/common/context';
-import { useInitChangeEventStore, useMessageStore } from '@/stories/common/stores';
+import {
+  useInitChangeEventStore,
+  useMessageStore,
+  useSendStateStore,
+} from '@/stories/common/stores';
 
 export const useMessageFieldFunctions = () => {
-  const { resetTextValue, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
+  const { resetTextValue, setSendState } = useSendStateStore((state) => ({
+    resetTextValue: state.resetTextValue,
+    setSendState: state.setSendState,
+  }));
   const { initialInputOccurred, setInitialInputOccurred } = useInitChangeEventStore(
     (state) => ({
       initialInputOccurred: state.initialInputOccurred,
@@ -15,7 +19,7 @@ export const useMessageFieldFunctions = () => {
 
   const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
-    if (sendStateDispatch) sendStateDispatch('INIT');
+    setSendState('INIT');
     if (!initialInputOccurred) setInitialInputOccurred(true);
   };
 
