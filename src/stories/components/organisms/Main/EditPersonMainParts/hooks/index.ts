@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
 
 import { SetPersonDataContext, SetPersonListContext } from '@/stories/common/context';
-import { createPersonList, getParsonDataFromId } from '@/stories/common/functions';
+import { createPersonList, setDataToCreateParsonData } from '@/stories/common/functions';
 import { useUserDataStore } from '@/stories/common/stores';
 import { useSelectPersonHandlerType } from '@/stories/common/types/functions';
 
@@ -39,7 +39,7 @@ export const useSelectPersonHandler = ({
       setSelectEventFlg(true);
       return;
     }
-    getParsonDataFromId(event.currentTarget.id, userData)
+    setDataToCreateParsonData(event.currentTarget.id, userData, undefined)
       .then((result) => {
         if (!result) throw new Error('something wrong');
         personDataDispatch({ type: 'SUCCESS', payload: result });

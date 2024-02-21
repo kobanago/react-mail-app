@@ -88,7 +88,7 @@ const changeNamePersonData = async (
   }
 };
 
-export const createPersonData = async (
+const createPersonData = async (
   userId: number,
   personMail: string,
   personData: OriginalUserDataType | UserDataType | undefined,
@@ -122,18 +122,22 @@ export const createPersonData = async (
   }
 };
 
-export const getParsonDataFromId = async (
+export const setDataToCreateParsonData = async (
   personId: string,
   userData: OriginalUserDataType | null | undefined,
+  personData: OriginalUserDataType | UserDataType | undefined,
 ): Promise<UserDataType> => {
   try {
     let newData = undefined;
+    let data = personData;
     if (!userData) throw new Error('something wrong');
-    const personData = await getTargetData('users', 'id', personId.toString());
-    if (!personData) throw new Error('something wrong');
-    const tmpData = personData as UserDataType[];
-    if (!tmpData.length) throw new Error('something wrong');
-    const data = tmpData[0];
+    if (!data) {
+      const personData = await getTargetData('users', 'id', personId.toString());
+      if (!personData) throw new Error('something wrong');
+      const tmpData = personData as UserDataType[];
+      if (!tmpData.length) throw new Error('something wrong');
+      data = tmpData[0];
+    }
     newData = await createPersonData(userData.id, data.mail, data);
     if (!newData) throw new Error('something wrong');
     return newData;

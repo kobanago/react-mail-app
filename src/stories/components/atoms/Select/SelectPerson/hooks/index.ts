@@ -2,7 +2,7 @@ import { SelectChangeEvent } from '@mui/material';
 import { useCallback, useContext } from 'react';
 
 import { ResetSendStateContext, SetPersonDataContext } from '@/stories/common/context';
-import { getParsonDataFromId } from '@/stories/common/functions';
+import { setDataToCreateParsonData } from '@/stories/common/functions';
 import { useUserDataStore, useInitChangeEventStore } from '@/stories/common/stores';
 
 export const useSelectPersonEvent = () => {
@@ -18,7 +18,7 @@ export const useSelectPersonEvent = () => {
 
   const handleChange = useCallback((event: SelectChangeEvent<unknown>) => {
     if (personDataDispatch) {
-      getParsonDataFromId(event.target.value as string, userData)
+      setDataToCreateParsonData(event.target.value as string, userData, undefined)
         .then((result) => {
           if (!result) throw new Error('something wrong');
           personDataDispatch({ type: 'SUCCESS', payload: result });

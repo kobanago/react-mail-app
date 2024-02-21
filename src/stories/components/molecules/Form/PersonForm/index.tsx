@@ -8,7 +8,7 @@ import {
   SetPersonListContext,
   SetProcessFlgContext,
 } from '@/stories/common/context';
-import { createPersonData, createPersonList } from '@/stories/common/functions';
+import { createPersonList, setDataToCreateParsonData } from '@/stories/common/functions';
 import { useUserDataStore, useValidateResultStore } from '@/stories/common/stores';
 import theme from '@/stories/common/theme';
 import { Box } from '@/stories/components/atoms/Box/Basic';
@@ -85,11 +85,13 @@ export const PersonForm = () => {
           return;
         }
         personListDispatch({ type: 'SUCCESS', payload: result });
-        if (editFlg) {
-          createPersonData(userData.id, personMail, personData).then((result) => {
-            if (!result) throw new Error('something wrong');
-            personDataDispatch({ type: 'SUCCESS', payload: result });
-          });
+        if (editFlg && personData) {
+          setDataToCreateParsonData(personData.id.toString(), userData, personData).then(
+            (result) => {
+              if (!result) throw new Error('something wrong');
+              personDataDispatch({ type: 'SUCCESS', payload: result });
+            },
+          );
         } else {
           personDataDispatch({ type: 'RESET', payload: undefined });
         }
