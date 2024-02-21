@@ -6,6 +6,7 @@ import { OriginalUserDataType, UserDataType } from '../types/db';
 import { ToCreateParsonDataType } from '../types/functions';
 import { SetProcessFlgType, SetSendStateType } from '../types/reducers';
 import {
+  FormClearFlgType,
   InitChangeEventType,
   LinkClickFlgType,
   SetMessageType,
@@ -44,6 +45,10 @@ export const useSendStateStore = create<SetSendStateType>((set) => ({
   sendState: 0,
   resetTextValue: undefined,
   setSendState: (action) => set((state) => setSendStateFunc(state, action)),
+}));
+export const useFormClearFlgStore = create<FormClearFlgType>()((set) => ({
+  formClearFlg: false,
+  setFormClearFlg: (by) => set({ formClearFlg: by }),
 }));
 export const useMessageStore = create<SetMessageType>()((set) => ({
   message: '',

@@ -19,6 +19,10 @@ export type SetMessageType = {
   message: string;
   setMessage: (by: string) => void;
 };
+export type FormClearFlgType = {
+  formClearFlg: boolean;
+  setFormClearFlg: (by: boolean) => void;
+};
 export type SetUserDataType = {
   userData: OriginalUserDataType | null | undefined;
   error: unknown;

@@ -1,9 +1,10 @@
-import { MouseEventHandler, useCallback, useEffect, useReducer } from 'react';
+import { MouseEventHandler, useCallback, useEffect } from 'react';
 
 import { processResultFunc } from './functions';
 import { useFormFunctions } from './hooks';
 
 import {
+  useFormClearFlgStore,
   usePersonDataStore,
   usePersonListStore,
   useProcessFlgStore,
@@ -21,10 +22,6 @@ import { MailTextField } from '@/stories/components/atoms/TextField/MailTextFiel
 import { BodyPrimaryText } from '@/stories/components/atoms/Typography/BodyPrimaryText';
 
 export const PersonForm = () => {
-  const [clearFlg, dispatch] = useReducer(
-    (state: boolean, action: boolean) => (action !== undefined ? action : state),
-    false,
-  );
   const {
     personName,
     personMail,
@@ -36,8 +33,10 @@ export const PersonForm = () => {
     switchProcessFlg,
     inputNameHandler,
     inputMailHandler,
-  } = useFormFunctions({ clearFlg, dispatch });
-
+  } = useFormFunctions();
+  const { formClearFlg } = useFormClearFlgStore((state) => ({
+    formClearFlg: state.formClearFlg,
+  }));
   const {
     processFlg: { addFlg, editFlg, removeFlg },
   } = useProcessFlgStore((state) => ({
@@ -102,7 +101,7 @@ export const PersonForm = () => {
       });
   }, []);
 
-  useEffect(() => {}, [clearFlg]);
+  useEffect(() => {}, [formClearFlg]);
 
   return (
     <FormControl sx={{ width: '70%', padding: theme.spacing(1) }} margin='normal'>
@@ -110,14 +109,14 @@ export const PersonForm = () => {
         <TextField
           label={'Name'}
           value={personName}
-          resetTextValue={clearFlg ? '' : undefined}
+          resetTextValue={formClearFlg ? '' : undefined}
           inputHandler={inputNameHandler}
           disabledFlg={abortNameFlg}
           requiredFlg={false}
         />
         <MailTextField
           value={personMail}
-          resetTextValue={clearFlg ? '' : undefined}
+          resetTextValue={formClearFlg ? '' : undefined}
           inputHandler={inputMailHandler}
           disabledFlg={abortMailFlg}
         />

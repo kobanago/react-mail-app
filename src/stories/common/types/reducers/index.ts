@@ -7,10 +7,6 @@ export type SetSendStateType = {
   resetTextValue: string | undefined;
   setSendState: (action: string) => void;
 };
-export type FormClearState = {
-  clearFlg: boolean;
-  dispatch: React.Dispatch<boolean>;
-};
 export type ProcessFlgType = {
   addFlg: boolean;
   editFlg: boolean;

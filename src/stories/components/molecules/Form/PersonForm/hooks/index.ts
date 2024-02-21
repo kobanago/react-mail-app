@@ -1,14 +1,14 @@
 import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
 
 import {
+  useFormClearFlgStore,
   useLinkClickFlgStore,
   usePersonDataStore,
   useProcessFlgStore,
 } from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
-import { FormClearState } from '@/stories/common/types/reducers';
 
-export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
+export const useFormFunctions = () => {
   const [personName, setPersonName] = useState('');
   const [personMail, setPersonMail] = useState('');
   const [abortNameFlg, setAbortNameFlg] = useState(true);
@@ -25,16 +25,20 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
     listClickFlg: state.listClickFlg,
     setListClickFlg: state.setListClickFlg,
   }));
+  const { formClearFlg, setFormClearFlg } = useFormClearFlgStore((state) => ({
+    formClearFlg: state.formClearFlg,
+    setFormClearFlg: state.setFormClearFlg,
+  }));
 
   const inputNameHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     setPersonName(event.target.value);
-    if (clearFlg) dispatch(false);
+    if (formClearFlg) setFormClearFlg(false);
     setListClickFlg(false);
   };
 
   const inputMailHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     setPersonMail(event.target.value);
-    if (clearFlg) dispatch(false);
+    if (formClearFlg) setFormClearFlg(false);
     setListClickFlg(false);
   };
 
@@ -83,11 +87,11 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   );
 
   const clearClickHandler = useCallback(() => {
-    dispatch(true);
+    setFormClearFlg(true);
     setListClickFlg(false);
     setPersonName('');
     setPersonMail('');
-  }, [dispatch]);
+  }, [setFormClearFlg]);
 
   const cancelClickHandler = useCallback(() => {
     clearClickHandler();
