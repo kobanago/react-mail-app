@@ -15,6 +15,10 @@ export type InitChangeEventType = {
   setInitialChangeOccurred: (by: boolean) => void;
   setInitialInputOccurred: (by: boolean) => void;
 };
+export type SetMessageType = {
+  message: string;
+  setMessage: (by: string) => void;
+};
 export type SetUserDataType = {
   userData: OriginalUserDataType | null | undefined;
   error: unknown;

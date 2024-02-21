@@ -6,6 +6,7 @@ import { ToCreateParsonDataType } from '../types/functions';
 import {
   InitChangeEventType,
   LinkClickFlgType,
+  SetMessageType,
   SetPersonDataType,
   SetPersonListType,
   SetUserDataType,
@@ -27,6 +28,10 @@ export const useInitChangeEventStore = create<InitChangeEventType>()((set) => ({
   initialInputOccurred: false,
   setInitialChangeOccurred: (by) => set({ initialChangeOccurred: by }),
   setInitialInputOccurred: (by) => set({ initialInputOccurred: by }),
+}));
+export const useMessageStore = create<SetMessageType>()((set) => ({
+  message: '',
+  setMessage: (by) => set({ message: by }),
 }));
 export const useUserDataStore = create<SetUserDataType>()((set) => ({
   userData: undefined,

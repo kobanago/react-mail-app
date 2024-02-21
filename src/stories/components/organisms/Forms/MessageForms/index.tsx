@@ -1,10 +1,14 @@
-import { useContext, useEffect, useReducer } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { useMessageFormsFunctions } from './hooks';
 
 import { insertData } from '@/controllers';
-import { ResetSendStateContext, SetMessageContext } from '@/stories/common/context';
-import { useInitChangeEventStore, useValidateResultStore } from '@/stories/common/stores';
+import { ResetSendStateContext } from '@/stories/common/context';
+import {
+  useInitChangeEventStore,
+  useMessageStore,
+  useValidateResultStore,
+} from '@/stories/common/stores';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { SendStateButton } from '@/stories/components/molecules/Button/SendStateButton';
 import { MessageForm } from '@/stories/components/molecules/Form/MessageForm';
@@ -23,10 +27,7 @@ export const MessageForms = () => {
   const disableFlg = validateError
     ? validateError
     : !(initialChangeOccurred && initialInputOccurred);
-  const [message, messageDispatch] = useReducer(
-    (state: string, action: string) => (action !== undefined ? action : state),
-    '',
-  );
+  const { message } = useMessageStore((state) => ({ message: state.message }));
   const { messageUserData, messagePersonData } = useMessageFormsFunctions(
     Number(sendState),
     message,
@@ -54,15 +55,13 @@ export const MessageForms = () => {
   };
 
   return (
-    <SetMessageContext.Provider value={{ message, messageDispatch }}>
-      <Box>
-        <MessageForm />
-        <SendStateButton
-          keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
-          sendHandler={handleClickSendMessage}
-          disabled={disableFlg}
-        />
-      </Box>
-    </SetMessageContext.Provider>
+    <Box>
+      <MessageForm />
+      <SendStateButton
+        keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
+        sendHandler={handleClickSendMessage}
+        disabled={disableFlg}
+      />
+    </Box>
   );
 };

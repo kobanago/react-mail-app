@@ -11,7 +11,3 @@ export type SetProcessFlgContextType = {
   processFlg: SetProcessFlgType;
   processFlgDispatch: Dispatch<SetProcessFlgActionType>;
 };
-export type SetMessageContextType = {
-  message: string;
-  messageDispatch: Dispatch<string>;
-};
