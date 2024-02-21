@@ -1,13 +1,9 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useCallback, useContext } from 'react';
 
-import {
-  ResetSendStateContext,
-  SetPersonDataContext,
-  SetUserDataContext,
-} from '@/stories/common/context';
+import { ResetSendStateContext, SetPersonDataContext } from '@/stories/common/context';
 import { getParsonDataFromId } from '@/stories/common/functions';
-import { useInitChangeEventStore } from '@/stories/common/stores';
+import { useUserDataStore, useInitChangeEventStore } from '@/stories/common/stores';
 
 export const useSelectPersonEvent = () => {
   const { initialChangeOccurred, setInitialChangeOccurred } = useInitChangeEventStore(
@@ -18,7 +14,7 @@ export const useSelectPersonEvent = () => {
   );
   const { sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
   const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
-  const { userData } = useContext(SetUserDataContext) ?? {};
+  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
 
   const handleChange = useCallback((event: SelectChangeEvent<unknown>) => {
     if (personDataDispatch) {

@@ -1,15 +1,15 @@
 import { Box } from '@mui/system';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { TitleProps } from './types';
 import { BodyPrimaryText } from '../../atoms/Typography/BodyPrimaryText';
 
-import { SetUserDataContext } from '@/stories/common/context';
+import { useUserDataStore } from '@/stories/common/stores';
 import theme from '@/stories/common/theme';
 import { Typography } from '@/stories/components/atoms/Typography/Base';
 
 export const Title: FC<TitleProps> = ({ title }: TitleProps) => {
-  const { userData } = useContext(SetUserDataContext) ?? {};
+  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   const message = userData
     ? `login user : ${userData?.name} (${userData?.mail})`
     : 'please login...';

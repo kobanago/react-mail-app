@@ -7,10 +7,9 @@ import {
   SetPersonDataContext,
   SetPersonListContext,
   SetProcessFlgContext,
-  SetUserDataContext,
 } from '@/stories/common/context';
 import { createPersonData, createPersonList } from '@/stories/common/functions';
-import { useValidateResultStore } from '@/stories/common/stores';
+import { useUserDataStore, useValidateResultStore } from '@/stories/common/stores';
 import theme from '@/stories/common/theme';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { FlexBox } from '@/stories/components/atoms/Box/FlexBox';
@@ -40,7 +39,7 @@ export const PersonForm = () => {
   } = useFormFunctions({ clearFlg, dispatch });
 
   const { processFlg } = useContext(SetProcessFlgContext) ?? {};
-  const { userData } = useContext(SetUserDataContext) ?? {};
+  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   const { personData, personDataDispatch } = useContext(SetPersonDataContext) ?? {};
   const { personList, personListDispatch } = useContext(SetPersonListContext) ?? {};
   const { validateError } = useValidateResultStore((state) => ({

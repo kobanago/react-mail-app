@@ -1,11 +1,12 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { getAddressList, getAddressListId } from '@/controllers';
-import { SetPersonDataContext, SetUserDataContext } from '@/stories/common/context';
+import { SetPersonDataContext } from '@/stories/common/context';
+import { useUserDataStore } from '@/stories/common/stores';
 import { AddressListType, MessageType, UserDataType } from '@/stories/common/types/db';
 
 export const useMessageFormsFunctions = (sendState: number, message: string) => {
-  const { userData } = useContext(SetUserDataContext) ?? {};
+  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   const { personData } = useContext(SetPersonDataContext) ?? {};
   const [messageUserData, setMessageUserData] = useState<MessageType | null>(null);
   const [messagePersonData, setMessagePersonData] = useState<MessageType | null>(null);

@@ -3,7 +3,6 @@ import { createContext } from 'react';
 import {
   ResetSendStateContextType,
   SetPersonDataContextType,
-  SetUserDataContextType,
   SetPersonListContextType,
   SetProcessFlgContextType,
   SetMessageContextType,
@@ -15,9 +14,6 @@ export const ResetSendStateContext = createContext<ResetSendStateContextType | u
 export const SetPersonDataContext = createContext<SetPersonDataContextType | undefined>(
   undefined,
 );
-export const SetUserDataContext = createContext<
-  SetUserDataContextType | null | undefined
->(undefined);
 export const SetPersonListContext = createContext<SetPersonListContextType | undefined>(
   undefined,
 );

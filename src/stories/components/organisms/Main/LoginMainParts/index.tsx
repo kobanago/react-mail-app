@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
-import { SetPersonListContext, SetUserDataContext } from '@/stories/common/context';
+import { SetPersonListContext } from '@/stories/common/context';
+import { useUserDataStore } from '@/stories/common/stores';
 import { Box } from '@/stories/components/atoms/Box/Basic/';
 import { LoginButton } from '@/stories/components/atoms/IconButton/LoginButton';
 import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
@@ -9,7 +10,7 @@ import { PersonList } from '@/stories/components/molecules/List/PersonList';
 
 export const LoginMainParts = () => {
   const { personList } = useContext(SetPersonListContext) ?? {};
-  const { userData } = useContext(SetUserDataContext) ?? {};
+  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   return (
     <Box>
       {personList && personList.length ? (

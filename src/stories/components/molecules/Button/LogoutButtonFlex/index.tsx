@@ -1,10 +1,10 @@
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { LogoutButtonFlexProps } from './types';
 
-import { SetUserDataContext } from '@/stories/common/context';
+import { useUserDataStore } from '@/stories/common/stores';
 import { FlexBox } from '@/stories/components/atoms/Box/FlexBox';
 import { IconButton } from '@/stories/components/atoms/IconButton/Base';
 import { LogoutButton } from '@/stories/components/atoms/IconButton/LogoutButton';
@@ -13,7 +13,7 @@ import { RegisterButton } from '@/stories/components/atoms/IconButton/RegisterBu
 export const LogoutButtonFlex: FC<LogoutButtonFlexProps> = ({
   dataExistFlg,
 }: LogoutButtonFlexProps) => {
-  const { userData } = useContext(SetUserDataContext) ?? {};
+  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   return (
     <FlexBox>
       {userData ? (

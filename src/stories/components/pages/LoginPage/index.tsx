@@ -2,19 +2,18 @@ import { useContext, useEffect, useState } from 'react';
 
 import { CommonTemplate } from '../../templates/CommonTemplate';
 
-import { getTargetData } from '@/controllers';
-import {
-  SetPersonDataContext,
-  SetPersonListContext,
-  SetUserDataContext,
-} from '@/stories/common/context';
+import { SetPersonDataContext, SetPersonListContext } from '@/stories/common/context';
 import { createPersonList } from '@/stories/common/functions';
-import { UserDataType } from '@/stories/common/types/db';
+import { useUserDataStore } from '@/stories/common/stores';
 import { supabase } from '@/supabaseClinet';
 
 export const LoginPage = () => {
   const [userMail, setUserMail] = useState('');
-  const { userData, userDataDispatch } = useContext(SetUserDataContext) ?? {};
+  const { userData, setUserData, resetUserData } = useUserDataStore((state) => ({
+    userData: state.userData,
+    setUserData: state.setUserData,
+    resetUserData: state.resetUserData,
+  }));
   const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
   const { personListDispatch } = useContext(SetPersonListContext) ?? {};
 
@@ -39,8 +38,8 @@ export const LoginPage = () => {
   });
 
   const resetContext = () => {
-    if (!userDataDispatch || !personListDispatch || !personDataDispatch) return;
-    userDataDispatch({ type: 'RESET', payload: undefined });
+    resetUserData();
+    if (!personListDispatch || !personDataDispatch) return;
     personDataDispatch({ type: 'RESET', payload: undefined });
     personListDispatch({ type: 'RESET', payload: undefined });
     setUserMail('');
@@ -52,25 +51,17 @@ export const LoginPage = () => {
         if (!personDataDispatch) return;
         personDataDispatch({ type: 'RESET', payload: undefined });
         if (!userMail) return;
-        const result = await getTargetData('users', 'mail', userMail);
-        if (!result) return;
-        const data = result as UserDataType[];
-
-        if (!userDataDispatch) return;
-        if (!data.length) {
-          userDataDispatch({ type: 'SUCCESS', payload: null });
-          return;
-        }
-
-        userDataDispatch({ type: 'SUCCESS', payload: data[0] });
-        const newList = await createPersonList(data[0].id, undefined);
+        await setUserData(userMail);
+        const { userData } = useUserDataStore.getState();
+        if (!userData) return;
+        const newList = await createPersonList(userData.id, undefined);
         if (!newList || !newList.length || !personListDispatch) return;
         personListDispatch({ type: 'SUCCESS', payload: newList });
       } catch (error) {
         console.error(error);
         alert('error occured!');
-        if (!personListDispatch || !userDataDispatch) return;
-        userDataDispatch({ type: 'ERROR', payload: undefined });
+        resetUserData();
+        if (!personListDispatch) return;
         personListDispatch({ type: 'ERROR', payload: undefined });
       }
     })();

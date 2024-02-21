@@ -4,10 +4,6 @@ export type ResetSendStateActionType = {
   sendState: number;
   resetTextValue: string | undefined;
 };
-export type SetUserDataType = {
-  type: string;
-  payload: OriginalUserDataType | null | undefined;
-};
 export type SetPersonDataType = {
   type: string;
   payload: OriginalUserDataType | UserDataType | undefined;

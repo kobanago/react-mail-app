@@ -1,11 +1,8 @@
 import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
 
-import {
-  SetPersonDataContext,
-  SetPersonListContext,
-  SetUserDataContext,
-} from '@/stories/common/context';
+import { SetPersonDataContext, SetPersonListContext } from '@/stories/common/context';
 import { createPersonList, getParsonDataFromId } from '@/stories/common/functions';
+import { useUserDataStore } from '@/stories/common/stores';
 import { useSelectPersonHandlerType } from '@/stories/common/types/functions';
 
 export const useSelectPersonHandler = ({
@@ -15,7 +12,7 @@ export const useSelectPersonHandler = ({
   const { editProcessingFlg, removeProcessingFlg } = processFlg;
   const { personList, personListDispatch } = useContext(SetPersonListContext) ?? {};
   const { personData, personDataDispatch } = useContext(SetPersonDataContext) ?? {};
-  const { userData } = useContext(SetUserDataContext) ?? {};
+  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
   const [, setPersonName] = useState('');
   const [, setPersonMail] = useState('');
 
