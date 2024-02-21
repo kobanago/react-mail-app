@@ -1,12 +1,15 @@
 import { Select as MuiSelect, MenuItem } from '@mui/material';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 import { SelectProps } from './types';
 
-import { SetPersonListContext } from '@/stories/common/context';
+import { usePersonListStore } from '@/stories/common/stores';
 
 export const Select: FC<SelectProps> = ({ selectHandler, ...props }: SelectProps) => {
-  const { personList } = useContext(SetPersonListContext) ?? {};
+  const { personList } = usePersonListStore((state) => ({
+    personList: state.personList,
+  }));
+
   return (
     <MuiSelect {...props} onChange={selectHandler} autoWidth={true}>
       {personList &&

@@ -1,7 +1,5 @@
-import { UserDataType } from '../types/db';
 import {
   ResetSendStateActionType,
-  SetPersonListType,
   SelectPersonType,
   SetProcessFlgType,
   SetProcessFlgActionType,
@@ -17,21 +15,6 @@ export const resetSendStateFunc = (
       return { sendState: 1, resetTextValue: undefined };
     case 'COMPLETED':
       return { sendState: 2, resetTextValue: '' };
-    default:
-      return state;
-  }
-};
-export const setPersonListFunc = (
-  state: UserDataType[] | undefined,
-  action: SetPersonListType,
-): UserDataType[] | undefined => {
-  switch (action.type) {
-    case 'SUCCESS':
-      return action.payload;
-    case 'ERROR':
-      return undefined;
-    case 'RESET':
-      return undefined;
     default:
       return state;
   }

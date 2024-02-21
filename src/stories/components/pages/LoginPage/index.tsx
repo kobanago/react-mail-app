@@ -1,10 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { CommonTemplate } from '../../templates/CommonTemplate';
 
-import { SetPersonListContext } from '@/stories/common/context';
-import { createPersonList } from '@/stories/common/functions';
-import { usePersonDataStore, useUserDataStore } from '@/stories/common/stores';
+import {
+  usePersonDataStore,
+  usePersonListStore,
+  useUserDataStore,
+} from '@/stories/common/stores';
 import { supabase } from '@/supabaseClinet';
 
 export const LoginPage = () => {
@@ -17,7 +19,10 @@ export const LoginPage = () => {
   const { resetPersonData } = usePersonDataStore((state) => ({
     resetPersonData: state.resetPersonData,
   }));
-  const { personListDispatch } = useContext(SetPersonListContext) ?? {};
+  const { setPersonList, resetPersonList } = usePersonListStore((state) => ({
+    setPersonList: state.setPersonList,
+    resetPersonList: state.resetPersonList,
+  }));
 
   supabase.auth.onAuthStateChange((event, session) => {
     setTimeout(() => {
@@ -42,8 +47,7 @@ export const LoginPage = () => {
   const resetContext = () => {
     resetUserData();
     resetPersonData();
-    if (!personListDispatch) return;
-    personListDispatch({ type: 'RESET', payload: undefined });
+    resetPersonList();
     setUserMail('');
   };
 
@@ -55,15 +59,12 @@ export const LoginPage = () => {
         await setUserData(userMail);
         const { userData } = useUserDataStore.getState();
         if (!userData) return;
-        const newList = await createPersonList(userData.id, undefined);
-        if (!newList || !newList.length || !personListDispatch) return;
-        personListDispatch({ type: 'SUCCESS', payload: newList });
+        await setPersonList(userData.id, undefined);
       } catch (error) {
         console.error(error);
         alert('error occured!');
         resetUserData();
-        if (!personListDispatch) return;
-        personListDispatch({ type: 'ERROR', payload: undefined });
+        resetPersonList();
       }
     })();
   }, [userMail]);

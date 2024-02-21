@@ -1,8 +1,10 @@
-import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
+import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
 
-import { SetPersonListContext } from '@/stories/common/context';
-import { createPersonList } from '@/stories/common/functions';
-import { usePersonDataStore, useUserDataStore } from '@/stories/common/stores';
+import {
+  usePersonDataStore,
+  usePersonListStore,
+  useUserDataStore,
+} from '@/stories/common/stores';
 import { useSelectPersonHandlerType } from '@/stories/common/types/functions';
 
 export const useSelectPersonHandler = ({
@@ -10,7 +12,10 @@ export const useSelectPersonHandler = ({
   setSelectEventFlg,
 }: useSelectPersonHandlerType) => {
   const { editProcessingFlg, removeProcessingFlg } = processFlg;
-  const { personList, personListDispatch } = useContext(SetPersonListContext) ?? {};
+  const { personList, setPersonList } = usePersonListStore((state) => ({
+    personList: state.personList,
+    setPersonList: state.setPersonList,
+  }));
   const { personData, setPersonData } = usePersonDataStore((state) => ({
     personData: state.personData,
     setPersonData: state.setPersonData,
@@ -22,10 +27,8 @@ export const useSelectPersonHandler = ({
   useEffect(() => {
     (async () => {
       try {
-        if (!userData || !personData || !personListDispatch || !personList) return;
-        const newList = await createPersonList(userData.id, personList);
-        if (!newList || !newList.length) return;
-        personListDispatch({ type: 'SUCCESS', payload: newList });
+        if (!userData || !personData || !personList) return;
+        await setPersonList(userData.id, personList);
       } catch (error) {
         alert('error occured!');
         console.error(error);

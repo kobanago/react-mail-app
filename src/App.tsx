@@ -1,29 +1,23 @@
 import './App.css';
 import { useMediaQuery, ThemeProvider } from '@mui/material';
-import { useReducer } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { SetPersonListContext } from './stories/common/context';
 import darkTheme from './stories/common/darkTheme';
-import { setPersonListFunc } from './stories/common/reducers';
 import theme from './stories/common/theme';
 import { LoginPage } from './stories/components/pages/LoginPage';
 import { CommonTemplate } from './stories/components/templates/CommonTemplate';
 
 function App() {
-  const [personList, personListDispatch] = useReducer(setPersonListFunc, undefined);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const targetTheme = prefersDarkMode ? darkTheme : theme;
 
   return (
     <ThemeProvider theme={targetTheme}>
-      <SetPersonListContext.Provider value={{ personList, personListDispatch }}>
-        <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route path='/message' element={<CommonTemplate title='MESSAGE' />} />
-          <Route path='/person' element={<CommonTemplate title='PERSON' />} />
-        </Routes>
-      </SetPersonListContext.Provider>
+      <Routes>
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/message' element={<CommonTemplate title='MESSAGE' />} />
+        <Route path='/person' element={<CommonTemplate title='PERSON' />} />
+      </Routes>
     </ThemeProvider>
   );
 }

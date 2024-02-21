@@ -3,10 +3,10 @@ import { MouseEventHandler, useCallback, useContext, useEffect, useReducer } fro
 import { processResultFunc } from './functions';
 import { useFormFunctions } from './hooks';
 
-import { SetPersonListContext, SetProcessFlgContext } from '@/stories/common/context';
-import { createPersonList } from '@/stories/common/functions';
+import { SetProcessFlgContext } from '@/stories/common/context';
 import {
   usePersonDataStore,
+  usePersonListStore,
   useUserDataStore,
   useValidateResultStore,
 } from '@/stories/common/stores';
@@ -45,7 +45,10 @@ export const PersonForm = () => {
     setPersonData: state.setPersonData,
     resetPersonData: state.resetPersonData,
   }));
-  const { personList, personListDispatch } = useContext(SetPersonListContext) ?? {};
+  const { personList, setPersonList } = usePersonListStore((state) => ({
+    personList: state.personList,
+    setPersonList: state.setPersonList,
+  }));
   const { validateError } = useValidateResultStore((state) => ({
     validateError: state.validateError,
   }));
@@ -80,24 +83,19 @@ export const PersonForm = () => {
 
   const successUpdate = useCallback(() => {
     cancelClickHandler();
-    if (!userData || !personListDispatch) throw new Error('something wrong');
-    createPersonList(userData.id, personList)
-      .then((result) => {
-        if (!result || !result.length) {
-          personListDispatch({ type: 'RESET', payload: undefined });
+    if (!userData) throw new Error('something wrong');
+    setPersonList(userData.id, personList)
+      .then(() => {
+        if (!editFlg || !personData) {
+          resetPersonData();
           return;
         }
-        personListDispatch({ type: 'SUCCESS', payload: result });
-        if (editFlg && personData) {
-          const personId = personData.id.toString();
-          setPersonData({ personId, userData, personData })
-            .then()
-            .catch(() => {
-              throw new Error('something wrong');
-            });
-        } else {
-          resetPersonData();
-        }
+        const personId = personData.id.toString();
+        setPersonData({ personId, userData, personData })
+          .then()
+          .catch(() => {
+            throw new Error('something wrong');
+          });
       })
       .catch((error) => {
         throw error;

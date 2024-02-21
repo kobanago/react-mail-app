@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 
-import { setDataToCreateParsonData } from '../functions';
-import { OriginalUserDataType } from '../types/db';
+import { createPersonList, setDataToCreateParsonData } from '../functions';
+import { OriginalUserDataType, UserDataType } from '../types/db';
 import { ToCreateParsonDataType } from '../types/functions';
 import {
   InitChangeEventType,
   LinkClickFlgType,
   SetPersonDataType,
+  SetPersonListType,
   SetUserDataType,
   ValidateResultType,
 } from '../types/stores';
@@ -62,6 +63,23 @@ export const usePersonDataStore = create<SetPersonDataType>()((set) => ({
       });
       const personData = res ?? undefined;
       set({ personData });
+    } catch (error) {
+      set({ error });
+    }
+  },
+}));
+export const usePersonListStore = create<SetPersonListType>()((set) => ({
+  personList: undefined,
+  error: null,
+  resetPersonList: () => set({ personList: undefined }),
+  setPersonList: async (
+    userId: number,
+    orgPersonList: OriginalUserDataType[] | UserDataType[] | undefined,
+  ) => {
+    try {
+      const res = await createPersonList(userId, orgPersonList);
+      const personList = res.length ? res : undefined;
+      set({ personList });
     } catch (error) {
       set({ error });
     }

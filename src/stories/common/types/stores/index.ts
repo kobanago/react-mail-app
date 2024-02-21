@@ -27,3 +27,12 @@ export type SetPersonDataType = {
   resetPersonData: () => void;
   setPersonData: (by: ToCreateParsonDataType) => Promise<void>;
 };
+export type SetPersonListType = {
+  personList: UserDataType[] | undefined;
+  error: unknown;
+  resetPersonList: () => void;
+  setPersonList: (
+    userId: number,
+    personList: OriginalUserDataType[] | UserDataType[] | undefined,
+  ) => Promise<void>;
+};

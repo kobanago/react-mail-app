@@ -1,18 +1,24 @@
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import { useSelectPersonHandler } from './hooks';
 import { PersonForms } from '../../Forms/PersonForms';
 
-import { SetPersonListContext, SetProcessFlgContext } from '@/stories/common/context';
+import { SetProcessFlgContext } from '@/stories/common/context';
 import { setProcessFlgReducer } from '@/stories/common/reducers';
-import { useLinkClickFlgStore, usePersonDataStore } from '@/stories/common/stores';
+import {
+  useLinkClickFlgStore,
+  usePersonDataStore,
+  usePersonListStore,
+} from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
 import { PersonList } from '@/stories/components/molecules/List/PersonList';
 
 export const EditPersonMainParts = () => {
-  const { personList } = useContext(SetPersonListContext) ?? {};
+  const { personList } = usePersonListStore((state) => ({
+    personList: state.personList,
+  }));
   const [processFlg, processFlgDispatch] = useReducer(setProcessFlgReducer, {
     addProcessingFlg: false,
     editProcessingFlg: false,
