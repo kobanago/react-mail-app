@@ -1,7 +1,6 @@
 import {
   ProcessFlgType,
   ResetSendStateActionType,
-  SelectPersonType,
   SetProcessFlgActionType,
 } from '../types/reducers';
 export const resetSendStateFunc = (
@@ -18,12 +17,6 @@ export const resetSendStateFunc = (
     default:
       return state;
   }
-};
-export const selectPersonReducer = (
-  state: SelectPersonType,
-  action: Partial<SelectPersonType>,
-): SelectPersonType => {
-  return { ...state, ...action };
 };
 export const setProcessFlgReducer = (
   state: ProcessFlgType,
