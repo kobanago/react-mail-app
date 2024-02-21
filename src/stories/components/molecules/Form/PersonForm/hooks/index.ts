@@ -1,4 +1,5 @@
 import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import {
   useFormClearFlgStore,
@@ -15,20 +16,28 @@ export const useFormFunctions = () => {
   const [abortMailFlg, setAbortMailFlg] = useState(true);
   const initialOperationMessage = 'Select Operation Button';
   const [operationMessage, setOperationMessage] = useState(initialOperationMessage);
-  const { personData } = usePersonDataStore((state) => ({
-    personData: state.personData,
-  }));
-  const { setProcessFlg } = useProcessFlgStore((state) => ({
-    setProcessFlg: state.setProcessFlg,
-  }));
-  const { listClickFlg, setListClickFlg } = useLinkClickFlgStore((state) => ({
-    listClickFlg: state.listClickFlg,
-    setListClickFlg: state.setListClickFlg,
-  }));
-  const { formClearFlg, setFormClearFlg } = useFormClearFlgStore((state) => ({
-    formClearFlg: state.formClearFlg,
-    setFormClearFlg: state.setFormClearFlg,
-  }));
+  const { personData } = usePersonDataStore(
+    useShallow((state) => ({
+      personData: state.personData,
+    })),
+  );
+  const { setProcessFlg } = useProcessFlgStore(
+    useShallow((state) => ({
+      setProcessFlg: state.setProcessFlg,
+    })),
+  );
+  const { listClickFlg, setListClickFlg } = useLinkClickFlgStore(
+    useShallow((state) => ({
+      listClickFlg: state.listClickFlg,
+      setListClickFlg: state.setListClickFlg,
+    })),
+  );
+  const { formClearFlg, setFormClearFlg } = useFormClearFlgStore(
+    useShallow((state) => ({
+      formClearFlg: state.formClearFlg,
+      setFormClearFlg: state.setFormClearFlg,
+    })),
+  );
 
   const inputNameHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     setPersonName(event.target.value);

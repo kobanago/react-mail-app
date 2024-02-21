@@ -1,14 +1,17 @@
 import { Select as MuiSelect, MenuItem } from '@mui/material';
 import { FC } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { SelectProps } from './types';
 
 import { usePersonListStore } from '@/stories/common/stores';
 
 export const Select: FC<SelectProps> = ({ selectHandler, ...props }: SelectProps) => {
-  const { personList } = usePersonListStore((state) => ({
-    personList: state.personList,
-  }));
+  const { personList } = usePersonListStore(
+    useShallow((state) => ({
+      personList: state.personList,
+    })),
+  );
 
   return (
     <MuiSelect {...props} onChange={selectHandler} autoWidth={true}>

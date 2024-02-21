@@ -1,14 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { getAddressList, getAddressListId } from '@/controllers';
 import { usePersonDataStore, useUserDataStore } from '@/stories/common/stores';
 import { AddressListType, MessageType, UserDataType } from '@/stories/common/types/db';
 
 export const useMessageFormsFunctions = (sendState: number, message: string) => {
-  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
-  const { personData } = usePersonDataStore((state) => ({
-    personData: state.personData,
-  }));
+  const { userData } = useUserDataStore(
+    useShallow((state) => ({ userData: state.userData })),
+  );
+  const { personData } = usePersonDataStore(
+    useShallow((state) => ({
+      personData: state.personData,
+    })),
+  );
   const [messageUserData, setMessageUserData] = useState<MessageType | null>(null);
   const [messagePersonData, setMessagePersonData] = useState<MessageType | null>(null);
 

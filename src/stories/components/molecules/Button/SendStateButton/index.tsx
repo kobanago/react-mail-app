@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { SendStateButtonType } from './types';
 
@@ -10,9 +11,11 @@ export const SendStateButton: FC<SendStateButtonType> = ({
   sendHandler,
   disabled,
 }: SendStateButtonType) => {
-  const { sendState } = useSendStateStore((state) => ({
-    sendState: state.sendState,
-  }));
+  const { sendState } = useSendStateStore(
+    useShallow((state) => ({
+      sendState: state.sendState,
+    })),
+  );
 
   return (
     <>

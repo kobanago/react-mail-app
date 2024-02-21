@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { PersonListProps } from './types';
 
@@ -7,9 +8,11 @@ import { List } from '@/stories/components/atoms/List/Base';
 import { PersonListItem } from '@/stories/components/molecules/ListItem/PersonListItem';
 
 export const PersonList: FC<PersonListProps> = ({ selectHandler }: PersonListProps) => {
-  const { personList } = usePersonListStore((state) => ({
-    personList: state.personList,
-  }));
+  const { personList } = usePersonListStore(
+    useShallow((state) => ({
+      personList: state.personList,
+    })),
+  );
 
   return (
     <List sx={{ width: 'auto', bgcolor: 'background.paper' }}>

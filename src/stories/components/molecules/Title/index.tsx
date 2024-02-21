@@ -1,5 +1,6 @@
 import { Box } from '@mui/system';
 import { FC } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { TitleProps } from './types';
 import { BodyPrimaryText } from '../../atoms/Typography/BodyPrimaryText';
@@ -9,7 +10,9 @@ import theme from '@/stories/common/theme';
 import { Typography } from '@/stories/components/atoms/Typography/Base';
 
 export const Title: FC<TitleProps> = ({ title }: TitleProps) => {
-  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
+  const { userData } = useUserDataStore(
+    useShallow((state) => ({ userData: state.userData })),
+  );
   const message = userData
     ? `login user : ${userData?.name} (${userData?.mail})`
     : 'please login...';

@@ -1,5 +1,6 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useCallback } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import {
   useUserDataStore,
@@ -10,19 +11,25 @@ import {
 
 export const useSelectPersonEvent = () => {
   const { initialChangeOccurred, setInitialChangeOccurred } = useInitChangeEventStore(
-    (state) => ({
+    useShallow((state) => ({
       initialChangeOccurred: state.initialChangeOccurred,
       setInitialChangeOccurred: state.setInitialChangeOccurred,
-    }),
+    })),
   );
-  const { setSendState } = useSendStateStore((state) => ({
-    setSendState: state.setSendState,
-  }));
+  const { setSendState } = useSendStateStore(
+    useShallow((state) => ({
+      setSendState: state.setSendState,
+    })),
+  );
 
-  const { setPersonData } = usePersonDataStore((state) => ({
-    setPersonData: state.setPersonData,
-  }));
-  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
+  const { setPersonData } = usePersonDataStore(
+    useShallow((state) => ({
+      setPersonData: state.setPersonData,
+    })),
+  );
+  const { userData } = useUserDataStore(
+    useShallow((state) => ({ userData: state.userData })),
+  );
 
   const handleChange = useCallback((event: SelectChangeEvent<unknown>) => {
     setPersonData({

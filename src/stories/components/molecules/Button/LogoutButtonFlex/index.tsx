@@ -1,6 +1,7 @@
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { FC } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { LogoutButtonFlexProps } from './types';
 
@@ -13,7 +14,9 @@ import { RegisterButton } from '@/stories/components/atoms/IconButton/RegisterBu
 export const LogoutButtonFlex: FC<LogoutButtonFlexProps> = ({
   dataExistFlg,
 }: LogoutButtonFlexProps) => {
-  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
+  const { userData } = useUserDataStore(
+    useShallow((state) => ({ userData: state.userData })),
+  );
   return (
     <FlexBox>
       {userData ? (

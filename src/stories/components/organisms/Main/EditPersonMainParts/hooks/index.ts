@@ -1,4 +1,5 @@
 import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import {
   usePersonDataStore,
@@ -13,18 +14,26 @@ export const useSelectPersonHandler = ({
 }: useSelectPersonHandlerType) => {
   const {
     processFlg: { editFlg, removeFlg },
-  } = useProcessFlgStore((state) => ({
-    processFlg: state.processFlg,
-  }));
-  const { personList, setPersonList } = usePersonListStore((state) => ({
-    personList: state.personList,
-    setPersonList: state.setPersonList,
-  }));
-  const { personData, setPersonData } = usePersonDataStore((state) => ({
-    personData: state.personData,
-    setPersonData: state.setPersonData,
-  }));
-  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
+  } = useProcessFlgStore(
+    useShallow((state) => ({
+      processFlg: state.processFlg,
+    })),
+  );
+  const { personList, setPersonList } = usePersonListStore(
+    useShallow((state) => ({
+      personList: state.personList,
+      setPersonList: state.setPersonList,
+    })),
+  );
+  const { personData, setPersonData } = usePersonDataStore(
+    useShallow((state) => ({
+      personData: state.personData,
+      setPersonData: state.setPersonData,
+    })),
+  );
+  const { userData } = useUserDataStore(
+    useShallow((state) => ({ userData: state.userData })),
+  );
   const [, setPersonName] = useState('');
   const [, setPersonMail] = useState('');
 

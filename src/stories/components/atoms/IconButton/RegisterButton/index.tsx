@@ -1,4 +1,5 @@
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import { useShallow } from 'zustand/react/shallow';
 
 import { IconButton } from '../Base';
 
@@ -7,9 +8,11 @@ import { useUserDataStore } from '@/stories/common/stores';
 import { supabase } from '@/supabaseClinet';
 
 export const RegisterButton = () => {
-  const { setUserData } = useUserDataStore((state) => ({
-    setUserData: state.setUserData,
-  }));
+  const { setUserData } = useUserDataStore(
+    useShallow((state) => ({
+      setUserData: state.setUserData,
+    })),
+  );
   const handleClickRegisterUser = () => {
     supabase.auth.getUser().then((result) => {
       if (!result || !result.data || !result.data.user) return;

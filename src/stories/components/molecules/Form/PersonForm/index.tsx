@@ -1,4 +1,5 @@
 import { MouseEventHandler, useCallback, useEffect } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { processResultFunc } from './functions';
 import { useFormFunctions } from './hooks';
@@ -34,27 +35,39 @@ export const PersonForm = () => {
     inputNameHandler,
     inputMailHandler,
   } = useFormFunctions();
-  const { formClearFlg } = useFormClearFlgStore((state) => ({
-    formClearFlg: state.formClearFlg,
-  }));
+  const { formClearFlg } = useFormClearFlgStore(
+    useShallow((state) => ({
+      formClearFlg: state.formClearFlg,
+    })),
+  );
   const {
     processFlg: { addFlg, editFlg, removeFlg },
-  } = useProcessFlgStore((state) => ({
-    processFlg: state.processFlg,
-  }));
-  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
-  const { personData, setPersonData, resetPersonData } = usePersonDataStore((state) => ({
-    personData: state.personData,
-    setPersonData: state.setPersonData,
-    resetPersonData: state.resetPersonData,
-  }));
-  const { personList, setPersonList } = usePersonListStore((state) => ({
-    personList: state.personList,
-    setPersonList: state.setPersonList,
-  }));
-  const { validateError } = useValidateResultStore((state) => ({
-    validateError: state.validateError,
-  }));
+  } = useProcessFlgStore(
+    useShallow((state) => ({
+      processFlg: state.processFlg,
+    })),
+  );
+  const { userData } = useUserDataStore(
+    useShallow((state) => ({ userData: state.userData })),
+  );
+  const { personData, setPersonData, resetPersonData } = usePersonDataStore(
+    useShallow((state) => ({
+      personData: state.personData,
+      setPersonData: state.setPersonData,
+      resetPersonData: state.resetPersonData,
+    })),
+  );
+  const { personList, setPersonList } = usePersonListStore(
+    useShallow((state) => ({
+      personList: state.personList,
+      setPersonList: state.setPersonList,
+    })),
+  );
+  const { validateError } = useValidateResultStore(
+    useShallow((state) => ({
+      validateError: state.validateError,
+    })),
+  );
 
   const FormButtonClickHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
     const state = event.currentTarget.innerText;

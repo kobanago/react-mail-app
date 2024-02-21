@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { useSelectPersonHandler } from './hooks';
 import { PersonForms } from '../../Forms/PersonForms';
@@ -14,13 +15,19 @@ import { BodySubText } from '@/stories/components/atoms/Typography/BodySubText';
 import { PersonList } from '@/stories/components/molecules/List/PersonList';
 
 export const EditPersonMainParts = () => {
-  const { personList } = usePersonListStore((state) => ({
-    personList: state.personList,
-  }));
-  const { personData } = usePersonDataStore((state) => ({
-    personData: state.personData,
-  }));
-  const setListClickFlg = useLinkClickFlgStore((state) => state.setListClickFlg);
+  const { personList } = usePersonListStore(
+    useShallow((state) => ({
+      personList: state.personList,
+    })),
+  );
+  const { personData } = usePersonDataStore(
+    useShallow((state) => ({
+      personData: state.personData,
+    })),
+  );
+  const setListClickFlg = useLinkClickFlgStore(
+    useShallow((state) => state.setListClickFlg),
+  );
   const [selectEventFlg, setSelectEventFlg] = useState(false);
   const { selectPersonHandler, nameHandler, mailHandler } = useSelectPersonHandler({
     setSelectEventFlg,

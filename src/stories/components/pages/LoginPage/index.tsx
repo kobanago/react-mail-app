@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { CommonTemplate } from '../../templates/CommonTemplate';
 
@@ -11,18 +12,24 @@ import { supabase } from '@/supabaseClinet';
 
 export const LoginPage = () => {
   const [userMail, setUserMail] = useState('');
-  const { userData, setUserData, resetUserData } = useUserDataStore((state) => ({
-    userData: state.userData,
-    setUserData: state.setUserData,
-    resetUserData: state.resetUserData,
-  }));
-  const { resetPersonData } = usePersonDataStore((state) => ({
-    resetPersonData: state.resetPersonData,
-  }));
-  const { setPersonList, resetPersonList } = usePersonListStore((state) => ({
-    setPersonList: state.setPersonList,
-    resetPersonList: state.resetPersonList,
-  }));
+  const { userData, setUserData, resetUserData } = useUserDataStore(
+    useShallow((state) => ({
+      userData: state.userData,
+      setUserData: state.setUserData,
+      resetUserData: state.resetUserData,
+    })),
+  );
+  const { resetPersonData } = usePersonDataStore(
+    useShallow((state) => ({
+      resetPersonData: state.resetPersonData,
+    })),
+  );
+  const { setPersonList, resetPersonList } = usePersonListStore(
+    useShallow((state) => ({
+      setPersonList: state.setPersonList,
+      resetPersonList: state.resetPersonList,
+    })),
+  );
 
   supabase.auth.onAuthStateChange((event, session) => {
     setTimeout(() => {

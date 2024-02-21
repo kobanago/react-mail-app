@@ -1,4 +1,5 @@
 import { ChangeEventHandler, useEffect, useMemo, useRef, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { TextFieldProps } from '../types';
 
@@ -13,9 +14,11 @@ export const useTextFieldFunctions = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputError, setInputError] = useState(false);
   const memoizedInputError = useMemo(() => inputError, [inputError]);
-  const { setValidateError } = useValidateResultStore((state) => ({
-    setValidateError: state.setValidateError,
-  }));
+  const { setValidateError } = useValidateResultStore(
+    useShallow((state) => ({
+      setValidateError: state.setValidateError,
+    })),
+  );
   const [textValue, setTextValue] = useState('');
 
   const handleChangeInputText: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -39,7 +42,7 @@ export const useTextFieldFunctions = ({
 
   useEffect(() => {
     if (resetTextValue === '') setTextValue('');
-    setValidateError(inputError);
+    setValidateError(memoizedInputError);
   }, [memoizedInputError, resetTextValue]);
 
   return {

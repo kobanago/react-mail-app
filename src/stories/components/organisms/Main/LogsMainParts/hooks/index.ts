@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { getMessageList } from '@/controllers';
 import {
@@ -9,15 +10,21 @@ import {
 import { MessageType } from '@/stories/common/types/db';
 
 export const useLogsMainFunctions = () => {
-  const { personData } = usePersonDataStore((state) => ({
-    personData: state.personData,
-  }));
-  const { userData } = useUserDataStore((state) => ({ userData: state.userData }));
+  const { personData } = usePersonDataStore(
+    useShallow((state) => ({
+      personData: state.personData,
+    })),
+  );
+  const { userData } = useUserDataStore(
+    useShallow((state) => ({ userData: state.userData })),
+  );
   const [displayLogFlg, setDisplayLogFlg] = useState(false);
   const [messageLog, setMessageLog] = useState<MessageType[]>([]);
-  const { sendState } = useSendStateStore((state) => ({
-    sendState: state.sendState,
-  }));
+  const { sendState } = useSendStateStore(
+    useShallow((state) => ({
+      sendState: state.sendState,
+    })),
+  );
 
   const setMessageList = useCallback(async () => {
     try {

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { useMessageFormsFunctions } from './hooks';
 
@@ -14,24 +15,30 @@ import { SendStateButton } from '@/stories/components/molecules/Button/SendState
 import { MessageForm } from '@/stories/components/molecules/Form/MessageForm';
 
 export const MessageForms = () => {
-  const { validateError } = useValidateResultStore((state) => ({
-    validateError: state.validateError,
-  }));
+  const { validateError } = useValidateResultStore(
+    useShallow((state) => ({
+      validateError: state.validateError,
+    })),
+  );
   const { initialChangeOccurred, initialInputOccurred } = useInitChangeEventStore(
-    (state) => ({
+    useShallow((state) => ({
       initialChangeOccurred: state.initialChangeOccurred,
       initialInputOccurred: state.initialInputOccurred,
-    }),
+    })),
   );
-  const { sendState, setSendState } = useSendStateStore((state) => ({
-    sendState: state.sendState,
-    setSendState: state.setSendState,
-  }));
+  const { sendState, setSendState } = useSendStateStore(
+    useShallow((state) => ({
+      sendState: state.sendState,
+      setSendState: state.setSendState,
+    })),
+  );
 
   const disableFlg = validateError
     ? validateError
     : !(initialChangeOccurred && initialInputOccurred);
-  const { message } = useMessageStore((state) => ({ message: state.message }));
+  const { message } = useMessageStore(
+    useShallow((state) => ({ message: state.message })),
+  );
   const { messageUserData, messagePersonData } = useMessageFormsFunctions(
     Number(sendState),
     message,
