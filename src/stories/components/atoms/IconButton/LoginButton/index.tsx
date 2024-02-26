@@ -3,12 +3,17 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Box } from '../../Box/Basic';
 import { IconButton } from '../Base';
 
+import { MockFunc } from '@/stories/common/mocks';
 import theme from '@/stories/common/theme';
 import { supabase } from '@/supabaseClinet';
 
 export const LoginButton = () => {
+  const { mockLoginUser } = MockFunc();
   const handleSignInWithGoogle = () => {
-    if (import.meta.env.STORYBOOK) return;
+    if (import.meta.env.STORYBOOK) {
+      mockLoginUser('exist data');
+      return;
+    }
     supabase.auth
       .signInWithOAuth({
         provider: 'google',

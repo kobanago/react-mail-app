@@ -4,6 +4,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { IconButton } from '../Base';
 
 import { insertData } from '@/controllers';
+import { MockFunc } from '@/stories/common/mocks';
 import { useUserDataStore } from '@/stories/common/stores';
 import { supabase } from '@/supabaseClinet';
 
@@ -13,7 +14,13 @@ export const RegisterButton = () => {
       setUserData: state.setUserData,
     })),
   );
+  const { mockLoginUser } = MockFunc();
+
   const handleClickRegisterUser = () => {
+    if (import.meta.env.STORYBOOK) {
+      mockLoginUser('not auth');
+      return;
+    }
     supabase.auth.getUser().then((result) => {
       if (!result || !result.data || !result.data.user) return;
       if (result.error) {

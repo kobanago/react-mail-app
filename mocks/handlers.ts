@@ -76,12 +76,22 @@ export const handlers = [
   }),
 
   http.post('/rest/v1/*', () => {
-    console.log('データ編集禁止');
-    return HttpResponse.json({ error: 'Not Edit Data' });
+    console.log('挿入：return data');
+    const redirectPath = '/rest/v1/users';
+    const queryParams = {
+      id: `.eq${user[0].id}`,
+    };
+    const queryString = new URLSearchParams(queryParams).toString();
+    return HttpResponse.redirect(`${redirectPath}?${queryString}`);
   }),
 
   http.get('/auth/v1/*', () => {
-    console.log('認証禁止');
-    return HttpResponse.json({ error: 'Not Auth' });
+    console.log('認証：return data');
+    const redirectPath = '/rest/v1/users';
+    const queryParams = {
+      id: `.eq${user[0].id}`,
+    };
+    const queryString = new URLSearchParams(queryParams).toString();
+    return HttpResponse.redirect(`${redirectPath}?${queryString}`);
   }),
 ];
