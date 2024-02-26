@@ -1,4 +1,5 @@
 import { OriginalUserDataType, UserDataType, AddressListType } from '../types/db';
+import { ToCreateParsonDataType } from '../types/functions';
 
 import { getAddressList, getTargetData, getUsersList } from '@/controllers';
 
@@ -88,7 +89,7 @@ const changeNamePersonData = async (
   }
 };
 
-export const createPersonData = async (
+const createPersonData = async (
   userId: number,
   personMail: string,
   personData: OriginalUserDataType | UserDataType | undefined,
@@ -115,6 +116,31 @@ export const createPersonData = async (
         throw new Error('something wrong');
       newData = result;
     }
+    return newData;
+  } catch (error) {
+    console.error('Error creating personData:', error);
+    throw error;
+  }
+};
+
+export const setDataToCreateParsonData = async ({
+  personId,
+  userData,
+  personData,
+}: ToCreateParsonDataType): Promise<UserDataType> => {
+  try {
+    let newData = undefined;
+    let data = personData;
+    if (!userData) throw new Error('something wrong');
+    if (!data) {
+      const personData = await getTargetData('users', 'id', personId.toString());
+      if (!personData) throw new Error('something wrong');
+      const tmpData = personData as UserDataType[];
+      if (!tmpData.length) throw new Error('something wrong');
+      data = tmpData[0];
+    }
+    newData = await createPersonData(userData.id, data.mail, data);
+    if (!newData) throw new Error('something wrong');
     return newData;
   } catch (error) {
     console.error('Error creating personData:', error);

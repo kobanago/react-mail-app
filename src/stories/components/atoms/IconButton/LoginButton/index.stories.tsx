@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LoginButton } from '.';
 
+import { createDecorator } from '@/stories/common/decorators';
 const meta = {
   title: 'Atoms/IconButton/LoginButton',
   component: LoginButton,
@@ -14,4 +15,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LoginButtonNormal: Story = {};
+const { createCommonDecorator } = createDecorator();
+export const LoginButtonNormal: Story = {
+  decorators: createCommonDecorator('not login'),
+};

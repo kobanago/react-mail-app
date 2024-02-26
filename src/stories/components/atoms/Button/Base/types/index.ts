@@ -3,6 +3,5 @@ import { MouseEventHandler } from 'react';
 export type ButtonProps = MuiButtonProps & {
   label?: string;
   clickHandler?: (() => void) | MouseEventHandler<HTMLButtonElement>;
-  linkFlg?: boolean;
   to?: string;
 };

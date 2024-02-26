@@ -2,6 +2,8 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import { Title } from '.';
 
+import { createDecorator } from '@/stories/common/decorators';
+
 const meta: Meta = {
   title: 'Molecules/Title',
   component: Title,
@@ -13,8 +15,16 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Normal: Story = {
+const { createCommonDecorator } = createDecorator();
+export const TitleNotLogin: Story = {
   args: {
     title: 'test',
   },
+  decorators: createCommonDecorator('not login'),
+};
+export const TitleLogin: Story = {
+  args: {
+    title: 'test',
+  },
+  decorators: createCommonDecorator('not exist data'),
 };

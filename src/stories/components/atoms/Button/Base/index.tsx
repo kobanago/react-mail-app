@@ -7,17 +7,11 @@ import { ButtonProps } from './types';
 export const Button: FC<ButtonProps> = ({
   label,
   clickHandler,
-  linkFlg,
   to,
   ...props
 }: ButtonProps) => {
-  return linkFlg ? (
-    <MuiButton component={Link} to={to} {...props}>
-      {label}
-      {props.children}
-    </MuiButton>
-  ) : (
-    <MuiButton onClick={clickHandler} {...props}>
+  return (
+    <MuiButton onClick={clickHandler} component={Link} to={to} {...props}>
       {label}
       {props.children}
     </MuiButton>

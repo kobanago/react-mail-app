@@ -1,16 +1,17 @@
-import { MouseEventHandler, useCallback, useContext, useEffect, useReducer } from 'react';
+import { MouseEventHandler, useCallback, useEffect } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { processResultFunc } from './functions';
 import { useFormFunctions } from './hooks';
 
 import {
-  SetPersonDataContext,
-  SetPersonListContext,
-  SetProcessFlgContext,
-  SetUserDataContext,
-  ValidateResultContext,
-} from '@/stories/common/context';
-import { createPersonData, createPersonList } from '@/stories/common/functions';
+  useFormClearFlgStore,
+  usePersonDataStore,
+  usePersonListStore,
+  useProcessFlgStore,
+  useUserDataStore,
+  useValidateResultStore,
+} from '@/stories/common/stores';
 import theme from '@/stories/common/theme';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { FlexBox } from '@/stories/components/atoms/Box/FlexBox';
@@ -22,10 +23,6 @@ import { MailTextField } from '@/stories/components/atoms/TextField/MailTextFiel
 import { BodyPrimaryText } from '@/stories/components/atoms/Typography/BodyPrimaryText';
 
 export const PersonForm = () => {
-  const [clearFlg, dispatch] = useReducer(
-    (state: boolean, action: boolean) => (action !== undefined ? action : state),
-    false,
-  );
   const {
     personName,
     personMail,
@@ -37,17 +34,40 @@ export const PersonForm = () => {
     switchProcessFlg,
     inputNameHandler,
     inputMailHandler,
-  } = useFormFunctions({ clearFlg, dispatch });
-
-  const { processFlg } = useContext(SetProcessFlgContext) ?? {};
-  const { userData } = useContext(SetUserDataContext) ?? {};
-  const { personData, personDataDispatch } = useContext(SetPersonDataContext) ?? {};
-  const { personList, personListDispatch } = useContext(SetPersonListContext) ?? {};
-  const { validateError } = useContext(ValidateResultContext) ?? {};
-  const { addProcessingFlg, editProcessingFlg, removeProcessingFlg } = processFlg || {};
-  const addFlg = addProcessingFlg ?? false;
-  const editFlg = editProcessingFlg ?? false;
-  const removeFlg = removeProcessingFlg ?? false;
+  } = useFormFunctions();
+  const { formClearFlg } = useFormClearFlgStore(
+    useShallow((state) => ({
+      formClearFlg: state.formClearFlg,
+    })),
+  );
+  const {
+    processFlg: { addFlg, editFlg, removeFlg },
+  } = useProcessFlgStore(
+    useShallow((state) => ({
+      processFlg: state.processFlg,
+    })),
+  );
+  const { userData } = useUserDataStore(
+    useShallow((state) => ({ userData: state.userData })),
+  );
+  const { personData, setPersonData, resetPersonData } = usePersonDataStore(
+    useShallow((state) => ({
+      personData: state.personData,
+      setPersonData: state.setPersonData,
+      resetPersonData: state.resetPersonData,
+    })),
+  );
+  const { personList, setPersonList } = usePersonListStore(
+    useShallow((state) => ({
+      personList: state.personList,
+      setPersonList: state.setPersonList,
+    })),
+  );
+  const { validateError } = useValidateResultStore(
+    useShallow((state) => ({
+      validateError: state.validateError,
+    })),
+  );
 
   const FormButtonClickHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
     const state = event.currentTarget.innerText;
@@ -75,30 +95,26 @@ export const PersonForm = () => {
 
   const successUpdate = useCallback(() => {
     cancelClickHandler();
-    if (!userData || !personListDispatch || !personDataDispatch)
-      throw new Error('something wrong');
-    createPersonList(userData.id, personList)
-      .then((result) => {
-        if (!result || !result.length) {
-          personListDispatch({ type: 'RESET', payload: undefined });
+    if (!userData) throw new Error('something wrong');
+    setPersonList(userData.id, personList)
+      .then(() => {
+        if (!editFlg || !personData) {
+          resetPersonData();
           return;
         }
-        personListDispatch({ type: 'SUCCESS', payload: result });
-        if (editFlg) {
-          createPersonData(userData.id, personMail, personData).then((result) => {
-            if (!result) throw new Error('something wrong');
-            personDataDispatch({ type: 'SUCCESS', payload: result });
+        const personId = personData.id.toString();
+        setPersonData({ personId, userData, personData })
+          .then()
+          .catch(() => {
+            throw new Error('something wrong');
           });
-        } else {
-          personDataDispatch({ type: 'RESET', payload: undefined });
-        }
       })
       .catch((error) => {
         throw error;
       });
   }, []);
 
-  useEffect(() => {}, [clearFlg]);
+  useEffect(() => {}, [formClearFlg]);
 
   return (
     <FormControl sx={{ width: '70%', padding: theme.spacing(1) }} margin='normal'>
@@ -106,14 +122,14 @@ export const PersonForm = () => {
         <TextField
           label={'Name'}
           value={personName}
-          resetTextValue={clearFlg ? '' : undefined}
+          resetTextValue={formClearFlg ? '' : undefined}
           inputHandler={inputNameHandler}
           disabledFlg={abortNameFlg}
           requiredFlg={false}
         />
         <MailTextField
           value={personMail}
-          resetTextValue={clearFlg ? '' : undefined}
+          resetTextValue={formClearFlg ? '' : undefined}
           inputHandler={inputMailHandler}
           disabledFlg={abortMailFlg}
         />

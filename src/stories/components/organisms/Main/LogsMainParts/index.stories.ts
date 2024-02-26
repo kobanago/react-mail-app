@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LogsMainParts } from '.';
 
-import { createSendMainPartsDecorator } from '@/stories/common/decorators';
+import { createDecorator } from '@/stories/common/decorators';
 
 const meta = {
   title: 'Organisms/Main/LogsMainParts',
@@ -16,9 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const LogsMainPartsNoExistData: Story = {
-  decorators: createSendMainPartsDecorator('not exist data'),
-};
-export const LogsMainPartsExistData: Story = {
-  decorators: createSendMainPartsDecorator('select data'),
+  decorators: createCommonDecorator('not exist data'),
 };

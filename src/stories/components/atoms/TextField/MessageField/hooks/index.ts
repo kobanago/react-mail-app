@@ -1,27 +1,32 @@
-import { useContext } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import {
-  ResetSendStateContext,
-  InitInputEventStateContext,
-  SetMessageContext,
-} from '@/stories/common/context';
+  useInitChangeEventStore,
+  useMessageStore,
+  useSendStateStore,
+} from '@/stories/common/stores';
 
 export const useMessageFieldFunctions = () => {
-  const { resetTextValue, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
-  const { initialInputOccurred, setInitialInputOccurred } =
-    useContext(InitInputEventStateContext) ?? {};
-  const { messageDispatch } = useContext(SetMessageContext) ?? {};
+  const { resetTextValue, setSendState } = useSendStateStore(
+    useShallow((state) => ({
+      resetTextValue: state.resetTextValue,
+      setSendState: state.setSendState,
+    })),
+  );
+  const { initialInputOccurred, setInitialInputOccurred } = useInitChangeEventStore(
+    useShallow((state) => ({
+      initialInputOccurred: state.initialInputOccurred,
+      setInitialInputOccurred: state.setInitialInputOccurred,
+    })),
+  );
+  const { setMessage } = useMessageStore(
+    useShallow((state) => ({ setMessage: state.setMessage })),
+  );
 
   const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (messageDispatch) {
-      messageDispatch(event.target.value);
-    }
-    if (sendStateDispatch) {
-      sendStateDispatch('INIT');
-    }
-    if (!initialInputOccurred && setInitialInputOccurred) {
-      setInitialInputOccurred(true);
-    }
+    setMessage(event.target.value);
+    setSendState('INIT');
+    if (!initialInputOccurred) setInitialInputOccurred(true);
   };
 
   return {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LogoutButtonFlex } from '.';
 
-import { createLoginMainPartsDecorator } from '@/stories/common/decorators';
+import { createDecorator } from '@/stories/common/decorators';
 
 const meta = {
   title: 'Molecules/Button/LogoutButtonFlex',
@@ -16,21 +16,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const LogoutButtonFlexNotAuth: Story = {
   args: {
     dataExistFlg: false,
   },
-  decorators: createLoginMainPartsDecorator('not auth'),
+  decorators: createCommonDecorator('not auth'),
 };
 export const LogoutButtonFlexNotExistData: Story = {
   args: {
     dataExistFlg: false,
   },
-  decorators: createLoginMainPartsDecorator('not exist data'),
+  decorators: createCommonDecorator('not exist data'),
 };
 export const LogoutButtonFlexExistData: Story = {
   args: {
     dataExistFlg: true,
   },
-  decorators: createLoginMainPartsDecorator('exist data'),
+  decorators: createCommonDecorator('exist data'),
 };

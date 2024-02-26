@@ -37,3 +37,6 @@
 
 ##### react-router
 ###### npm install react-router-dom@latest
+
+##### zustand
+###### npm install zustand

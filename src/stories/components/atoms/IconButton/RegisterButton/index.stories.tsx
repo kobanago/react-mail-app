@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RegisterButton } from '.';
 
+import { createDecorator } from '@/stories/common/decorators';
+
 const meta = {
   title: 'Atoms/IconButton/RegisterButton',
   component: RegisterButton,
@@ -14,4 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const RegisterButtonNormal: Story = {};
+const { createCommonDecorator } = createDecorator();
+export const RegisterButtonNormal: Story = {
+  decorators: createCommonDecorator('not auth'),
+};

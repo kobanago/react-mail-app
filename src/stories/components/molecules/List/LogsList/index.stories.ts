@@ -17,12 +17,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LogsListNoData: Story = {
-  args: {
-    messageLog: [],
-  },
-};
-export const LogsListExistData: Story = {
+export const LogsListNormal: Story = {
   args: {
     messageLog: data as MessageType[],
   },

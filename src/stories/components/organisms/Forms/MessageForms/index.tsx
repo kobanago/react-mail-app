@@ -1,33 +1,43 @@
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useEffect } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { useMessageFormsFunctions } from './hooks';
 
 import { insertData } from '@/controllers';
 import {
-  InitChangeEventStateContext,
-  InitInputEventStateContext,
-  ResetSendStateContext,
-  SetMessageContext,
-  ValidateResultContext,
-} from '@/stories/common/context';
+  useInitChangeEventStore,
+  useMessageStore,
+  useSendStateStore,
+  useValidateResultStore,
+} from '@/stories/common/stores';
 import { Box } from '@/stories/components/atoms/Box/Basic';
 import { SendStateButton } from '@/stories/components/molecules/Button/SendStateButton';
 import { MessageForm } from '@/stories/components/molecules/Form/MessageForm';
 
 export const MessageForms = () => {
-  const [validateError, setValidateError] = useReducer(
-    (state: boolean, action: boolean) => (action !== undefined ? action : state),
-    false,
+  const { validateError } = useValidateResultStore(
+    useShallow((state) => ({
+      validateError: state.validateError,
+    })),
   );
-  const [initialChangeOccurred, setInitialChangeOccurred] = useState(false);
-  const [initialInputOccurred, setInitialInputOccurred] = useState(false);
-  const { sendState, sendStateDispatch } = useContext(ResetSendStateContext) ?? {};
+  const { initialChangeOccurred, initialInputOccurred } = useInitChangeEventStore(
+    useShallow((state) => ({
+      initialChangeOccurred: state.initialChangeOccurred,
+      initialInputOccurred: state.initialInputOccurred,
+    })),
+  );
+  const { sendState, setSendState } = useSendStateStore(
+    useShallow((state) => ({
+      sendState: state.sendState,
+      setSendState: state.setSendState,
+    })),
+  );
+
   const disableFlg = validateError
     ? validateError
     : !(initialChangeOccurred && initialInputOccurred);
-  const [message, messageDispatch] = useReducer(
-    (state: string, action: string) => (action !== undefined ? action : state),
-    '',
+  const { message } = useMessageStore(
+    useShallow((state) => ({ message: state.message })),
   );
   const { messageUserData, messagePersonData } = useMessageFormsFunctions(
     Number(sendState),
@@ -41,11 +51,11 @@ export const MessageForms = () => {
       insertData('message_list', messageUserData)
         .then(() => {
           if (!messagePersonData) {
-            if (sendStateDispatch) sendStateDispatch('COMPLETED');
+            setSendState('COMPLETED');
             return;
           }
           insertData('message_list', messagePersonData).then(() => {
-            if (sendStateDispatch) sendStateDispatch('COMPLETED');
+            setSendState('COMPLETED');
           });
         })
         .catch((error: Error) => {
@@ -56,25 +66,13 @@ export const MessageForms = () => {
   };
 
   return (
-    <ValidateResultContext.Provider value={{ validateError, setValidateError }}>
-      <InitChangeEventStateContext.Provider
-        value={{ initialChangeOccurred, setInitialChangeOccurred }}
-      >
-        <InitInputEventStateContext.Provider
-          value={{ initialInputOccurred, setInitialInputOccurred }}
-        >
-          <SetMessageContext.Provider value={{ message, messageDispatch }}>
-            <Box>
-              <MessageForm />
-              <SendStateButton
-                keepHandler={() => sendStateDispatch && sendStateDispatch('KEEP')}
-                sendHandler={handleClickSendMessage}
-                disabled={disableFlg}
-              />
-            </Box>
-          </SetMessageContext.Provider>
-        </InitInputEventStateContext.Provider>
-      </InitChangeEventStateContext.Provider>
-    </ValidateResultContext.Provider>
+    <Box>
+      <MessageForm />
+      <SendStateButton
+        keepHandler={() => setSendState('KEEP')}
+        sendHandler={handleClickSendMessage}
+        disabled={disableFlg}
+      />
+    </Box>
   );
 };

@@ -1,39 +1,22 @@
-import { OriginalUserDataType, UserDataType } from '../db';
-
-export type ResetSendStateActionType = {
+export type SetSendStateActionType = {
   sendState: number;
   resetTextValue: string | undefined;
 };
-export type SetUserDataType = {
-  type: string;
-  payload: OriginalUserDataType | null | undefined;
+export type SetSendStateType = {
+  sendState: number;
+  resetTextValue: string | undefined;
+  setSendState: (action: string) => void;
 };
-export type SetPersonDataType = {
-  type: string;
-  payload: OriginalUserDataType | UserDataType | undefined;
-};
-export type SetPersonListType = {
-  type: string;
-  payload: UserDataType[] | undefined;
-};
-export type SelectPersonType = {
-  personName: string;
-  personMail: string;
-};
-export type FormClearState = {
-  clearFlg: boolean;
-  dispatch: React.Dispatch<boolean>;
-};
-export type SetProcessFlgType = {
-  addProcessingFlg: boolean;
-  editProcessingFlg: boolean;
-  removeProcessingFlg: boolean;
+export type ProcessFlgType = {
+  addFlg: boolean;
+  editFlg: boolean;
+  removeFlg: boolean;
 };
 export type SetProcessFlgActionType = {
   type: string;
   payload: boolean;
 };
-export type SetLinkClickFlgType = {
-  listClickFlg: boolean;
-  setListClickFlg: React.Dispatch<boolean>;
+export type SetProcessFlgType = {
+  processFlg: ProcessFlgType;
+  setProcessFlg: (action: SetProcessFlgActionType) => void;
 };

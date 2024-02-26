@@ -1,34 +1,60 @@
-import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react';
+import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import {
-  SetLinkClickFlgContext,
-  SetPersonDataContext,
-  SetProcessFlgContext,
-} from '@/stories/common/context';
+  useFormClearFlgStore,
+  useLinkClickFlgStore,
+  usePersonDataStore,
+  useProcessFlgStore,
+  useValidateResultStore,
+} from '@/stories/common/stores';
 import { UserDataType } from '@/stories/common/types/db';
-import { FormClearState } from '@/stories/common/types/reducers';
 
-export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
+export const useFormFunctions = () => {
   const [personName, setPersonName] = useState('');
   const [personMail, setPersonMail] = useState('');
   const [abortNameFlg, setAbortNameFlg] = useState(true);
   const [abortMailFlg, setAbortMailFlg] = useState(true);
   const initialOperationMessage = 'Select Operation Button';
   const [operationMessage, setOperationMessage] = useState(initialOperationMessage);
-  const { personData } = useContext(SetPersonDataContext) ?? {};
-  const { processFlgDispatch } = useContext(SetProcessFlgContext) ?? {};
-  const { listClickFlg, setListClickFlg } = useContext(SetLinkClickFlgContext) ?? {};
+  const { personData } = usePersonDataStore(
+    useShallow((state) => ({
+      personData: state.personData,
+    })),
+  );
+  const { setProcessFlg } = useProcessFlgStore(
+    useShallow((state) => ({
+      setProcessFlg: state.setProcessFlg,
+    })),
+  );
+  const { listClickFlg, setListClickFlg } = useLinkClickFlgStore(
+    useShallow((state) => ({
+      listClickFlg: state.listClickFlg,
+      setListClickFlg: state.setListClickFlg,
+    })),
+  );
+  const { formClearFlg, setFormClearFlg } = useFormClearFlgStore(
+    useShallow((state) => ({
+      formClearFlg: state.formClearFlg,
+      setFormClearFlg: state.setFormClearFlg,
+    })),
+  );
+  const { setValidateError } = useValidateResultStore(
+    useShallow((state) => ({
+      setValidateError: state.setValidateError,
+    })),
+  );
 
   const inputNameHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     setPersonName(event.target.value);
-    if (clearFlg) dispatch(false);
-    if (setListClickFlg) setListClickFlg(false);
+    if (formClearFlg) setFormClearFlg(false);
+    setListClickFlg(false);
   };
 
   const inputMailHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     setPersonMail(event.target.value);
-    if (clearFlg) dispatch(false);
-    if (setListClickFlg) setListClickFlg(false);
+    if (formClearFlg) setFormClearFlg(false);
+    setListClickFlg(false);
   };
 
   useEffect(() => {
@@ -45,11 +71,9 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
 
   const changeProcessFlg = useCallback(
     (stateType: string, value: boolean) => {
-      if (processFlgDispatch) {
-        processFlgDispatch({ type: stateType, payload: value });
-      }
+      setProcessFlg({ type: stateType, payload: value });
     },
-    [processFlgDispatch],
+    [setProcessFlg],
   );
 
   const switchProcessFlg = useCallback(
@@ -78,17 +102,18 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   );
 
   const clearClickHandler = useCallback(() => {
-    dispatch(true);
-    if (setListClickFlg) setListClickFlg(false);
+    setFormClearFlg(true);
+    setListClickFlg(false);
     setPersonName('');
     setPersonMail('');
-  }, [dispatch]);
+  }, [setFormClearFlg]);
 
   const cancelClickHandler = useCallback(() => {
     clearClickHandler();
     switchProcessFlg('ADD', false);
     switchProcessFlg('EDIT', false);
     switchProcessFlg('REMOVE', false);
+    setValidateError(false);
   }, [clearClickHandler, switchProcessFlg]);
 
   return {

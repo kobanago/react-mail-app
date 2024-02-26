@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { EditPersonMainParts } from '.';
 
-import { createEditPersonMainPartsDecorator } from '@/stories/common/decorators';
+import { createDecorator } from '@/stories/common/decorators';
 
 const meta = {
   title: 'Organisms/Main/EditPersonMainParts',
@@ -16,9 +16,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const EditPersonMainPartsNoData: Story = {
-  decorators: [createEditPersonMainPartsDecorator('not exist data')],
+  decorators: createCommonDecorator('not exist data'),
 };
 export const EditPersonMainPartsExistData: Story = {
-  decorators: [createEditPersonMainPartsDecorator('select data')],
+  decorators: createCommonDecorator('exist data'),
 };

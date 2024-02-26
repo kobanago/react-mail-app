@@ -1,17 +1,12 @@
-import { OriginalUserDataType, UserDataType } from '../types/db';
 import {
-  ResetSendStateActionType,
-  SetUserDataType,
-  SetPersonDataType,
-  SetPersonListType,
-  SelectPersonType,
-  SetProcessFlgType,
+  ProcessFlgType,
+  SetSendStateActionType,
   SetProcessFlgActionType,
 } from '../types/reducers';
-export const resetSendStateFunc = (
-  state: ResetSendStateActionType,
+export const setSendStateFunc = (
+  state: SetSendStateActionType,
   action: string,
-): ResetSendStateActionType => {
+): SetSendStateActionType => {
   switch (action) {
     case 'INIT':
       return { sendState: 0, resetTextValue: undefined };
@@ -23,68 +18,17 @@ export const resetSendStateFunc = (
       return state;
   }
 };
-export const setUserDataFunc = (
-  state: OriginalUserDataType | null | undefined,
-  action: SetUserDataType,
-): OriginalUserDataType | null | undefined => {
-  switch (action.type) {
-    case 'SUCCESS':
-      return action.payload;
-    case 'ERROR':
-      return undefined;
-    case 'RESET':
-      return undefined;
-    default:
-      return state;
-  }
-};
-export const setPersonDataFunc = (
-  state: OriginalUserDataType | UserDataType | undefined,
-  action: SetPersonDataType,
-): OriginalUserDataType | UserDataType | undefined => {
-  switch (action.type) {
-    case 'SUCCESS':
-      return action.payload;
-    case 'ERROR':
-      return undefined;
-    case 'RESET':
-      return undefined;
-    default:
-      return state;
-  }
-};
-export const setPersonListFunc = (
-  state: UserDataType[] | undefined,
-  action: SetPersonListType,
-): UserDataType[] | undefined => {
-  switch (action.type) {
-    case 'SUCCESS':
-      return action.payload;
-    case 'ERROR':
-      return undefined;
-    case 'RESET':
-      return undefined;
-    default:
-      return state;
-  }
-};
-export const selectPersonReducer = (
-  state: SelectPersonType,
-  action: Partial<SelectPersonType>,
-): SelectPersonType => {
-  return { ...state, ...action };
-};
 export const setProcessFlgReducer = (
-  state: SetProcessFlgType,
+  state: ProcessFlgType,
   action: SetProcessFlgActionType,
-) => {
+): ProcessFlgType => {
   switch (action.type) {
     case 'ADD':
-      return { ...state, addProcessingFlg: action.payload };
+      return { ...state, addFlg: action.payload };
     case 'EDIT':
-      return { ...state, editProcessingFlg: action.payload };
+      return { ...state, editFlg: action.payload };
     case 'REMOVE':
-      return { ...state, removeProcessingFlg: action.payload };
+      return { ...state, removeFlg: action.payload };
     default:
       return state;
   }

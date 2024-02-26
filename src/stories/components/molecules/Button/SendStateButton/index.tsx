@@ -1,8 +1,9 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { SendStateButtonType } from './types';
 
-import { ResetSendStateContext } from '@/stories/common/context';
+import { useSendStateStore } from '@/stories/common/stores';
 import { Button } from '@/stories/components/atoms/Button/Basic';
 
 export const SendStateButton: FC<SendStateButtonType> = ({
@@ -10,7 +11,12 @@ export const SendStateButton: FC<SendStateButtonType> = ({
   sendHandler,
   disabled,
 }: SendStateButtonType) => {
-  const { sendState } = useContext(ResetSendStateContext) ?? {};
+  const { sendState } = useSendStateStore(
+    useShallow((state) => ({
+      sendState: state.sendState,
+    })),
+  );
+
   return (
     <>
       {(() => {

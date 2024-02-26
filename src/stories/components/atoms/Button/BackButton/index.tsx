@@ -1,19 +1,23 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button as BasicButton } from '../Basic';
 
-import { SetPersonDataContext } from '@/stories/common/context';
+import { usePersonDataStore } from '@/stories/common/stores';
 
 export const BackButton: FC = () => {
-  const { personDataDispatch } = useContext(SetPersonDataContext) ?? {};
+  const { resetPersonData } = usePersonDataStore(
+    useShallow((state) => ({
+      resetPersonData: state.resetPersonData,
+    })),
+  );
   return (
     <BasicButton
       label={'go back'}
       disabled={false}
-      linkFlg={true}
       to='/'
       clickHandler={() => {
-        personDataDispatch && personDataDispatch({ type: 'RESET', payload: undefined });
+        resetPersonData();
       }}
     />
   );
