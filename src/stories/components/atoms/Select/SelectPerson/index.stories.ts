@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { SelectPerson } from '.';
 
-import { createLoginMainPartsDecorator } from '@/stories/common/decorators';
+import { createDecorator } from '@/stories/common/decorators';
 
 const meta = {
   title: 'Atoms/Select/SelectPerson',
@@ -16,6 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const SelectPersonNormal: Story = {
-  decorators: [createLoginMainPartsDecorator('exist data')],
+  decorators: createCommonDecorator('exist data'),
 };

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { PersonForm } from '.';
 
-import { createLoginMainPartsDecorator } from '@/stories/common/decorators';
+import { createDecorator } from '@/stories/common/decorators';
 
 const meta = {
   title: 'Molecules/Form/PersonForm',
@@ -16,9 +16,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const PersonFormNoData: Story = {
-  decorators: [createLoginMainPartsDecorator('not exist data')],
+  decorators: createCommonDecorator('not exist data'),
 };
 export const PersonFormExistData: Story = {
-  decorators: [createLoginMainPartsDecorator('exist data')],
+  decorators: createCommonDecorator('exist data'),
 };

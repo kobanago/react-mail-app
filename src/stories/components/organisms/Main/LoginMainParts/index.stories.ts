@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LoginMainParts } from '.';
 
-import { createLoginMainPartsDecorator } from '@/stories/common/decorators';
+import { createDecorator } from '@/stories/common/decorators';
 
 const meta = {
   title: 'Organisms/Main/LoginMainParts',
@@ -16,15 +16,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const LoginMainPartsNotLogin: Story = {
-  decorators: [createLoginMainPartsDecorator('not login')],
+  decorators: createCommonDecorator('not login'),
 };
 export const LoginMainPartsNotAuth: Story = {
-  decorators: [createLoginMainPartsDecorator('not auth')],
+  decorators: createCommonDecorator('not auth'),
 };
-export const LoginMainPartsNotExistData: Story = {
-  decorators: [createLoginMainPartsDecorator('not exist data')],
+export const LoginMainPartsNoData: Story = {
+  decorators: createCommonDecorator('not exist data'),
 };
 export const LoginMainPartsExistData: Story = {
-  decorators: [createLoginMainPartsDecorator('exist data')],
+  decorators: createCommonDecorator('exist data'),
 };

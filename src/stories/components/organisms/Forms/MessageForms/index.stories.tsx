@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import { MessageForms } from '.';
 
-import { createSendMainPartsDecorator } from '@/stories/common/decorators';
+import { createDecorator } from '@/stories/common/decorators';
 const meta: Meta = {
   title: 'Organisms/MessageForms',
   component: MessageForms,
@@ -15,6 +15,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const MessageFormsNormal: Story = {
-  decorators: [createSendMainPartsDecorator('exist data')],
+  decorators: createCommonDecorator('exist data'),
 };
