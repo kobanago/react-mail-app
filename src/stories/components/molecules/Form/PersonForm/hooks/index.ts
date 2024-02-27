@@ -4,6 +4,7 @@ import {
   SetLinkClickFlgContext,
   SetPersonDataContext,
   SetProcessFlgContext,
+  ValidateResultContext,
 } from '@/stories/common/context';
 import { UserDataType } from '@/stories/common/types/db';
 import { FormClearState } from '@/stories/common/types/reducers';
@@ -18,6 +19,7 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
   const { personData } = useContext(SetPersonDataContext) ?? {};
   const { processFlgDispatch } = useContext(SetProcessFlgContext) ?? {};
   const { listClickFlg, setListClickFlg } = useContext(SetLinkClickFlgContext) ?? {};
+  const { setValidateError } = useContext(ValidateResultContext) ?? {};
 
   const inputNameHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     setPersonName(event.target.value);
@@ -89,6 +91,7 @@ export const useFormFunctions = ({ clearFlg, dispatch }: FormClearState) => {
     switchProcessFlg('ADD', false);
     switchProcessFlg('EDIT', false);
     switchProcessFlg('REMOVE', false);
+    if (setValidateError) setValidateError(false);
   }, [clearClickHandler, switchProcessFlg]);
 
   return {

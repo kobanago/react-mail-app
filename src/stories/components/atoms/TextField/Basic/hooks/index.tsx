@@ -20,7 +20,7 @@ export const useTextFieldFunctions = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputError, setInputError] = useState(false);
   const memoizedInputError = useMemo(() => inputError, [inputError]);
-  const { setValidateError } = useContext(ValidateResultContext) ?? {};
+  const { validateError, setValidateError } = useContext(ValidateResultContext) ?? {};
   const [textValue, setTextValue] = useState('');
 
   const handleChangeInputText: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -37,6 +37,10 @@ export const useTextFieldFunctions = ({
       inputHandler(event);
     }
   };
+
+  useEffect(() => {
+    if (!validateError) setInputError(false);
+  }, [validateError]);
 
   useEffect(() => {
     if (value) setTextValue(value);
