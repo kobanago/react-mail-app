@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   test: {
-    // globals: true,
+    globals: true,
     environment: 'happy-dom',
     setupFiles: ['./vitest-setup.ts'],
     // スナップショットの保存先を設定
