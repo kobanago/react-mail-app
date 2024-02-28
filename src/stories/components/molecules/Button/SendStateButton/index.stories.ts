@@ -13,6 +13,10 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    keepHandler: action('click'),
+    sendHandler: action('click'),
+  },
 } satisfies Meta<typeof SendStateButton>;
 
 export default meta;
@@ -20,9 +24,11 @@ type Story = StoryObj<typeof meta>;
 
 const { createCommonDecorator } = createDecorator();
 export const SendStateButtonInit: Story = {
-  args: {
-    keepHandler: action('click'),
-    sendHandler: action('click'),
-  },
-  decorators: createCommonDecorator('not exist data'),
+  decorators: createCommonDecorator('send state init'),
+};
+export const SendStateButtonKeep: Story = {
+  decorators: createCommonDecorator('send state keep'),
+};
+export const SendStateButtonComplete: Story = {
+  decorators: createCommonDecorator('send state complete'),
 };
