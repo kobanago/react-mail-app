@@ -1,6 +1,11 @@
 import { useShallow } from 'zustand/react/shallow';
 
-import { useUserDataStore, usePersonDataStore, usePersonListStore } from '..';
+import {
+  useUserDataStore,
+  usePersonDataStore,
+  usePersonListStore,
+  useSendStateStore,
+} from '..';
 
 export const useDataStoreHooks = () => {
   const { setUserData, resetUserData } = useUserDataStore(
@@ -20,6 +25,11 @@ export const useDataStoreHooks = () => {
       resetPersonList: state.resetPersonList,
     })),
   );
+  const { setSendState } = useSendStateStore(
+    useShallow((state) => ({
+      setSendState: state.setSendState,
+    })),
+  );
 
   return {
     setUserData,
@@ -27,5 +37,6 @@ export const useDataStoreHooks = () => {
     resetPersonData,
     setPersonList,
     resetPersonList,
+    setSendState,
   };
 };

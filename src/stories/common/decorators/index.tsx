@@ -13,6 +13,7 @@ export const createDecorator = () => {
         resetPersonData,
         setPersonList,
         resetPersonList,
+        setSendState,
       } = useDataStoreHooks();
       switchDataState(
         setUserData,
@@ -20,6 +21,7 @@ export const createDecorator = () => {
         resetPersonData,
         setPersonList,
         resetPersonList,
+        setSendState,
         state,
       )
         .then()
