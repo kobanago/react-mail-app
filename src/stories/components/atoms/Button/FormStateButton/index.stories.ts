@@ -4,6 +4,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { FormStateButton } from '.';
 
+import { createDecorator } from '@/stories/common/decorators';
+
 const meta = {
   title: 'Atoms/Button/FormStateButton',
   component: FormStateButton,
@@ -16,12 +18,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const FormStateButtonNormal: Story = {
   args: {
     processing: true,
     label: 'Button',
     clickHandler: action('clicked'),
   },
+  decorators: createCommonDecorator('not exist data'),
 };
 
 export const FormStateButtonDisabled: Story = {
@@ -29,4 +33,5 @@ export const FormStateButtonDisabled: Story = {
     ...FormStateButtonNormal.args,
     disabled: true,
   },
+  decorators: createCommonDecorator('not exist data'),
 };

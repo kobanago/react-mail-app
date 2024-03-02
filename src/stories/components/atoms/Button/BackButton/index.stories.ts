@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { BackButton } from '.';
 
+import { createDecorator } from '@/stories/common/decorators';
+
 const meta = {
   title: 'Atoms/Button/BackButton',
   component: BackButton,
@@ -14,4 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const BackButtonNormal: Story = {};
+const { createCommonDecorator } = createDecorator();
+export const BackButtonNormal: Story = {
+  decorators: createCommonDecorator('not exist data'),
+};
