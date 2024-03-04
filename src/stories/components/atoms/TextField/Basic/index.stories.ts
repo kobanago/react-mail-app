@@ -1,4 +1,5 @@
 import { action } from '@storybook/addon-actions';
+import { expect, within } from '@storybook/test';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -10,6 +11,10 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
+  args: {
+    label: 'Test',
+    inputHandler: action('input'),
+  },
   tags: ['autodocs'],
 } satisfies Meta<typeof TextField>;
 
@@ -18,15 +23,19 @@ type Story = StoryObj<typeof meta>;
 
 export const BasicNormal: Story = {
   args: {
-    label: 'Test',
-    inputHandler: action('test'),
     disabledFlg: false,
   },
 };
 
 export const BasicDisable: Story = {
   args: {
-    label: 'Test',
     disabledFlg: true,
+  },
+  play: async ({ canvasElement }) => {
+    // Given
+    const canvas = within(canvasElement);
+    const disableTextField = canvas.getByText('Test');
+    //Then
+    await expect(disableTextField).toBeDisabled();
   },
 };
