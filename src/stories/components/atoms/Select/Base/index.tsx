@@ -1,4 +1,4 @@
-import { Select as MuiSelect, MenuItem } from '@mui/material';
+import { Select as MuiSelect, MenuItem, MenuListProps } from '@mui/material';
 import { FC } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -14,7 +14,18 @@ export const Select: FC<SelectProps> = ({ selectHandler, ...props }: SelectProps
   );
 
   return (
-    <MuiSelect {...props} onChange={selectHandler} autoWidth={true}>
+    <MuiSelect
+      {...props}
+      onChange={selectHandler}
+      autoWidth={true}
+      data-testid='select'
+      MenuProps={{
+        disablePortal: true,
+        MenuListProps: {
+          'data-testid': 'select-options',
+        } as MenuListProps,
+      }}
+    >
       {personList &&
         personList.length &&
         personList.map((item, index) => (

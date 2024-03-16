@@ -4,6 +4,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '.';
 
+import { createDecorator } from '@/stories/common/decorators';
+
 const meta = {
   title: 'Atoms/Button/Base',
   component: Button,
@@ -16,11 +18,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const { createCommonDecorator } = createDecorator();
 export const BaseNormal: Story = {
   args: {
     label: 'Button',
     clickHandler: action('clicked'),
   },
+  decorators: createCommonDecorator('not exist data'),
 };
 
 export const BaseDisabled: Story = {

@@ -1,4 +1,4 @@
-import { action } from '@storybook/addon-actions';
+import { expect, within } from '@storybook/test';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -11,6 +11,10 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    label: 'Test',
+    disabledFlg: false,
+  },
 } satisfies Meta<typeof MessageTextField>;
 
 export default meta;
@@ -18,14 +22,13 @@ type Story = StoryObj<typeof meta>;
 
 export const MessageTextFieldNormal: Story = {
   args: {
-    inputHandler: action('test'),
     disabledFlg: false,
   },
-};
-
-export const MessageTextFieldDisable: Story = {
-  args: {
-    label: 'Test',
-    disabledFlg: true,
+  play: async ({ canvasElement }) => {
+    // Given
+    const canvas = within(canvasElement);
+    const textField = canvas.getByText('Message');
+    //Then
+    await expect(textField).toBeRequired();
   },
 };

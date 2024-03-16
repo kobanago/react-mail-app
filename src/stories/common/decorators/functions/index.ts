@@ -11,6 +11,7 @@ export const switchDataState = async (
     personList: OriginalUserDataType[] | UserDataType[] | undefined,
   ) => Promise<void>,
   resetPersonList: () => void,
+  setSendState: (action: string) => void,
   state: string,
 ) => {
   switch (state) {
@@ -38,6 +39,15 @@ export const switchDataState = async (
       await setUserData(user[0].mail);
       resetPersonData();
       await setPersonList(user[0].id, [user[1]]);
+      return;
+    case 'send state init':
+      setSendState('INIT');
+      return;
+    case 'send state keep':
+      setSendState('KEEP');
+      return;
+    case 'send state complete':
+      setSendState('COMPLETED');
       return;
     default:
       resetUserData();

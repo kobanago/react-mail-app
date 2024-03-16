@@ -4,8 +4,14 @@ import { useDataStoreHooks } from '../stores/hooks';
 import { supabase } from '@/supabaseClinet';
 
 export const MockFunc = () => {
-  const { setUserData, resetUserData, resetPersonData, setPersonList, resetPersonList } =
-    useDataStoreHooks();
+  const {
+    setUserData,
+    resetUserData,
+    resetPersonData,
+    setPersonList,
+    resetPersonList,
+    setSendState,
+  } = useDataStoreHooks();
   const mockLoginUser = (state: string) => {
     supabase.auth
       .getUser()
@@ -22,6 +28,7 @@ export const MockFunc = () => {
           resetPersonData,
           setPersonList,
           resetPersonList,
+          setSendState,
           state,
         )
           .then()
